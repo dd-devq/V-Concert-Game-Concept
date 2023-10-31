@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private static GameManager _instance;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameManager Instance => _instance;
+    
+    
 }
