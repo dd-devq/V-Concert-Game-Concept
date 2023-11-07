@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class NoteSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject Note;
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+//        Invoke(nameof(SpawnNote), 3);
+    }
+
+    private void SpawnNote()
+    {
+        Instantiate(Note, this.transform);
     }
 }
