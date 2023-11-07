@@ -12,20 +12,36 @@ public class Note : MonoBehaviour
     private Vector3 _spawnPos;
     [Header("Events")] public GameEvent onNoteInTargetZone;
 
+    double _timeInstantiated;
+    public float AssignedTime;
     public bool InTargetZone => inTargetZone;
 
     public void Init(Transform endPos)
     {
+
     }
 
     private void Start()
     {
         this._spawnPos = transform.position;
+        _timeInstantiated = SongManager.GetAudioSourceTime();
     }
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(_spawnPos, _endPos, Time.time * 0.5f);
+        double timeSinceInstantiated = SongManager.GetAudioSourceTime() - _timeInstantiated;
+        float t = (float)(timeSinceInstantiated / (SongManager.Instance.noteTime * 2));
+
+        if (t > 1)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            //transform.localPosition = Vector3.Lerp(Vector3.up * SongManager.Instance.noteSpawnY, Vector3.up * SongManager.Instance.noteDespawnY, t);
+            transform.position = Vector3.Lerp(_spawnPos, _endPos, t);
+            GetComponent<SpriteRenderer>().enabled = true;  //?
+        }
     }
 
     private void OnTriggerEnter(Collider other)
