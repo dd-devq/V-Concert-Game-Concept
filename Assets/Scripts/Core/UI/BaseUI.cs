@@ -1,18 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using Game.System;
 using UnityEngine;
 
-public class BaseUI : MonoBehaviour
+public abstract class BaseUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public UIIndex index;
+    private RectTransform _transform;
+
+    private void Awake()
     {
-        
+        _transform = GetComponent<RectTransform>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnInit()
     {
-        
     }
+
+    private void OnSetup(UIParam param = null)
+    {
+    }
+
+    private void OnShow(UIParam param = null)
+    {
+    }
+
+    private void OnHide()
+    {
+    }
+
+    public void ShowUI(UIParam param = null, Action callback = null)
+    {
+        gameObject.SetActive(true);
+        _transform.SetAsLastSibling();
+        OnSetup(param);
+        OnShow(param);
+        callback?.Invoke();
+    }
+
+    public void HideUI(Action callback = null)
+    {
+        OnHide();
+        gameObject.SetActive(false);
+        callback?.Invoke();
+    }
+}
+
+public abstract class UIParam
+{
 }

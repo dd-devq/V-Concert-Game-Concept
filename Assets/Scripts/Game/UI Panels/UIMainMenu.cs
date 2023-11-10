@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIMainMenu : MonoBehaviour
+public class UIMainMenu : BaseUI
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameEvent onSongClick;
+    public GameEvent onHomeClick;
+    public GameEvent onShopClick;
+    public GameEvent onInventoryClick;
+    public GameEvent onEventClick;
+    public GameEvent onMissionClick;
+    public GameEvent onCharacterClick;
+    public GameEvent onAvatarClick;
+    public GameEvent onPlayClick;
 }
