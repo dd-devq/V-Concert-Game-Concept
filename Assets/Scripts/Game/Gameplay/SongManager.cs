@@ -18,6 +18,8 @@ public class SongManager : ManualSingletonMono<SongManager>
     public float noteTime;
     public float noteSpawnY;
     public float noteTapY;
+    public int InputDelayInMilliseconds;
+    public Lane[] Lanes;
     public float noteDespawnY
     {
         get

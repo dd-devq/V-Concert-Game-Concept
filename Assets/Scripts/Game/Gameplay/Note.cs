@@ -7,14 +7,18 @@ using UnityEngine.Serialization;
 
 public class Note : MonoBehaviour
 {
-    [SerializeField] private bool inTargetZone;
-    [SerializeField] private Vector3 _endPos;
-    private Vector3 _spawnPos;
-    [Header("Events")] public GameEvent onNoteInTargetZone;
-
-    double _timeInstantiated;
+    [SerializeField]
+    private bool _inTargetZone;
+    [SerializeField]
+    private Vector3 _endPos;
     public float AssignedTime;
-    public bool InTargetZone => inTargetZone;
+    [Header("Events")]
+    public GameEvent onNoteInTargetZone;
+
+    private Vector3 _spawnPos;
+    private double _timeInstantiated;
+    
+    public bool InTargetZone => _inTargetZone;
 
     public void Init(Transform endPos)
     {
@@ -48,7 +52,7 @@ public class Note : MonoBehaviour
     {
         if (!other.CompareTag("Target Zone")) return;
 
-        inTargetZone = true;
+        _inTargetZone = true;
         onNoteInTargetZone.Invoke(this, 100);
         Debug.Log("In");
     }
@@ -56,14 +60,14 @@ public class Note : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (!other.CompareTag("Target Zone")) return;
-        inTargetZone = true;
+        _inTargetZone = true;
         Debug.Log("Stay");
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Target Zone")) return;
-        inTargetZone = false;
+        _inTargetZone = false;
         Invoke(nameof(Kill), 1);
         Debug.Log("Out");
     }

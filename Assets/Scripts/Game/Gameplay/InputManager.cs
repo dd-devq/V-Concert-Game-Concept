@@ -6,7 +6,6 @@ public class InputManager : MonoBehaviour
     public GameEvent OnPlayerHit;
     public GameEvent OnPlayerMiss;
     public GameEvent OnPlayerPause;
-    public InputMode InputMode;
 
     private void Awake()
     {
@@ -16,11 +15,4 @@ public class InputManager : MonoBehaviour
     {
         throw new NotImplementedException();
     }
-}
-
-[Serializable]
-public enum InputMode
-{
-    SingleKey,
-    MultiKey,
 }
