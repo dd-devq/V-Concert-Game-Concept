@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIShop : MonoBehaviour
+public class UIShop : BaseUI
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameEvent onPlayClick;
+    public GameEvent onHomeClick;
+    public GameEvent onInventoryClick;
+    public GameEvent onAvatarClick;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameEvent onCharacterCategoryClick;
+    public GameEvent onItemCategoryClick;
+    public GameEvent onSkinCategoryClick;
+
+    public GameEvent onShopItemClick;
 }

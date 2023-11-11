@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UISongSelection : MonoBehaviour
+public class UISongSelection : BaseUI
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameEvent onPlayClick;
 
-    // Update is called once per frame
-    void Update()
+    public void OnPlayClick()
     {
-        
+        onPlayClick.Invoke(this, SceneIndex.Gameplay);
     }
 }

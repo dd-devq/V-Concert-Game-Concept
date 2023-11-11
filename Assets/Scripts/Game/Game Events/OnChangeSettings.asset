@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ec0485dc84724da0821a9b6bdc74331, type: 3}
-  m_Name: OnNoteInTargetZone
+  m_Name: OnChangeSettings
   m_EditorClassIdentifier: 
   listeners: []

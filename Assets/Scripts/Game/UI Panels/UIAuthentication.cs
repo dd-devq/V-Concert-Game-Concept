@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class UIAuthentication : MonoBehaviour
+public class UIAuthentication : BaseUI
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameEvent onLoginClick;
+    public GameEvent onForgotPasswordClick;
+    public GameEvent onRegisterClick;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private bool _staySignedIn;
 }

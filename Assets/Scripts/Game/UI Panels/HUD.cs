@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class HUD : MonoBehaviour
+public class HUD : BaseUI
 {
     [SerializeField] private TextMeshProUGUI score;
+
+    public GameEvent onPauseClick;
 
     public void UpdateScore(Component sender, object data)
     {

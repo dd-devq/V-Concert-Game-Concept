@@ -29,7 +29,7 @@ public abstract class Singleton<T> where T : new()
 }
 
 /// <summary>
-/// Singleton for mono behavior object, only return exsited object, don't create new
+/// Singleton for mono behavior object, only return existed object, don't create new
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public class ManualSingletonMono<T> : MonoBehaviour where T : MonoBehaviour
