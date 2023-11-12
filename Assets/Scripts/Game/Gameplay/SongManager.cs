@@ -14,7 +14,7 @@ public class SongManager : ManualSingletonMono<SongManager>
     public static MidiFile Midifile;
 
     public float SongDelayInSeconds;
-    public double MarginOfError;   //In Seconds
+    public double MarginOfError; //In Seconds
     public float noteTime;
     public float noteSpawnY;
     public float noteTapY;
@@ -22,19 +22,18 @@ public class SongManager : ManualSingletonMono<SongManager>
     public Lane[] Lanes;
     public float noteDespawnY
     {
-        get
-        {
-            return noteTapY - (noteSpawnY - noteTapY);
-        }
+        get { return noteTapY - (noteSpawnY - noteTapY); }
     }
 
     public override void Awake()
     {
         base.Awake();
     }
+
     private void Start()
     {
-        if (Application.streamingAssetsPath.StartsWith("http://") || Application.streamingAssetsPath.StartsWith("https://"))
+        if (Application.streamingAssetsPath.StartsWith("http://") ||
+            Application.streamingAssetsPath.StartsWith("https://"))
         {
             ReadFromWeb();
         }
@@ -46,7 +45,6 @@ public class SongManager : ManualSingletonMono<SongManager>
 
     private void ReadFromWeb()
     {
-
     }
 
     private void ReadFromFile()
@@ -67,10 +65,12 @@ public class SongManager : ManualSingletonMono<SongManager>
         }
         Invoke(nameof(StartSong), SongDelayInSeconds);
     }
+
     public void StartSong()
     {
         AudioSource.Play();
     }
+
     public static double GetAudioSourceTime()
     {
         return (double)Instance.AudioSource.timeSamples / Instance.AudioSource.clip.frequency;
