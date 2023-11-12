@@ -46,7 +46,7 @@ public class Lane : MonoBehaviour
             {
                 if (Math.Abs(audioTime - timeStamp) < marginOfError)
                 {
-                    //Hit();
+                    Hit();
                     Debug.LogError(String.Format("Hit on {0} note", inputIndex));
                     Destroy(notes[inputIndex].gameObject);
                     inputIndex++;
@@ -58,20 +58,20 @@ public class Lane : MonoBehaviour
             }
             if (timeStamp + marginOfError <= audioTime)
             {
-                //Miss();
+                Miss();
                 Debug.LogError(String.Format("Missed {0} note", inputIndex));
                 inputIndex++;
             }
         }
     }
-    //private void Hit()
-    //{
-    //    ScoreManager.Hit();
-    //}
-    //private void Miss()
-    //{
-    //    ScoreManager.Miss();
-    //}
+    private void Hit()
+    {
+        ScoreManager.Hit();
+    }
+    private void Miss()
+    {
+        ScoreManager.Miss();
+    }
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
     {
         foreach (var note in array)

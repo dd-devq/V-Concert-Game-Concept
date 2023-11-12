@@ -9,7 +9,7 @@ using System;
 
 public class SongManager : ManualSingletonMono<SongManager>
 {
-    public AudioSource audioSource;
+    public AudioSource AudioSource;
     public string fileLocation;
     public static MidiFile Midifile;
 
@@ -60,14 +60,19 @@ public class SongManager : ManualSingletonMono<SongManager>
         var notes = Midifile.GetNotes();
         var array = new Melanchall.DryWetMidi.Interaction.Note[notes.Count];
         notes.CopyTo(array, 0);
-        Invoke(nameof(StartSong), 0f);
+
+        foreach (var lane in Lanes)
+        {
+            lane.SetTimeStamps(array);
+        }
+        Invoke(nameof(StartSong), SongDelayInSeconds);
     }
     public void StartSong()
     {
-        audioSource.Play();
+        AudioSource.Play();
     }
     public static double GetAudioSourceTime()
     {
-        return (double)Instance.audioSource.timeSamples / Instance.audioSource.clip.frequency;
+        return (double)Instance.AudioSource.timeSamples / Instance.AudioSource.clip.frequency;
     }
 }
