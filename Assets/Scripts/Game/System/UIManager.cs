@@ -8,6 +8,7 @@ namespace Game.System
     {
         Authentication,
         MainMenu,
+        Character,
         Shop,
         SongSelection,
         Setting,
@@ -17,5 +18,6 @@ namespace Game.System
         Lobby,
         Pause,
         Victory,
+        Loading,
     }
 }
