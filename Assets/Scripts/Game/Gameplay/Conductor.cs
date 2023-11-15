@@ -18,9 +18,7 @@ public class Conductor : MonoBehaviour
     private void Start()
     {
         _midiFile = MidiFile.Read(Application.dataPath + "/Resources/Audio/MIDI/Never-Gonna-Give-You-Up.mid");
-        Debug.Log(_midiFile);
-        Debug.Log("Hello");
-
+        Debug.Log(_midiFile.GetNotes());
     }
 
     private void Update()
