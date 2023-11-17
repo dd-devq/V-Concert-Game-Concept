@@ -6,7 +6,7 @@ public class EditorSetting : MonoBehaviour
     {
 #if UNITY_EDITOR
         QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 30;
+        Application.targetFrameRate = 60;
 #endif
     }
 }
