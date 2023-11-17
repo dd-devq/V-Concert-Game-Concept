@@ -32,6 +32,7 @@ public class SongManager : ManualSingletonMono<SongManager>
 
     private void Start()
     {
+        Debug.LogError(Application.streamingAssetsPath);
         if (Application.streamingAssetsPath.StartsWith("http://") ||
             Application.streamingAssetsPath.StartsWith("https://"))
         {
@@ -56,12 +57,12 @@ public class SongManager : ManualSingletonMono<SongManager>
     private void GetDataFromMidi()
     {
         var notes = Midifile.GetNotes();
-        var array = new Melanchall.DryWetMidi.Interaction.Note[notes.Count];
-        notes.CopyTo(array, 0);
+        List<Melanchall.DryWetMidi.Interaction.Note> listNote = new();
+        listNote.AddRange(notes);
 
         foreach (var lane in Lanes)
         {
-            lane.SetTimeStamps(array);
+            lane.SetTimeStamps(listNote);
         }
         Invoke(nameof(StartSong), SongDelayInSeconds);
     }
@@ -71,8 +72,12 @@ public class SongManager : ManualSingletonMono<SongManager>
         AudioSource.Play();
     }
 
+    /// <summary>
+    /// return current real-time in audio clip played.
+    /// </summary>
     public static double GetAudioSourceTime()
     {
+        //Debug.LogError("GetAudioSourceTime " + (double)Instance.AudioSource.timeSamples / Instance.AudioSource.clip.frequency);
         return (double)Instance.AudioSource.timeSamples / Instance.AudioSource.clip.frequency;
     }
 }

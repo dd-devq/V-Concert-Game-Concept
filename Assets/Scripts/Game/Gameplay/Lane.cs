@@ -9,7 +9,7 @@ public class Lane : MonoBehaviour
     public Melanchall.DryWetMidi.MusicTheory.NoteName NoteRestriction;
     public KeyCode KeyInput;
     public GameObject NotePrefab;
-    public List<double> TimeStamps = new List<double>();
+    public List<double> TimeStamps = new List<double>(); //thoi gian note xuat hien (theo midi)
 
     private List<Note> notes = new List<Note>();
 
@@ -25,44 +25,44 @@ public class Lane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (spawnIndex < TimeStamps.Count)
-        {
-            if (SongManager.GetAudioSourceTime() >= TimeStamps[spawnIndex] - SongManager.Instance.noteTime)
-            {
-                var note = Instantiate(NotePrefab, transform);
-                notes.Add(note.GetComponent<Note>());
-                note.GetComponent<Note>().AssignedTime = (float)TimeStamps[spawnIndex];
-                spawnIndex++;
-            }
-        }
+        //if (spawnIndex < TimeStamps.Count)
+        //{
+        //    if (SongManager.GetAudioSourceTime() >= TimeStamps[spawnIndex] - SongManager.Instance.noteTime)
+        //    {
+        //        var note = Instantiate(NotePrefab, transform);
+        //        notes.Add(note.GetComponent<Note>());
+        //        note.GetComponent<Note>().AssignedTime = (float)TimeStamps[spawnIndex];
+        //        spawnIndex++;
+        //    }
+        //}
 
-        if (inputIndex < TimeStamps.Count)
-        {
-            double timeStamp = TimeStamps[inputIndex];
-            double marginOfError = SongManager.Instance.MarginOfError;
-            double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.InputDelayInMilliseconds / 1000.0);
+        //if (inputIndex < TimeStamps.Count)
+        //{
+        //    double timeStamp = TimeStamps[inputIndex];
+        //    double marginOfError = SongManager.Instance.MarginOfError;
+        //    double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.InputDelayInMilliseconds / 1000.0);
 
-            if (Input.GetKeyDown(KeyInput))
-            {
-                if (Math.Abs(audioTime - timeStamp) < marginOfError)
-                {
-                    Hit();
-                    Debug.LogError(String.Format("Hit on {0} note", inputIndex));
-                    Destroy(notes[inputIndex].gameObject);
-                    inputIndex++;
-                }
-                else
-                {
-                    Debug.LogError(String.Format("Hit inaccurate on {0} note with {1} delay", inputIndex, Math.Abs(audioTime - timeStamp)));
-                }
-            }
-            if (timeStamp + marginOfError <= audioTime)
-            {
-                Miss();
-                Debug.LogError(String.Format("Missed {0} note", inputIndex));
-                inputIndex++;
-            }
-        }
+        //    if (Input.GetKeyDown(KeyInput))
+        //    {
+        //        if (Math.Abs(audioTime - timeStamp) < marginOfError)
+        //        {
+        //            Hit();
+        //            Debug.LogError(String.Format("Hit on {0} note", inputIndex));
+        //            Destroy(notes[inputIndex].gameObject);
+        //            inputIndex++;
+        //        }
+        //        else
+        //        {
+        //            Debug.LogError(String.Format("Hit inaccurate on {0} note with {1} delay", inputIndex, Math.Abs(audioTime - timeStamp)));
+        //        }
+        //    }
+        //    if (timeStamp + marginOfError <= audioTime)
+        //    {
+        //        Miss();
+        //        Debug.LogError(String.Format("Missed {0} note", inputIndex));
+        //        inputIndex++;
+        //    }
+        //}
     }
     private void Hit()
     {
@@ -72,15 +72,39 @@ public class Lane : MonoBehaviour
     {
         ScoreManager.Miss();
     }
-    public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
+    public void SetTimeStamps(List<Melanchall.DryWetMidi.Interaction.Note> listNotes)
     {
-        foreach (var note in array)
+        //double result = SongManager.Instance.AudioSource.clip.length / (float)Define.NoteInterval;
+        //int numOfNote = (int)Math.Round(result);
+        double interval = 0;
+        for (var i = 0; i < listNotes.Count; i++)
         {
-            if (note.NoteName == NoteRestriction)
+            var note = listNotes[i];
+            if (i == 0 || i == listNotes.Count - 1)
             {
                 var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
-                TimeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
+                double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f;
+                Debug.LogError("spawnedtime: " + spawnedTime);
+                TimeStamps.Add(spawnedTime);
+                interval = spawnedTime;
             }
+            else
+            {
+                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
+                double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f;
+                if (spawnedTime - interval >= 4)
+                {
+                    Debug.LogError("spawnedtime: " + spawnedTime);
+                    TimeStamps.Add(spawnedTime);
+                    interval = spawnedTime;
+                }
+            }
+
         }
+        //if (note.NoteName == NoteRestriction)
+        //{
+        //    var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
+        //    TimeStamps.Add((double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f);
+        //}
     }
 }
