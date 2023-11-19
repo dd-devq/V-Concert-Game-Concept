@@ -19,7 +19,9 @@ public class SongManager : ManualSingletonMono<SongManager>
     public float noteSpawnY;
     public float noteTapY;
     public int InputDelayInMilliseconds;
-    public Lane[] Lanes;
+    public List<TargetZone> TargetZones = null;
+
+    private List<Vector3> _lstPosTargetZone = new List<Vector3>();
     public float noteDespawnY
     {
         get { return noteTapY - (noteSpawnY - noteTapY); }
@@ -42,6 +44,10 @@ public class SongManager : ManualSingletonMono<SongManager>
         {
             ReadFromFile();
         }
+        foreach (var item in TargetZones)
+        {
+            _lstPosTargetZone.Add(item.gameObject.transform.position);
+        }
     }
 
     private void ReadFromWeb()
@@ -60,9 +66,9 @@ public class SongManager : ManualSingletonMono<SongManager>
         List<Melanchall.DryWetMidi.Interaction.Note> listNote = new();
         listNote.AddRange(notes);
 
-        foreach (var lane in Lanes)
+        foreach (var zone in TargetZones)
         {
-            lane.SetTimeStamps(listNote);
+            zone.SetTimeStamps(listNote);
         }
         Invoke(nameof(StartSong), SongDelayInSeconds);
     }

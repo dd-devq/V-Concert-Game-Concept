@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1209003137543735727}
   - component: {fileID: 2882528992402582434}
   - component: {fileID: 2320945259245080272}
+  - component: {fileID: 1518141244792452491}
   m_Layer: 0
   m_Name: NotePrefab
   m_TagString: Untagged
@@ -83,3 +84,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1518141244792452491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8693025785996000634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6670611a4a82b4391b312913053c28c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inTargetZone: 0
+  _endPos: {x: 0, y: 0, z: 0}
+  AssignedTime: 0
+  onNoteInTargetZone: {fileID: 0}

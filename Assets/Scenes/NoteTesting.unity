@@ -162,6 +162,9 @@ MonoBehaviour:
   InputDelayInMilliseconds: 0
   Lanes:
   - {fileID: 1615848388}
+  - {fileID: 1851609491}
+  - {fileID: 631493532}
+  - {fileID: 473068320}
 --- !u!4 &22420059
 Transform:
   m_ObjectHideFlags: 0
