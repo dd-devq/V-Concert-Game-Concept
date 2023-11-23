@@ -13,4 +13,9 @@ public class UIMainMenu : BaseUI
     public GameEvent onCharacterClick;
     public GameEvent onAvatarClick;
     public GameEvent onPlayClick;
+
+    public void PlayClick()
+    {
+        onPlayClick.Invoke(this, SceneIndex.Gameplay);
+    }
 }
