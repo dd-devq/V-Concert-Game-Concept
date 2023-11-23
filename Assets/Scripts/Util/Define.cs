@@ -10,4 +10,8 @@ public class Define
         SingleKey,
         MultiKey,
     }
+    public enum PrefabName
+    {
+        NotePrefab
+    }
 }

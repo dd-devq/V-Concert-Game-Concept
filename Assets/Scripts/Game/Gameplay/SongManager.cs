@@ -15,11 +15,11 @@ public class SongManager : ManualSingletonMono<SongManager>
 
     public float SongDelayInSeconds;
     public double MarginOfError; //In Seconds
-    public float noteTime;
+    public float NoteTime;
     public float noteSpawnY;
     public float noteTapY;
     public int InputDelayInMilliseconds;
-    public List<TargetZone> TargetZones = null;
+    public List<TargetZone> TargetZones = new List<TargetZone>();
 
     private List<Vector3> _lstPosTargetZone = new List<Vector3>();
     public float noteDespawnY
@@ -34,7 +34,6 @@ public class SongManager : ManualSingletonMono<SongManager>
 
     private void Start()
     {
-        Debug.LogError(Application.streamingAssetsPath);
         if (Application.streamingAssetsPath.StartsWith("http://") ||
             Application.streamingAssetsPath.StartsWith("https://"))
         {
@@ -52,6 +51,7 @@ public class SongManager : ManualSingletonMono<SongManager>
 
     private void ReadFromWeb()
     {
+        Debug.LogError("Read From Web is being developped!");
     }
 
     private void ReadFromFile()
@@ -83,7 +83,6 @@ public class SongManager : ManualSingletonMono<SongManager>
     /// </summary>
     public static double GetAudioSourceTime()
     {
-        //Debug.LogError("GetAudioSourceTime " + (double)Instance.AudioSource.timeSamples / Instance.AudioSource.clip.frequency);
         return (double)Instance.AudioSource.timeSamples / Instance.AudioSource.clip.frequency;
     }
 }

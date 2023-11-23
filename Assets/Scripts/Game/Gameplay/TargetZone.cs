@@ -8,7 +8,8 @@ public class TargetZone : MonoBehaviour
 {
     public Melanchall.DryWetMidi.MusicTheory.NoteName NoteRestriction;
     public KeyCode KeyInput;
-    public Note NotePrefab = null;
+    [SerializeField]
+    private Note _notePrefab;
     public List<double> TimeStamps = new List<double>(); //thoi gian note xuat hien (theo midi)
     public GameObject NoteContainer = null;
     private List<Note> notes = new List<Note>();
@@ -16,6 +17,8 @@ public class TargetZone : MonoBehaviour
     private int spawnIndex = 0;
     private int inputIndex = 0;
 
+    public GameObject SpawnObj = null;
+    public GameObject EndObj = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,9 +30,14 @@ public class TargetZone : MonoBehaviour
     {
         if (spawnIndex < TimeStamps.Count)
         {
-            if (SongManager.GetAudioSourceTime() >= TimeStamps[spawnIndex] - SongManager.Instance.noteTime)
+            if (SongManager.GetAudioSourceTime() >= TimeStamps[spawnIndex] - SongManager.Instance.NoteTime)
             {
-                var note = GCUtils.InstantiateObject<Note>(NotePrefab, NoteContainer.transform);
+                var note = GCUtils.InstantiateObject<Note>(_notePrefab, NoteContainer.transform);
+                note.SpawnPos = SpawnObj.transform.position;
+                note.EndPos = EndObj.transform.position;
+                note.transform.rotation = _notePrefab.transform.rotation;
+                note.transform.localScale = _notePrefab.transform.localScale;
+                note.gameObject.SetActive(true);
                 notes.Add(note);
                 note.AssignedTime = (float)TimeStamps[spawnIndex];
                 spawnIndex++;
@@ -46,9 +54,11 @@ public class TargetZone : MonoBehaviour
             {
                 if (Math.Abs(audioTime - timeStamp) < marginOfError)
                 {
-                    Hit();
+                    //Hit();
                     Debug.LogError(String.Format("Hit on {0} note", inputIndex));
-                    Destroy(notes[inputIndex].gameObject);
+                    var temp = notes[inputIndex];
+                    notes.RemoveAt(inputIndex);
+                    Destroy(temp.gameObject);
                     inputIndex++;
                 }
                 else
@@ -58,7 +68,7 @@ public class TargetZone : MonoBehaviour
             }
             if (timeStamp + marginOfError <= audioTime)
             {
-                Miss();
+                //Miss();
                 Debug.LogError(String.Format("Missed {0} note", inputIndex));
                 inputIndex++;
             }
@@ -84,7 +94,7 @@ public class TargetZone : MonoBehaviour
             {
                 var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
                 double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f;
-                Debug.LogError("spawnedtime: " + spawnedTime);
+                //Debug.LogError("spawnedtime: " + spawnedTime);
                 TimeStamps.Add(spawnedTime);
                 interval = spawnedTime;
             }
@@ -94,7 +104,7 @@ public class TargetZone : MonoBehaviour
                 double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f;
                 if (spawnedTime - interval >= 4)
                 {
-                    Debug.LogError("spawnedtime: " + spawnedTime);
+                    //Debug.LogError("spawnedtime: " + spawnedTime);
                     TimeStamps.Add(spawnedTime);
                     interval = spawnedTime;
                 }
