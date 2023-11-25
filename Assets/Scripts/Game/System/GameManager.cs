@@ -1,13 +1,15 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager _instance;
-
-    public GameManager Instance => _instance;
-
     private GameState _gameState;
+
+    public GameEvent OnGameplayLoad;
+    public GameEvent OnGameplayEnd;
+    public GameEvent OnGameplayPause;
+    public GameEvent OnGameplay;
 
     public void InitGame(Component sender, object data)
     {
@@ -34,12 +36,36 @@ public class GameManager : MonoBehaviour
             case GameState.Play:
                 break;
             case GameState.Pause:
+                OnGameplayPause.Invoke(this, null);
+                Time.timeScale = 0;
                 break;
             case GameState.End:
+                var data = new Define.EndGameData { Gems = 10, Coins = 200, Score = 200000 };
+                OnGameplayPause.Invoke(this, data);
                 break;
             default:
                 throw new Exception("Unknown Game State");
         }
+    }
+
+    public void OnGameplayEndEvent(Component sender, object data)
+    {
+        _gameState = GameState.End;
+    }
+
+    public void OnGameplayPauseEvent(Component sender, object data)
+    {
+        _gameState = GameState.Pause;
+    }
+
+    public void OnGameplayLoadEvent(Component sender, object data)
+    {
+        _gameState = GameState.Load;
+    }
+
+    public void OnGameplayEvent(Component sender, object data)
+    {
+        _gameState = GameState.Play;
     }
 }
 

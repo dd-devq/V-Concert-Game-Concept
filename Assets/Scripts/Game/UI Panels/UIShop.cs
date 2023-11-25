@@ -6,7 +6,6 @@ public class UIShop : BaseUI
 {
     public GameEvent onPlayClick;
     public GameEvent onHomeClick;
-    public GameEvent onInventoryClick;
     public GameEvent onAvatarClick;
 
     public GameEvent onCharacterCategoryClick;
