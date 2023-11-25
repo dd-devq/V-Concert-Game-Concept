@@ -9,7 +9,7 @@ public class Note : MonoBehaviour
 {
     [SerializeField]
     private bool _inTargetZone;
-    public float AssignedTime;
+    //public float AssignedTime;
     [Header("Events")]
     public GameEvent onNoteInTargetZone;
     private Vector3 _spawnPos;
@@ -45,7 +45,6 @@ public class Note : MonoBehaviour
     {
         if (gameObject != null && gameObject.name != Define.PrefabName.NotePrefab.ToString())
         {
-            Debug.LogError("run condition");
             double timeSinceInstantiated = SongManager.GetAudioSourceTime() - _timeInstantiated;
             float t = (float)(timeSinceInstantiated / (SongManager.Instance.NoteTime * 2));
 
@@ -57,7 +56,7 @@ public class Note : MonoBehaviour
             else
             {
                 //transform.localPosition = Vector3.Lerp(Vector3.up * SongManager.Instance.noteSpawnY, Vector3.up * SongManager.Instance.noteDespawnY, t);
-                Debug.LogError("check pos: " + _spawnPos + " " + _endPos);
+                //Debug.LogError("check pos: " + _spawnPos + " " + _endPos);
                 transform.position = Vector3.Lerp(_spawnPos, _endPos, t);
                 //GetComponent<SpriteRenderer>().enabled = true;
             }

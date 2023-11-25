@@ -10,7 +10,7 @@ public class TargetZone : MonoBehaviour
     public KeyCode KeyInput;
     [SerializeField]
     private Note _notePrefab;
-    public List<double> TimeStamps = new List<double>(); //thoi gian note xuat hien (theo midi)
+    public List<double> SpawnedTimes = new List<double>(); //thoi gian note xuat hien (theo midi)
     public GameObject NoteContainer = null;
     private List<Note> notes = new List<Note>();
 
@@ -28,9 +28,9 @@ public class TargetZone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (spawnIndex < TimeStamps.Count)
+        if (spawnIndex < SpawnedTimes.Count)
         {
-            if (SongManager.GetAudioSourceTime() >= TimeStamps[spawnIndex] - SongManager.Instance.NoteTime)
+            if (SongManager.GetAudioSourceTime() >= SpawnedTimes[spawnIndex] - SongManager.Instance.NoteTime)
             {
                 var note = GCUtils.InstantiateObject<Note>(_notePrefab, NoteContainer.transform);
                 note.SpawnPos = SpawnObj.transform.position;
@@ -39,14 +39,15 @@ public class TargetZone : MonoBehaviour
                 note.transform.localScale = _notePrefab.transform.localScale;
                 note.gameObject.SetActive(true);
                 notes.Add(note);
-                note.AssignedTime = (float)TimeStamps[spawnIndex];
+                //note.AssignedTime = (float)SpawnedTimes[spawnIndex];
+                //note.AssignedTime = (float)SongManager.GetAudioSourceTime();
                 spawnIndex++;
             }
         }
 
-        if (inputIndex < TimeStamps.Count)
+        if (inputIndex < SpawnedTimes.Count)
         {
-            double timeStamp = TimeStamps[inputIndex];
+            double timeStamp = SpawnedTimes[inputIndex];
             double marginOfError = SongManager.Instance.MarginOfError;
             double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.InputDelayInMilliseconds / 1000.0);
 
@@ -57,13 +58,14 @@ public class TargetZone : MonoBehaviour
                     //Hit();
                     Debug.LogError(String.Format("Hit on {0} note", inputIndex));
                     var temp = notes[inputIndex];
-                    notes.RemoveAt(inputIndex);
+                    //notes.RemoveAt(inputIndex);
                     Destroy(temp.gameObject);
                     inputIndex++;
                 }
                 else
                 {
-                    Debug.LogError(String.Format("Hit inaccurate on {0} note with {1} delay", inputIndex, Math.Abs(audioTime - timeStamp)));
+                    //Debug.LogError(String.Format("Hit inaccurate on {0} note with {1} delay", inputIndex, Math.Abs(audioTime - timeStamp)));
+                    //Debug.LogError("tre");
                 }
             }
             if (timeStamp + marginOfError <= audioTime)
@@ -82,7 +84,7 @@ public class TargetZone : MonoBehaviour
     {
         ScoreManager.Miss();
     }
-    public void SetTimeStamps(List<Melanchall.DryWetMidi.Interaction.Note> listNotes)
+    public void SetSpawnedTimes(List<Melanchall.DryWetMidi.Interaction.Note> listNotes)
     {
         //double result = SongManager.Instance.AudioSource.clip.length / (float)Define.NoteInterval;
         //int numOfNote = (int)Math.Round(result);
@@ -95,7 +97,7 @@ public class TargetZone : MonoBehaviour
                 var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
                 double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f;
                 //Debug.LogError("spawnedtime: " + spawnedTime);
-                TimeStamps.Add(spawnedTime);
+                SpawnedTimes.Add(spawnedTime);
                 interval = spawnedTime;
             }
             else
@@ -105,7 +107,7 @@ public class TargetZone : MonoBehaviour
                 if (spawnedTime - interval >= 4)
                 {
                     //Debug.LogError("spawnedtime: " + spawnedTime);
-                    TimeStamps.Add(spawnedTime);
+                    SpawnedTimes.Add(spawnedTime);
                     interval = spawnedTime;
                 }
             }

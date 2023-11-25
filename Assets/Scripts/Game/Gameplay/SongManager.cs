@@ -68,7 +68,7 @@ public class SongManager : ManualSingletonMono<SongManager>
 
         foreach (var zone in TargetZones)
         {
-            zone.SetTimeStamps(listNote);
+            zone.SetSpawnedTimes(listNote);
         }
         Invoke(nameof(StartSong), SongDelayInSeconds);
     }
