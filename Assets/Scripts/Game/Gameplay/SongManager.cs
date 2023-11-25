@@ -22,6 +22,7 @@ public class SongManager : ManualSingletonMono<SongManager>
     public List<TargetZone> TargetZones = new List<TargetZone>();
 
     private List<Vector3> _lstPosTargetZone = new List<Vector3>();
+    private string _songName = "take-me-to-your-heart";
     public float noteDespawnY
     {
         get { return noteTapY - (noteSpawnY - noteTapY); }
@@ -56,7 +57,13 @@ public class SongManager : ManualSingletonMono<SongManager>
 
     private void ReadFromFile()
     {
-        Midifile = MidiFile.Read(Application.streamingAssetsPath + "/" + fileLocation);
+        string midiFileName = _songName + ".mid";
+        Debug.LogError(Application.dataPath);
+        string dataPath = Path.Combine(Define.MidiFilePath, midiFileName);
+        Midifile = MidiFile.Read(Application.dataPath + dataPath);
+        string audioFileName = _songName + ".ogg";
+        AudioClip AudioClip = GCUtils.LoadAudioClip(Path.Combine(Define.AudioFilePath, audioFileName));
+        AudioSource.clip = AudioClip;
         GetDataFromMidi();
     }
 

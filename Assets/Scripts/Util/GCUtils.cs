@@ -90,4 +90,14 @@ public static class GCUtils
     {
         return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
     }
+
+    //LOAD AUDIO
+    public static AudioClip LoadAudioClip(string filePath)
+    {
+        var www = new WWW("file://" + filePath);
+
+        while (!www.isDone) { }
+
+        return www.GetAudioClip(false, false);
+    }
 }
