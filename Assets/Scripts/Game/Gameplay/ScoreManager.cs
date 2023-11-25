@@ -22,7 +22,7 @@ public class ScoreManager : ManualSingletonMono<ScoreManager>
     }
     public static void Miss()
     {
-        _comboScore = 0;
+        _comboScore -= 1;
         Instance.MissSFX.Play();
     }
     public static void SetScore(int score)
