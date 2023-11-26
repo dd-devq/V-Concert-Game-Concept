@@ -73,6 +73,7 @@ public class TargetZone : MonoBehaviour
         for (var i = 0; i < listNotes.Count; i++)
         {
             var note = listNotes[i];
+            //Debug.LogError("check note Name: " + note.NoteName.ToString());
             if (i == 0 || i == listNotes.Count - 1)
             {
                 var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
