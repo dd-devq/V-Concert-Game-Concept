@@ -21,7 +21,7 @@ public class SongManager : ManualSingletonMono<SongManager>
     public List<TargetZone> _listTargetZones = new List<TargetZone>();
 
     private List<Vector3> _lstPosTargetZone = new List<Vector3>();
-    private string _songName = "we_made_a_chart_pog";
+    private string _songName = "take-me-to-your-heart";
     public List<TargetZone> ListTargetZones
     {
         get => _listTargetZones;

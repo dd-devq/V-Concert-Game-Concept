@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Melanchall.DryWetMidi.Interaction;
+using Melanchall.DryWetMidi.MusicTheory;
 using UnityEngine;
 
 public class TargetZone : MonoBehaviour
@@ -70,6 +71,16 @@ public class TargetZone : MonoBehaviour
     public void SetSpawnedTimes(List<Melanchall.DryWetMidi.Interaction.Note> listNotes)
     {
         double interval = 0;
+        List<Melanchall.DryWetMidi.MusicTheory.NoteName> listPitchName = new();
+        for (var i = 0; i < listNotes.Count; i++)
+        {
+            var note = listNotes[i];
+            if (!listPitchName.Contains(note.NoteName))
+            {
+                listPitchName.Add(note.NoteName);
+            }
+        }
+        Debug.LogError("count of pitches: " + listPitchName.Count);
         for (var i = 0; i < listNotes.Count; i++)
         {
             var note = listNotes[i];
@@ -93,7 +104,6 @@ public class TargetZone : MonoBehaviour
                     interval = spawnedTime;
                 }
             }
-
         }
     }
 }
