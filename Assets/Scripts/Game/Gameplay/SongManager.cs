@@ -19,10 +19,15 @@ public class SongManager : ManualSingletonMono<SongManager>
     public float noteSpawnY;
     public float noteTapY;
     public int InputDelayInMilliseconds;
-    public List<TargetZone> TargetZones = new List<TargetZone>();
+    public List<TargetZone> _listTargetZones = new List<TargetZone>();
 
     private List<Vector3> _lstPosTargetZone = new List<Vector3>();
     private string _songName = "take-me-to-your-heart";
+    public List<TargetZone> ListTargetZones
+    {
+        get => _listTargetZones;
+        set => _listTargetZones = value;
+    }
     public float noteDespawnY
     {
         get { return noteTapY - (noteSpawnY - noteTapY); }
@@ -44,7 +49,7 @@ public class SongManager : ManualSingletonMono<SongManager>
         {
             ReadFromFile();
         }
-        foreach (var item in TargetZones)
+        foreach (var item in ListTargetZones)
         {
             _lstPosTargetZone.Add(item.gameObject.transform.position);
         }
@@ -58,11 +63,11 @@ public class SongManager : ManualSingletonMono<SongManager>
     private void ReadFromFile()
     {
         string midiFileName = _songName + ".mid";
-        Debug.LogError(Application.dataPath);
-        string dataPath = Path.Combine(Define.MidiFilePath, midiFileName);
-        Midifile = MidiFile.Read(Application.dataPath + dataPath);
         string audioFileName = _songName + ".ogg";
-        AudioClip AudioClip = GCUtils.LoadAudioClip(Path.Combine(Define.AudioFilePath, audioFileName));
+        string midiPath = Path.Combine(Define.MidiFilePath, midiFileName);
+        string audioPath = Path.Combine(Define.AudioFilePath, audioFileName);
+        Midifile = MidiFile.Read(Application.dataPath + midiPath);
+        AudioClip AudioClip = GCUtils.LoadAudioClip(audioPath);
         AudioSource.clip = AudioClip;
         GetDataFromMidi();
     }
@@ -73,7 +78,7 @@ public class SongManager : ManualSingletonMono<SongManager>
         List<Melanchall.DryWetMidi.Interaction.Note> listNote = new();
         listNote.AddRange(notes);
 
-        foreach (var zone in TargetZones)
+        foreach (var zone in ListTargetZones)
         {
             zone.SetSpawnedTimes(listNote);
         }

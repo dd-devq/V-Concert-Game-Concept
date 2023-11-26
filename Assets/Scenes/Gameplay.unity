@@ -260,6 +260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 326452007}
+  - component: {fileID: 326452008}
   m_Layer: 0
   m_Name: NoteManager
   m_TagString: Untagged
@@ -284,6 +285,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &326452008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326452006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd80d34a76b6f05499941477e25a7d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _songManager: {fileID: 976901845}
+  _notePrefab: {fileID: 1438310548}
+  _spawnObj: {fileID: 326452006}
+  _endObj: {fileID: 2031553088}
+  _noteContainer: {fileID: 876076625}
 --- !u!1001 &338679245
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -382,9 +400,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1438310548}
     - target: {fileID: 421135075532252984, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
+      propertyPath: _noteManager
+      value: 
+      objectReference: {fileID: 326452008}
+    - target: {fileID: 421135075532252984, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
       propertyPath: NoteContainer
       value: 
       objectReference: {fileID: 876076625}
+    - target: {fileID: 421135075532252984, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
+      propertyPath: _noteController
+      value: 
+      objectReference: {fileID: 326452008}
     - target: {fileID: 7085940461987913845, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -962,7 +988,7 @@ MonoBehaviour:
   noteSpawnY: 0
   noteTapY: 0
   InputDelayInMilliseconds: 0
-  TargetZones:
+  _listTargetZones:
   - {fileID: 591064609}
 --- !u!1001 &1438310546
 PrefabInstance:

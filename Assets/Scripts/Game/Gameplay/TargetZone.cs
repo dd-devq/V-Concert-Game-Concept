@@ -8,39 +8,22 @@ public class TargetZone : MonoBehaviour
 {
     public Melanchall.DryWetMidi.MusicTheory.NoteName NoteRestriction;
     public KeyCode KeyInput;
-    [SerializeField]
-    private Note _notePrefab;
     public List<double> SpawnedTimes = new List<double>(); //thoi gian note xuat hien (theo midi)
-    public GameObject NoteContainer = null;
-    private List<Note> notes = new List<Note>();
 
+    [SerializeField]
+    private NoteManager _noteManager = null;
+    private List<Note> notes = new List<Note>();
     private int spawnIndex = 0;
     private int inputIndex = 0;
 
-    public GameObject SpawnObj = null;
-    public GameObject EndObj = null;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (spawnIndex < SpawnedTimes.Count)
         {
             if (SongManager.GetAudioSourceTime() >= SpawnedTimes[spawnIndex] - SongManager.Instance.NoteTime)
             {
-                var note = GCUtils.InstantiateObject<Note>(_notePrefab, NoteContainer.transform);
-                note.SpawnPos = SpawnObj.transform.position;
-                note.EndPos = EndObj.transform.position;
-                note.transform.rotation = _notePrefab.transform.rotation;
-                note.transform.localScale = _notePrefab.transform.localScale;
-                note.gameObject.SetActive(true);
+                var note = _noteManager.OnSpawnNotes();
                 notes.Add(note);
-                //note.AssignedTime = (float)SpawnedTimes[spawnIndex];
-                //note.AssignedTime = (float)SongManager.GetAudioSourceTime();
                 spawnIndex++;
             }
         }
@@ -86,8 +69,6 @@ public class TargetZone : MonoBehaviour
     }
     public void SetSpawnedTimes(List<Melanchall.DryWetMidi.Interaction.Note> listNotes)
     {
-        //double result = SongManager.Instance.AudioSource.clip.length / (float)Define.NoteInterval;
-        //int numOfNote = (int)Math.Round(result);
         double interval = 0;
         for (var i = 0; i < listNotes.Count; i++)
         {
