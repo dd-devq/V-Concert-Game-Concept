@@ -314,6 +314,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 421135075532252984, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
+      propertyPath: _noteManager
+      value: 
+      objectReference: {fileID: 326452008}
+    - target: {fileID: 421135075532252984, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
       propertyPath: NoteContainer
       value: 
       objectReference: {fileID: 326452006}
@@ -376,6 +380,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7085940461987913845, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
   m_PrefabInstance: {fileID: 338679245}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &338679247 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 421135075532252984, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
+  m_PrefabInstance: {fileID: 338679245}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53b3366ed49aa744dad4e473d0c52850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &591064607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -681,6 +696,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 768250412}
+  - component: {fileID: 768250413}
   m_Layer: 0
   m_Name: TargetZone Manager
   m_TagString: Untagged
@@ -707,6 +723,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &768250413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768250411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f47b63b52c45ebd4e9aa24c7166bcdb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &784033907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -718,6 +746,10 @@ PrefabInstance:
       propertyPath: _notePrefab
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 421135075532252984, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
+      propertyPath: _noteManager
+      value: 
+      objectReference: {fileID: 326452008}
     - target: {fileID: 421135075532252984, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
       propertyPath: NoteContainer
       value: 
@@ -777,6 +809,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7085940461987913845, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
   m_PrefabInstance: {fileID: 784033907}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &784033909 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 421135075532252984, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
+  m_PrefabInstance: {fileID: 784033907}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53b3366ed49aa744dad4e473d0c52850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &876076625
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,7 +1024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AudioSource: {fileID: 972948792}
-  fileLocation: take-me-to-your-heart.mid
+  _targetZoneManager: {fileID: 0}
   SongDelayInSeconds: 0
   MarginOfError: 0.07
   NoteTime: 1
@@ -989,7 +1032,10 @@ MonoBehaviour:
   noteTapY: 0
   InputDelayInMilliseconds: 0
   _listTargetZones:
+  - {fileID: 1852362047}
   - {fileID: 591064609}
+  - {fileID: 338679247}
+  - {fileID: 784033909}
 --- !u!1001 &1438310546
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1079,6 +1125,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 421135075532252984, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
+      propertyPath: _noteManager
+      value: 
+      objectReference: {fileID: 326452008}
+    - target: {fileID: 421135075532252984, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
       propertyPath: NoteContainer
       value: 
       objectReference: {fileID: 326452006}
@@ -1141,6 +1191,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7085940461987913845, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
   m_PrefabInstance: {fileID: 1852362045}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1852362047 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 421135075532252984, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
+  m_PrefabInstance: {fileID: 1852362045}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53b3366ed49aa744dad4e473d0c52850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1876320072
 GameObject:
   m_ObjectHideFlags: 0

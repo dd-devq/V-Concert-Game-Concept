@@ -4,18 +4,31 @@ using System.Collections.Generic;
 using Melanchall.DryWetMidi.Interaction;
 using Melanchall.DryWetMidi.MusicTheory;
 using UnityEngine;
+using System.Linq;
 
 public class TargetZone : MonoBehaviour
 {
-    public Melanchall.DryWetMidi.MusicTheory.NoteName NoteRestriction;
     public KeyCode KeyInput;
     public List<double> SpawnedTimes = new List<double>(); //thoi gian note xuat hien (theo midi)
 
     [SerializeField]
     private NoteManager _noteManager = null;
-    private List<Note> notes = new List<Note>();
+    private List<Note> notes = new();
+    private List<NoteName> _pitches = new();
     private int spawnIndex = 0;
     private int inputIndex = 0;
+    private int _zoneIndex = 0;
+
+    public int ZoneIndex
+    {
+        get => _zoneIndex;
+        set => _zoneIndex = value;
+    }
+    public List<NoteName> Pitches
+    {
+        get => _pitches;
+        set => _pitches = value;
+    }
 
     void Update()
     {
@@ -71,16 +84,8 @@ public class TargetZone : MonoBehaviour
     public void SetSpawnedTimes(List<Melanchall.DryWetMidi.Interaction.Note> listNotes)
     {
         double interval = 0;
-        List<Melanchall.DryWetMidi.MusicTheory.NoteName> listPitchName = new();
-        for (var i = 0; i < listNotes.Count; i++)
-        {
-            var note = listNotes[i];
-            if (!listPitchName.Contains(note.NoteName))
-            {
-                listPitchName.Add(note.NoteName);
-            }
-        }
-        Debug.LogError("count of pitches: " + listPitchName.Count);
+        Dictionary<NoteName, int> PitchNameDict = new();
+
         for (var i = 0; i < listNotes.Count; i++)
         {
             var note = listNotes[i];
@@ -92,18 +97,56 @@ public class TargetZone : MonoBehaviour
                 //Debug.LogError("spawnedtime: " + spawnedTime);
                 SpawnedTimes.Add(spawnedTime);
                 interval = spawnedTime;
+
+                if (!PitchNameDict.ContainsKey(note.NoteName))
+                {
+                    PitchNameDict.Add(note.NoteName, 1);
+                }
+                else PitchNameDict[note.NoteName] += 1;
             }
             else
             {
                 var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
                 double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f;
-                if (spawnedTime - interval >= 4)
+                if (spawnedTime - interval >= Define.NoteInterval)
                 {
                     //Debug.LogError("spawnedtime: " + spawnedTime);
                     SpawnedTimes.Add(spawnedTime);
                     interval = spawnedTime;
+
+                    if (!PitchNameDict.ContainsKey(note.NoteName))
+                    {
+                        PitchNameDict.Add(note.NoteName, 1);
+                    }
+                    else PitchNameDict[note.NoteName] += 1;
                 }
             }
+        }
+        List<KeyValuePair<NoteName, int>> sortedList = PitchNameDict.ToList();
+        sortedList.Sort((x, y) => x.Value.CompareTo(y.Value));
+        PitchNameDict = sortedList.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        foreach (var pair in PitchNameDict)
+        {
+            Debug.LogError(pair.Key + " " + pair.Value);
+        }
+        int countOfPitch = PitchNameDict.Count;
+        switch (countOfPitch % Define.NumOfTargetZone)
+        {
+            case 0:
+                foreach (var pair in PitchNameDict)
+                {
+
+                }
+                break;
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
         }
     }
 }
