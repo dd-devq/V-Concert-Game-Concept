@@ -19,6 +19,9 @@ public class TargetZone : MonoBehaviour
     private int inputIndex = 0;
     private int _zoneIndex = 0;
 
+    /// <summary>
+    /// from 0 to 3
+    /// </summary>
     public int ZoneIndex
     {
         get => _zoneIndex;

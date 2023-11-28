@@ -37,11 +37,20 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
             _targetZones[i].ZoneIndex = i;
         }
     }
-
+    private TargetZone GetTargetZoneByIndex(int index)
+    {
+        for (var i = 0; i < _targetZones.Count; i++)
+        {
+            if (_targetZones[i].ZoneIndex == index)
+                return _targetZones[i];
+        }
+        return null;
+    }
     public void SetSpawnedTimes(List<Melanchall.DryWetMidi.Interaction.Note> listNotes)
     {
         double interval = 0;
         Dictionary<NoteName, int> PitchNameDict = new();
+        //Get Pitch Name that match condition
         for (var i = 0; i < listNotes.Count; i++)
         {
             var note = listNotes[i];
@@ -71,50 +80,119 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
                 }
             }
         }
+
         //sort dictionary
         List<KeyValuePair<NoteName, int>> sortedList = PitchNameDict.ToList();
         sortedList.Sort((x, y) => x.Value.CompareTo(y.Value));
         PitchNameDict = sortedList.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         foreach (var pair in PitchNameDict)
         {
-            Debug.LogError(pair.Key + " " + pair.Value);
+            Debug.LogError("check: " + pair.Key + " " + pair.Value);
         }
 
+        //Divide pitches to zones
         int countOfPitch = PitchNameDict.Count;
+        int PitchPerZone = 0;
+        int index = 0;
         switch (countOfPitch % Define.NumOfTargetZone)
         {
             case 0:
-                int PitchPerZone = countOfPitch / Define.NumOfTargetZone;
-                for (var i = 0; i < PitchNameDict.Count; i+=PitchPerZone)
+                PitchPerZone = countOfPitch / Define.NumOfTargetZone;
+                for (var i = 0; i < PitchNameDict.Count; i += PitchPerZone)
                 {
                     foreach (var zone in _targetZones)
                     {
-                        if (zone.ZoneIndex == i/PitchPerZone)
+                        if (zone.ZoneIndex == i / PitchPerZone)
                         {
-                            zone.Pitches.Add(PitchNameDict.ElementAt(i).Key);
-                            zone.Pitches.Add(PitchNameDict.ElementAt(i + 1).Key);
+                            for (var j = 0; j < PitchPerZone; j++)
+                            {
+                                zone.Pitches.Add(PitchNameDict.ElementAt(i + j).Key);
+                            }   
                         }
                     }
                 }
                 break;
             case 1:
-                for (var i = 0; i < _targetZones.Count; i++)
+                PitchPerZone = (countOfPitch - 1) / Define.NumOfTargetZone;
+                index = 0;
+                for (var i = 0; i < PitchNameDict.Count; i++)
                 {
-
+                    if (i <= PitchPerZone)
+                    {
+                        index = 0;
+                    }
+                    if (i > PitchPerZone && index <= PitchPerZone * 2)
+                    {
+                        index = 1;
+                    }
+                    if (i > PitchPerZone * 2 && i <= PitchPerZone * 3)
+                    {
+                        index = 2;
+                    }
+                    if (i > PitchPerZone * 3 && i <= PitchPerZone * 4)
+                    {
+                        index = 3;
+                    }
+                    GetTargetZoneByIndex(index).Pitches.Add(PitchNameDict.ElementAt(i).Key);
                 }
                 break;
             case 2:
-                for (var i = 0; i < _targetZones.Count; i++)
+                PitchPerZone = (countOfPitch - 2) / Define.NumOfTargetZone;
+                index = 0;
+                for (var i = 0; i < PitchNameDict.Count; i++)
                 {
-
+                    if (i <= PitchPerZone)
+                    {
+                        index = 0;
+                    }
+                    if (i > PitchPerZone && index <= PitchPerZone * 2 + 1)
+                    {
+                        index = 1;
+                    }
+                    if (i > PitchPerZone * 2 + 1 && i <= PitchPerZone * 3 + 1)
+                    {
+                        index = 2;
+                    }
+                    if (i > PitchPerZone * 3 + 1 && i <= PitchPerZone * 4 + 1)
+                    {
+                        index = 3;
+                    }
+                    GetTargetZoneByIndex(index).Pitches.Add(PitchNameDict.ElementAt(i).Key);
                 }
                 break;
             case 3:
-                for (var i = 0; i < _targetZones.Count; i++)
+                PitchPerZone = (countOfPitch - 3) / Define.NumOfTargetZone;
+                index = 0;
+                for (var i = 0; i < PitchNameDict.Count; i++)
                 {
-
+                    if (i <= PitchPerZone)
+                    {
+                        index = 0;
+                    }
+                    if (i > PitchPerZone && index <= PitchPerZone * 2 + 1)
+                    {
+                        index = 1;
+                    }
+                    if (i > PitchPerZone * 2 + 1 && i <= PitchPerZone * 3 + 2)
+                    {
+                        index = 2;
+                    }
+                    if (i > PitchPerZone * 3 + 2 && i <= PitchPerZone * 4 + 2)
+                    {
+                        index = 3;
+                    }
+                    GetTargetZoneByIndex(index).Pitches.Add(PitchNameDict.ElementAt(i).Key);
                 }
                 break;
         }
+        foreach (var zone in _targetZones)
+        {
+            foreach (var pitch in zone.Pitches)
+            {
+                Debug.LogError(zone.ZoneIndex + " " + pitch);
+            }
+        }
+
+        //duyet qua listNotes de lay Note co pitch tuong ung vao TargetZones voi
     }
 }
