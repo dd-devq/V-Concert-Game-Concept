@@ -9,7 +9,7 @@ using Melanchall.DryWetMidi.Interaction;
 public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
 {
     private List<TargetZone> _targetZones = new();
-
+    private Dictionary<NoteName, int> _pitchNameDict = new();
     public List<TargetZone> TargetZones
     {
         get => _targetZones;
@@ -46,10 +46,10 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
         }
         return null;
     }
-    public void SetSpawnedTimes(List<Melanchall.DryWetMidi.Interaction.Note> listNotes)
+
+    private void GetPitchesName(List<Melanchall.DryWetMidi.Interaction.Note> listNotes)
     {
         double interval = 0;
-        Dictionary<NoteName, int> PitchNameDict = new();
         //Get Pitch Name that match condition
         for (var i = 0; i < listNotes.Count; i++)
         {
@@ -59,11 +59,11 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
                 var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
                 double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f;
                 interval = spawnedTime;
-                if (!PitchNameDict.ContainsKey(note.NoteName))
+                if (!_pitchNameDict.ContainsKey(note.NoteName))
                 {
-                    PitchNameDict.Add(note.NoteName, 1);
+                    _pitchNameDict.Add(note.NoteName, 1);
                 }
-                else PitchNameDict[note.NoteName] += 1;
+                else _pitchNameDict[note.NoteName] += 1;
             }
             else
             {
@@ -72,33 +72,26 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
                 if (spawnedTime - interval >= Define.NoteInterval)
                 {
                     interval = spawnedTime;
-                    if (!PitchNameDict.ContainsKey(note.NoteName))
+                    if (!_pitchNameDict.ContainsKey(note.NoteName))
                     {
-                        PitchNameDict.Add(note.NoteName, 1);
+                        _pitchNameDict.Add(note.NoteName, 1);
                     }
-                    else PitchNameDict[note.NoteName] += 1;
+                    else _pitchNameDict[note.NoteName] += 1;
                 }
             }
         }
-
-        //sort dictionary
-        List<KeyValuePair<NoteName, int>> sortedList = PitchNameDict.ToList();
-        sortedList.Sort((x, y) => x.Value.CompareTo(y.Value));
-        PitchNameDict = sortedList.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-        foreach (var pair in PitchNameDict)
-        {
-            Debug.LogError("check: " + pair.Key + " " + pair.Value);
-        }
-
+    }
+    private void DividePitchesIntoZones()
+    {
         //Divide pitches to zones
-        int countOfPitch = PitchNameDict.Count;
+        int countOfPitch = _pitchNameDict.Count;
         int PitchPerZone = 0;
         int index = 0;
         switch (countOfPitch % Define.NumOfTargetZone)
         {
             case 0:
                 PitchPerZone = countOfPitch / Define.NumOfTargetZone;
-                for (var i = 0; i < PitchNameDict.Count; i += PitchPerZone)
+                for (var i = 0; i < _pitchNameDict.Count; i += PitchPerZone)
                 {
                     foreach (var zone in _targetZones)
                     {
@@ -106,8 +99,8 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
                         {
                             for (var j = 0; j < PitchPerZone; j++)
                             {
-                                zone.Pitches.Add(PitchNameDict.ElementAt(i + j).Key);
-                            }   
+                                zone.Pitches.Add(_pitchNameDict.ElementAt(i + j).Key);
+                            }
                         }
                     }
                 }
@@ -115,7 +108,7 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
             case 1:
                 PitchPerZone = (countOfPitch - 1) / Define.NumOfTargetZone;
                 index = 0;
-                for (var i = 0; i < PitchNameDict.Count; i++)
+                for (var i = 0; i < _pitchNameDict.Count; i++)
                 {
                     if (i <= PitchPerZone)
                     {
@@ -133,13 +126,13 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
                     {
                         index = 3;
                     }
-                    GetTargetZoneByIndex(index).Pitches.Add(PitchNameDict.ElementAt(i).Key);
+                    GetTargetZoneByIndex(index).Pitches.Add(_pitchNameDict.ElementAt(i).Key);
                 }
                 break;
             case 2:
                 PitchPerZone = (countOfPitch - 2) / Define.NumOfTargetZone;
                 index = 0;
-                for (var i = 0; i < PitchNameDict.Count; i++)
+                for (var i = 0; i < _pitchNameDict.Count; i++)
                 {
                     if (i <= PitchPerZone)
                     {
@@ -157,13 +150,13 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
                     {
                         index = 3;
                     }
-                    GetTargetZoneByIndex(index).Pitches.Add(PitchNameDict.ElementAt(i).Key);
+                    GetTargetZoneByIndex(index).Pitches.Add(_pitchNameDict.ElementAt(i).Key);
                 }
                 break;
             case 3:
                 PitchPerZone = (countOfPitch - 3) / Define.NumOfTargetZone;
                 index = 0;
-                for (var i = 0; i < PitchNameDict.Count; i++)
+                for (var i = 0; i < _pitchNameDict.Count; i++)
                 {
                     if (i <= PitchPerZone)
                     {
@@ -181,18 +174,64 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
                     {
                         index = 3;
                     }
-                    GetTargetZoneByIndex(index).Pitches.Add(PitchNameDict.ElementAt(i).Key);
+                    GetTargetZoneByIndex(index).Pitches.Add(_pitchNameDict.ElementAt(i).Key);
                 }
                 break;
         }
-        foreach (var zone in _targetZones)
+        //foreach (var zone in _targetZones)
+        //{
+        //    foreach (var pitch in zone.Pitches)
+        //    {
+        //        Debug.LogError(zone.ZoneIndex + " " + pitch);
+        //    }
+        //}
+    }
+    public void SetSpawnedTimes(List<Melanchall.DryWetMidi.Interaction.Note> listNotes)
+    {
+        GetPitchesName(listNotes);
+        //sort dictionary
+        List<KeyValuePair<NoteName, int>> sortedList = _pitchNameDict.ToList();
+        sortedList.Sort((x, y) => x.Value.CompareTo(y.Value));
+        _pitchNameDict = sortedList.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        //foreach (var pair in _pitchNameDict)
+        //{
+        //    Debug.LogError("check: " + pair.Key + " " + pair.Value);
+        //}
+        DividePitchesIntoZones();
+
+        double interval = 0;
+        for (var i = 0; i < listNotes.Count; i++)
         {
-            foreach (var pitch in zone.Pitches)
+            var note = listNotes[i];
+            if (i == 0 || i == listNotes.Count - 1)
             {
-                Debug.LogError(zone.ZoneIndex + " " + pitch);
+                foreach (var zone in _targetZones)
+                {
+                    if (zone.Pitches.Contains(note.NoteName))
+                    {
+                        var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
+                        double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f;
+                        zone.SpawnedTimes.Add(spawnedTime);
+                        interval = spawnedTime;
+                    }
+                }
+            }
+            else
+            {
+                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
+                double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f;
+                if (spawnedTime - interval >= Define.NoteInterval)
+                {
+                    foreach (var zone in _targetZones)
+                    {
+                        if (zone.Pitches.Contains(note.NoteName))
+                        {
+                            zone.SpawnedTimes.Add(spawnedTime);
+                            interval = spawnedTime;
+                        }
+                    }
+                }
             }
         }
-
-        //duyet qua listNotes de lay Note co pitch tuong ung vao TargetZones voi
     }
 }

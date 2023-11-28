@@ -16,11 +16,11 @@ public class NoteManager : MonoBehaviour
     private GameObject _endObj = null;
     [SerializeField]
     private GameObject _noteContainer = null;
-    public Note OnSpawnNotes()
+    public Note OnSpawnNotesToTarget(Vector3 endPos)
     {
         var note = GCUtils.InstantiateObject<Note>(_notePrefab, _noteContainer.transform);
         note.SpawnPos = _spawnObj.transform.position;
-        note.EndPos = _endObj.transform.position;
+        note.EndPos = endPos;
         note.transform.rotation = _notePrefab.transform.rotation;
         note.transform.localScale = _notePrefab.transform.localScale;
         note.gameObject.SetActive(true);

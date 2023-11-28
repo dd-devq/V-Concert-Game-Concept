@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Define
 {
-    public static int NoteInterval = 4;
+    public static int NoteInterval = 2;
     public static int NumOfTargetZone = 4;
 
     public static string MidiFilePath = "/Resources/Audio/MIDI/";
