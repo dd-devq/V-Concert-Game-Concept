@@ -19,6 +19,8 @@ public class TargetZone : MonoBehaviour
     private int spawnIndex = 0;
     private int inputIndex = 0;
     private int _zoneIndex = 0;
+    private bool _isHit = false;
+    private bool _isInCollision = false;
 
     /// <summary>
     /// from 0 to 3
@@ -89,5 +91,17 @@ public class TargetZone : MonoBehaviour
     private void Miss()
     {
         ScoreManager.Miss();
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        _isInCollision = true;
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        _isInCollision = false;
     }
 }
