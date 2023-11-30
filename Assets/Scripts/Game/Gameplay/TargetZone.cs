@@ -19,8 +19,6 @@ public class TargetZone : MonoBehaviour
     private int spawnIndex = 0;
     private int inputIndex = 0;
     private int _zoneIndex = 0;
-    private bool _isHit = false;
-    private bool _isInCollision = false;
 
     /// <summary>
     /// from 0 to 3
@@ -53,55 +51,33 @@ public class TargetZone : MonoBehaviour
             }
         }
 
-        if (inputIndex < _spawnedTimes.Count)
-        {
-            double timeStamp = _spawnedTimes[inputIndex];
-            double marginOfError = SongManager.Instance.MarginOfError;
-            double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.InputDelayInMilliseconds / 1000.0);
+        //if (inputIndex < _spawnedTimes.Count)
+        //{
+        //    double timeStamp = _spawnedTimes[inputIndex];
+        //    double marginOfError = SongManager.Instance.MarginOfError;
+        //    //double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.InputDelayInMilliseconds / 1000.0);
+        //    double audioTime = SongManager.GetAudioSourceTime();
 
-            if (Input.GetKeyDown(KeyInput))
-            {
-                if (Math.Abs(audioTime - timeStamp) < marginOfError)
-                {
-                    //Hit();
-                    Debug.LogError(String.Format("Hit on {0} note", inputIndex + 1));
-                    var temp = notes[inputIndex];
-                    //notes.RemoveAt(inputIndex);
-                    Destroy(temp.gameObject);
-                    inputIndex++;
-                }
-                else
-                {
-                    //Debug.LogError(String.Format("Hit inaccurate on {0} note with {1} delay", inputIndex, Math.Abs(audioTime - timeStamp)));
-                    //Debug.LogError("tre");
-                }
-            }
-            if (timeStamp + marginOfError <= audioTime)
-            {
-                //Miss();
-                Debug.LogError(String.Format("Missed {0} note", inputIndex));
-                inputIndex++;
-            }
-        }
-    }
-    private void Hit()
-    {
-        ScoreManager.Hit();
-    }
-    private void Miss()
-    {
-        ScoreManager.Miss();
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        _isInCollision = true;
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        _isInCollision = false;
+        //    if (Input.GetKeyDown(KeyInput))
+        //    {
+        //        if (Math.Abs(audioTime - timeStamp) < marginOfError)
+        //        {
+        //            Debug.LogError(String.Format("Hit on {0} note", inputIndex + 1));
+        //            var temp = notes[inputIndex];
+        //            //notes.RemoveAt(inputIndex);
+        //            Destroy(temp.gameObject);
+        //            inputIndex++;
+        //        }
+        //        else
+        //        {
+                    
+        //        }
+        //    }
+        //    if (timeStamp + marginOfError <= audioTime)
+        //    {
+        //        Debug.LogError(String.Format("Missed {0} note", inputIndex));
+        //        inputIndex++;
+        //    }
+        //}
     }
 }

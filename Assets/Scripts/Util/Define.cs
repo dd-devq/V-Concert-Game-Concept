@@ -18,6 +18,11 @@ public class Define
     {
         NotePrefab
     }
+    public enum Tags
+    {
+        TargetZone,
+        PerfectHit,
+    }
 
     public struct GameplayData
     {

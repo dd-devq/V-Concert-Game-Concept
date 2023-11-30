@@ -7,16 +7,16 @@ using UnityEngine.Serialization;
 
 public class Note : MonoBehaviour
 {
-    [SerializeField]
-    private bool _inTargetZone;
-    //public float AssignedTime;
     [Header("Events")]
     public GameEvent onNoteInTargetZone;
+
     private Vector3 _spawnPos;
     private Vector3 _endPos;
     private double _timeInstantiated;
-    
-    public bool InTargetZone => _inTargetZone;
+    private bool _inTargetZone = false;
+    private bool _inPerfectHit = false;
+    private bool _isHit = false;
+
     public Vector3 SpawnPos
     {
         get => _spawnPos;
@@ -27,17 +27,9 @@ public class Note : MonoBehaviour
         get => _endPos;
         set => _endPos = value;
     }
-    public void Init(Transform endPos)
-    {
-
-    }
 
     private void Start()
     {
-        //this._spawnPos = transform.position;
-        //Debug.LogError("start note");
-        //_spawnPos = SpawnObj.transform.position;
-        //_endPos = EndObj.transform.position;
         _timeInstantiated = SongManager.GetAudioSourceTime();
     }
 
@@ -50,8 +42,7 @@ public class Note : MonoBehaviour
 
             if (t > 1)
             {
-                Debug.LogError("check destroy: " + gameObject.name);
-                Destroy(gameObject);
+                OnFinishNotes();
             }
             else
             {
@@ -60,40 +51,55 @@ public class Note : MonoBehaviour
                 transform.position = Vector3.Lerp(_spawnPos, _endPos, t);
                 //GetComponent<SpriteRenderer>().enabled = true;
             }
+            if (Input.GetKeyDown(InputManager.KeyInput) && !_isHit)
+            {
+                if (_inTargetZone && !_inPerfectHit)
+                {
+                    Debug.LogError("Normal Hit");
+                    NoteManager.Instance.OnNormalHit();
+                    _isHit = true;
+                }
+                else if (_inPerfectHit)
+                {
+                    Debug.LogError("Perfect Hit");
+                    NoteManager.Instance.OnPerfectHit();
+                    _isHit = true;
+                }
+                else if (!_inTargetZone && !_inPerfectHit)
+                {
+                    NoteManager.Instance.OnMissHit();
+                    Debug.LogError("Missed Click");
+                }
+            }
         }
+    }
+
+    private void OnFinishNotes()
+    {
+        if (!_isHit)
+        {
+            Debug.LogError("Missed!");
+        }
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Target Zone")) return;
-
-        _inTargetZone = true;
-        onNoteInTargetZone.Invoke(this, 100);
-        Debug.Log("In");
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (!other.CompareTag("Target Zone")) return;
-        _inTargetZone = true;
-        Debug.Log("Stay");
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("Target Zone")) return;
-        _inTargetZone = false;
-        Invoke(nameof(Kill), 1);
-        Debug.Log("Out");
+        if (other.CompareTag(Define.Tags.TargetZone.ToString()))
+        {
+            _inTargetZone = true;
+            //Debug.LogError("Trigger Normal");
+        }
+        if (other.CompareTag(Define.Tags.PerfectHit.ToString()))
+        {
+            _inPerfectHit = true;
+            //Debug.LogError("Trigger Perfect");
+        }
+        
     }
 
     private void Kill()
     {
         Destroy(gameObject);
-    }
-
-    private void Reset()
-    {
-        // Reset for reuse object pool
     }
 }

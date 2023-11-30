@@ -1,18 +1,16 @@
 using System;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class InputManager : ManualSingletonMono<InputManager>
 {
     public GameEvent OnPlayerHit;
     public GameEvent OnPlayerMiss;
     public GameEvent OnPlayerPause;
 
-    private void Awake()
-    {
-    }
+    public static KeyCode KeyInput = KeyCode.Space;
 
-    private void Update()
+    public override void Awake()
     {
-        throw new NotImplementedException();
+        base.Awake();
     }
 }
