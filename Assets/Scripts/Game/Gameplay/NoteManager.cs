@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NoteManager : MonoBehaviour
+public class NoteManager : ManualSingletonMono<NoteManager>
 {
     //expect to contain target zone data (or get target zone data) and spawn note due to that.
     [SerializeField]
@@ -16,6 +16,11 @@ public class NoteManager : MonoBehaviour
     private GameObject _endObj = null;
     [SerializeField]
     private GameObject _noteContainer = null;
+
+    public override void Awake()
+    {
+        base.Awake();
+    }
     public Note OnSpawnNotesToTarget(Vector3 endPos)
     {
         var note = GCUtils.InstantiateObject<Note>(_notePrefab, _noteContainer.transform);
@@ -25,5 +30,17 @@ public class NoteManager : MonoBehaviour
         note.transform.localScale = _notePrefab.transform.localScale;
         note.gameObject.SetActive(true);
         return note;
+    }
+    public void OnNormalHit()
+    {
+
+    }
+    public void OnPerfectHit()
+    {
+
+    }
+    public void OnMissHit()
+    {
+
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 399659859511268350}
   m_Layer: 0
   m_Name: PerfectHit
-  m_TagString: Untagged
+  m_TagString: PerfectHit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 421135075532252984}
   m_Layer: 0
   m_Name: TargetZone
-  m_TagString: Untagged
+  m_TagString: TargetZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
