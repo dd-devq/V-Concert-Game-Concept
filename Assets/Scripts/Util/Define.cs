@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,9 +20,12 @@ public class Define
         NotePrefab
     }
 
+    [Serializable]
     public struct GameplayData
     {
         public int SongIndex;
+
+        public SceneIndex SceneIndex;
         //character
     }
 
@@ -48,6 +52,12 @@ public class Define
     {
         Coin,
         Gem,
+    }
+
+    public struct RegisterInfo
+    {
+        private string username;
+        private string password;
     }
     
 }

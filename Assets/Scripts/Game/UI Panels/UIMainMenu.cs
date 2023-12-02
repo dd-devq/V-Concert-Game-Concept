@@ -8,14 +8,17 @@ public class UIMainMenu : BaseUI
     public GameEvent onHomeClick;
     public GameEvent onShopClick;
     public GameEvent onInventoryClick;
-    public GameEvent onEventClick;
-    public GameEvent onMissionClick;
     public GameEvent onCharacterClick;
     public GameEvent onAvatarClick;
     public GameEvent onPlayClick;
 
-    public void PlayClick()
+    public void OnPlayClick()
     {
+        var gameplayData = new Define.GameplayData
+        {
+            SongIndex = 1,
+            SceneIndex = SceneIndex.Gameplay
+        };
         onPlayClick.Invoke(this, SceneIndex.Gameplay);
     }
 }
