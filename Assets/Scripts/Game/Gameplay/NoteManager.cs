@@ -13,8 +13,6 @@ public class NoteManager : ManualSingletonMono<NoteManager>
     [SerializeField]
     private GameObject _spawnObj = null;
     [SerializeField]
-    private GameObject _endObj = null;
-    [SerializeField]
     private GameObject _noteContainer = null;
 
     public override void Awake()

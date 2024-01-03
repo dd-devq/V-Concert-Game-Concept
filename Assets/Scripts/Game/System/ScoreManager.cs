@@ -5,8 +5,6 @@ using TMPro;
 
 public class ScoreManager : ManualSingletonMono<ScoreManager>
 {
-    public AudioSource HitSFX = null;
-    public AudioSource MissSFX = null;
     public TextMeshPro ScoreText = null;
     
     private static int _comboScore;
@@ -18,12 +16,12 @@ public class ScoreManager : ManualSingletonMono<ScoreManager>
     public static void Hit()
     {
         _comboScore += 1;
-        Instance.HitSFX.Play();
+        AudioManager.Instance.PlayHitSFX();
     }
     public static void Miss()
     {
         _comboScore -= 1;
-        Instance.MissSFX.Play();
+        AudioManager.Instance.PlayMissSFX();
     }
     public static void SetScore(int score)
     {

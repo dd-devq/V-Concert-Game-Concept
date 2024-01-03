@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : ManualSingletonMono<AudioManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private AudioSource _hitSFX = null;
+    [SerializeField]
+    private AudioSource _missSFX = null;
+    public override void Awake()
     {
-        
+        base.Awake();
     }
-
-    // Update is called once per frame
-    void Update()
+    public void PlayHitSFX()
     {
-        
+        _hitSFX.Play();
+    }
+    public void PlayMissSFX()
+    {
+        _missSFX.Play();
     }
 }
