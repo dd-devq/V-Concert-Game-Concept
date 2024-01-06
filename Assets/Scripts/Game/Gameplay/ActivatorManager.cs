@@ -6,43 +6,43 @@ using UnityEngine;
 using Melanchall.DryWetMidi.MusicTheory;
 using Melanchall.DryWetMidi.Interaction;
 
-public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
+public class ActivatorManager : ManualSingletonMono<ActivatorManager>
 {
-    private List<TargetZone> _targetZones = new();
+    private List<Activator> _activators = new();
     private Dictionary<NoteName, int> _pitchNameDict = new();
-    public List<TargetZone> TargetZones
+    public List<Activator> Activators
     {
-        get => _targetZones;
-        set => _targetZones = value;
+        get => _activators;
+        set => _activators = value;
     }
     public override void Awake()
     {
         base.Awake();
-        GetListTargetZones();
+        GetListActivators();
     }
     private void Start()
     {
         
     }
 
-    private void GetListTargetZones()
+    private void GetListActivators()
     {
         for (var i = 0; i < transform.childCount; i++)
         {
             var child = transform.GetChild(i);
-            _targetZones.Add(child.GetComponent<TargetZone>());
+            _activators.Add(child.GetComponent<Activator>());
         }
-        for (var i = 0; i < _targetZones.Count; i++)
+        for (var i = 0; i < _activators.Count; i++)
         {
-            _targetZones[i].ZoneIndex = i;
+            _activators[i].ZoneIndex = i;
         }
     }
-    private TargetZone GetTargetZoneByIndex(int index)
+    private Activator GetActivatorByIndex(int index)
     {
-        for (var i = 0; i < _targetZones.Count; i++)
+        for (var i = 0; i < _activators.Count; i++)
         {
-            if (_targetZones[i].ZoneIndex == index)
-                return _targetZones[i];
+            if (_activators[i].ZoneIndex == index)
+                return _activators[i];
         }
         return null;
     }
@@ -87,13 +87,13 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
         int countOfPitch = _pitchNameDict.Count;
         int PitchPerZone = 0;
         int index = 0;
-        switch (countOfPitch % Define.NumOfTargetZone)
+        switch (countOfPitch % Define.NumOfActivators)
         {
             case 0:
-                PitchPerZone = countOfPitch / Define.NumOfTargetZone;
+                PitchPerZone = countOfPitch / Define.NumOfActivators;
                 for (var i = 0; i < _pitchNameDict.Count; i += PitchPerZone)
                 {
-                    foreach (var zone in _targetZones)
+                    foreach (var zone in _activators)
                     {
                         if (zone.ZoneIndex == i / PitchPerZone)
                         {
@@ -106,7 +106,7 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
                 }
                 break;
             case 1:
-                PitchPerZone = (countOfPitch - 1) / Define.NumOfTargetZone;
+                PitchPerZone = (countOfPitch - 1) / Define.NumOfActivators;
                 index = 0;
                 for (var i = 0; i < _pitchNameDict.Count; i++)
                 {
@@ -126,11 +126,11 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
                     {
                         index = 3;
                     }
-                    GetTargetZoneByIndex(index).Pitches.Add(_pitchNameDict.ElementAt(i).Key);
+                    GetActivatorByIndex(index).Pitches.Add(_pitchNameDict.ElementAt(i).Key);
                 }
                 break;
             case 2:
-                PitchPerZone = (countOfPitch - 2) / Define.NumOfTargetZone;
+                PitchPerZone = (countOfPitch - 2) / Define.NumOfActivators;
                 index = 0;
                 for (var i = 0; i < _pitchNameDict.Count; i++)
                 {
@@ -150,11 +150,11 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
                     {
                         index = 3;
                     }
-                    GetTargetZoneByIndex(index).Pitches.Add(_pitchNameDict.ElementAt(i).Key);
+                    GetActivatorByIndex(index).Pitches.Add(_pitchNameDict.ElementAt(i).Key);
                 }
                 break;
             case 3:
-                PitchPerZone = (countOfPitch - 3) / Define.NumOfTargetZone;
+                PitchPerZone = (countOfPitch - 3) / Define.NumOfActivators;
                 index = 0;
                 for (var i = 0; i < _pitchNameDict.Count; i++)
                 {
@@ -174,11 +174,11 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
                     {
                         index = 3;
                     }
-                    GetTargetZoneByIndex(index).Pitches.Add(_pitchNameDict.ElementAt(i).Key);
+                    GetActivatorByIndex(index).Pitches.Add(_pitchNameDict.ElementAt(i).Key);
                 }
                 break;
         }
-        //foreach (var zone in _targetZones)
+        //foreach (var zone in _activators)
         //{
         //    foreach (var pitch in zone.Pitches)
         //    {
@@ -205,7 +205,7 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
             var note = listNotes[i];
             if (i == 0 || i == listNotes.Count - 1)
             {
-                foreach (var zone in _targetZones)
+                foreach (var zone in _activators)
                 {
                     if (zone.Pitches.Contains(note.NoteName))
                     {
@@ -222,7 +222,7 @@ public class TargetZoneManager : ManualSingletonMono<TargetZoneManager>
                 double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f;
                 if (spawnedTime - interval >= Define.NoteInterval)
                 {
-                    foreach (var zone in _targetZones)
+                    foreach (var zone in _activators)
                     {
                         if (zone.Pitches.Contains(note.NoteName))
                         {

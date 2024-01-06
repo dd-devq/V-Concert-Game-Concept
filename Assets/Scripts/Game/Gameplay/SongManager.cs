@@ -12,7 +12,7 @@ public class SongManager : ManualSingletonMono<SongManager>
     public AudioSource AudioSource = null;
     public static MidiFile Midifile = null;
     [SerializeField]
-    private TargetZoneManager _targetZoneManager = null;
+    private ActivatorManager _ActivatorManager = null;
 
     public float SongDelayInSeconds;
     public double MarginOfError; //In Seconds
@@ -20,10 +20,10 @@ public class SongManager : ManualSingletonMono<SongManager>
     public float noteSpawnY;
     public float noteTapY;
     public int InputDelayInMilliseconds;
-    //public List<TargetZone> _listTargetZones = new List<TargetZone>();
+    //public List<Activator> _listActivators = new List<Activator>();
 
-    private List<Vector3> _lstPosTargetZone = new List<Vector3>();
-    private string _songName = "take-me-to-your-heart";
+    private List<Vector3> _lstPosActivator = new List<Vector3>();
+    public string _songName = "take-me-to-your-heart";
 
     public float noteDespawnY
     {
@@ -47,9 +47,9 @@ public class SongManager : ManualSingletonMono<SongManager>
         {
             ReadFromFile();
         }
-        foreach (var item in _targetZoneManager.TargetZones)
+        foreach (var item in _ActivatorManager.Activators)
         {
-            _lstPosTargetZone.Add(item.gameObject.transform.position);
+            _lstPosActivator.Add(item.gameObject.transform.position);
         }
     }
 
@@ -75,8 +75,8 @@ public class SongManager : ManualSingletonMono<SongManager>
         var notes = Midifile.GetNotes();
         List<Melanchall.DryWetMidi.Interaction.Note> listNote = new();
         listNote.AddRange(notes);
-        _targetZoneManager.SetSpawnedTimes(listNote);
-        //foreach (var zone in _targetZoneManager.TargetZones)
+        _ActivatorManager.SetSpawnedTimes(listNote);
+        //foreach (var zone in _ActivatorManager.Activators)
         //{
         //    zone.SetSpawnedTimes(listNote);
         //}

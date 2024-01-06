@@ -8,12 +8,12 @@ using UnityEngine.Serialization;
 public class Note : MonoBehaviour
 {
     [Header("Events")]
-    public GameEvent onNoteInTargetZone;
+    public GameEvent onNoteInActivator;
 
     private Vector3 _spawnPos;
     private Vector3 _endPos;
     private double _timeInstantiated;
-    private bool _inTargetZone = false;
+    private bool _inActivator = false;
     private bool _inPerfectHit = false;
     private bool _isHit = false;
 
@@ -53,7 +53,7 @@ public class Note : MonoBehaviour
             }
             if (Input.GetKeyDown(InputManager.KeyInput) && !_isHit)
             {
-                if (_inTargetZone && !_inPerfectHit)
+                if (_inActivator && !_inPerfectHit)
                 {
                     Debug.LogError("Normal Hit");
                     NoteManager.Instance.OnNormalHit();
@@ -65,7 +65,7 @@ public class Note : MonoBehaviour
                     NoteManager.Instance.OnPerfectHit();
                     _isHit = true;
                 }
-                else if (!_inTargetZone && !_inPerfectHit)
+                else if (!_inActivator && !_inPerfectHit)
                 {
                     NoteManager.Instance.OnMissHit();
                     Debug.LogError("Missed Click");
@@ -85,9 +85,9 @@ public class Note : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(Define.Tags.TargetZone.ToString()))
+        if (other.CompareTag(Define.Tags.Activator.ToString()))
         {
-            _inTargetZone = true;
+            _inActivator = true;
             //Debug.LogError("Trigger Normal");
         }
         if (other.CompareTag(Define.Tags.PerfectHit.ToString()))

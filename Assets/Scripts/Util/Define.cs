@@ -6,7 +6,7 @@ using UnityEngine;
 public class Define
 {
     public static int NoteInterval = 2;
-    public static int NumOfTargetZone = 4;
+    public static int NumOfActivators = 4;
 
     public static string MidiFilePath = "/Resources/Audio/MIDI/";
     public static string AudioFilePath = Application.streamingAssetsPath + "/Audio/";
@@ -21,7 +21,7 @@ public class Define
     }
     public enum Tags
     {
-        TargetZone,
+        Activator,
         PerfectHit,
     }
 

@@ -6,7 +6,7 @@ using Melanchall.DryWetMidi.MusicTheory;
 using UnityEngine;
 using System.Linq;
 
-public class TargetZone : MonoBehaviour
+public class Activator : MonoBehaviour
 {
     public KeyCode KeyInput;
 
