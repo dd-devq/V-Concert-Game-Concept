@@ -38,9 +38,9 @@ public class Note : MonoBehaviour
         if (gameObject != null && gameObject.name != Define.PrefabName.NotePrefab.ToString())
         {
             double timeSinceInstantiated = SongManager.GetAudioSourceTime() - _timeInstantiated;
-            float t = (float)(timeSinceInstantiated / (SongManager.Instance.NoteTime * 2));
+            float t = (float)(timeSinceInstantiated / (SongManager.Instance.NoteTime * 1));
 
-            if (t > 1)
+            if (t > 1.1)
             {
                 OnFinishNotes();
             }
@@ -94,8 +94,7 @@ public class Note : MonoBehaviour
         {
             _inPerfectHit = true;
             //Debug.LogError("Trigger Perfect");
-        }
-        
+        } 
     }
 
     private void Kill()

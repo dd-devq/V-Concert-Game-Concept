@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 7085940461987913840}
   - component: {fileID: 421135075532252984}
   m_Layer: 0
-  m_Name: TargetZone
+  m_Name: Activator
   m_TagString: TargetZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,7 +159,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KeyInput: 0
   _noteManager: {fileID: 0}
-  EndZone: {fileID: 7384505564582727393}
+  _playButton: {fileID: 0}
+  _detectButton: {fileID: 0}
+  _endZone: {fileID: 7384505564582727393}
 --- !u!1 &7384505564582727393
 GameObject:
   m_ObjectHideFlags: 0

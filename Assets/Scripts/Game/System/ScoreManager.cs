@@ -5,7 +5,7 @@ using TMPro;
 
 public class ScoreManager : ManualSingletonMono<ScoreManager>
 {
-    public TextMeshPro ScoreText = null;
+    public TextMeshProUGUI ScoreText = null;
     
     private static int _comboScore;
 
@@ -16,12 +16,12 @@ public class ScoreManager : ManualSingletonMono<ScoreManager>
     public static void Hit()
     {
         _comboScore += 1;
-        AudioManager.Instance.PlayHitSFX();
+        //AudioManager.Instance.PlayHitSFX();
     }
     public static void Miss()
     {
         _comboScore -= 1;
-        AudioManager.Instance.PlayMissSFX();
+        //AudioManager.Instance.PlayMissSFX();
     }
     public static void SetScore(int score)
     {

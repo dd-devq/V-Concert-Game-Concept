@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Melanchall.DryWetMidi.Interaction;
 using Melanchall.DryWetMidi.MusicTheory;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 public class Activator : MonoBehaviour
@@ -12,6 +13,12 @@ public class Activator : MonoBehaviour
 
     [SerializeField]
     private NoteManager _noteManager = null;
+    [SerializeField]
+    private Button _playButton = null;
+    [SerializeField]
+    private ButtonDetection _detectButton = null;
+    [SerializeField]
+    private GameObject _endZone = null;
 
     private List<Double> _spawnedTimes = new(); //timestamp that note spawned (based on midi)
     private List<Note> notes = new();
@@ -47,7 +54,7 @@ public class Activator : MonoBehaviour
         {
             if (SongManager.GetAudioSourceTime() >= _spawnedTimes[spawnIndex] - SongManager.Instance.NoteTime)
             {
-                var note = _noteManager.OnSpawnNotesToTarget(transform.position);
+                var note = _noteManager.OnSpawnNotesToTarget(_endZone.transform.position);
                 notes.Add(note);
                 spawnIndex++;
             }
@@ -59,27 +66,51 @@ public class Activator : MonoBehaviour
             double marginOfError = SongManager.Instance.MarginOfError;
             double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.InputDelayInMilliseconds / 1000.0);
 
-            if (Input.GetKeyDown(KeyInput))
+            //if (Input.GetKeyDown(KeyInput))
+            //{
+            //    if (Math.Abs(audioTime - timeStamp) < marginOfError)
+            //    {
+            //        //Hit();
+            //        Debug.LogError(String.Format("Hit on {0} note", inputIndex + 1));
+            //        var temp = notes[inputIndex];
+            //        Destroy(temp.gameObject);
+            //        inputIndex++;
+            //    }
+            //    else
+            //    {
+            //        //Debug.LogError(String.Format("Hit inaccurate on {0} note with {1} delay", inputIndex, Math.Abs(audioTime - timeStamp)));
+            //        //Debug.LogError("tre");
+            //    }
+            //}
+            //if (_detectButton.IsButtonClicked())
+            //{
+            //    if (_isInCollision)
+            //    {
+            //        Debug.LogError(String.Format("Hit on {0} note", inputIndex + 1));
+            //        var temp = notes[inputIndex];
+            //        Destroy(temp.gameObject);
+            //        inputIndex++;
+            //    }
+            //    else
+            //    {
+            //        Debug.LogError("you missed");
+            //    }
+            //}
+            if (_detectButton.IsButtonClicked())
             {
                 if (Math.Abs(audioTime - timeStamp) < marginOfError)
                 {
-                    //Hit();
-                    Debug.LogError(String.Format("Hit on {0} note", inputIndex + 1));
+                    Hit();
+                    //Debug.LogError(String.Format("Hit on {0} note", inputIndex + 1));
                     var temp = notes[inputIndex];
-                    //notes.RemoveAt(inputIndex);
                     Destroy(temp.gameObject);
                     inputIndex++;
-                }
-                else
-                {
-                    //Debug.LogError(String.Format("Hit inaccurate on {0} note with {1} delay", inputIndex, Math.Abs(audioTime - timeStamp)));
-                    //Debug.LogError("tre");
                 }
             }
             if (timeStamp + marginOfError <= audioTime)
             {
-                //Miss();
-                Debug.LogError(String.Format("Missed {0} note", inputIndex));
+                Miss();
+                //Debug.LogError(String.Format("Missed {0} note", inputIndex + 1));
                 inputIndex++;
             }
         }
@@ -92,10 +123,7 @@ public class Activator : MonoBehaviour
     {
         ScoreManager.Miss();
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        
-    }
+
     private void OnTriggerEnter(Collider other)
     {
         _isInCollision = true;
