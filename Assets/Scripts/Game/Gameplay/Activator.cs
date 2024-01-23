@@ -98,10 +98,17 @@ public class Activator : MonoBehaviour
             //}
             if (_detectButton.IsButtonClicked())
             {
+                if (_isInCollision)
+                {
+                    GamePlayManager.Instance.OnTriggerNoteHit(inputIndex);
+                }
+                else
+                {
+                    GamePlayManager.Instance.OnTriggerNoteMiss(inputIndex);
+                }
                 if (Math.Abs(audioTime - timeStamp) < marginOfError)
                 {
                     Hit();
-                    //Debug.LogError(String.Format("Hit on {0} note", inputIndex + 1));
                     var temp = notes[inputIndex];
                     Destroy(temp.gameObject);
                     inputIndex++;
@@ -110,9 +117,23 @@ public class Activator : MonoBehaviour
             if (timeStamp + marginOfError <= audioTime)
             {
                 Miss();
-                //Debug.LogError(String.Format("Missed {0} note", inputIndex + 1));
                 inputIndex++;
             }
+        }
+    }
+    public void OnResponseNoteMiss(Component component, object data)
+    {
+        int index;
+        if (data is int)
+        {
+            index = (int)data;
+            var temp = notes[index];
+            Destroy(temp.gameObject);
+            ScoreManager.Miss();
+        }
+        else
+        {
+            Debug.LogError("Wront data pack in OnResponseNoteMiss");
         }
     }
     private void Hit()

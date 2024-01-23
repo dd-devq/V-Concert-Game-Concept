@@ -23,6 +23,7 @@ public class Define
     {
         Activator,
         PerfectHit,
+        Note,
     }
 
     [Serializable]
