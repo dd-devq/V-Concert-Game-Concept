@@ -8,7 +8,7 @@ public class NoteManager : ManualSingletonMono<NoteManager>
     [SerializeField]
     private SongManager _songManager = null;
     [SerializeField]
-    private Note _notePrefab = null;
+    private List<Note> _listNotePrefabs = null;
 
     [SerializeField]
     private GameObject _spawnObj = null;
@@ -21,11 +21,12 @@ public class NoteManager : ManualSingletonMono<NoteManager>
     }
     public Note OnSpawnNotesToTarget(Vector3 endPos)
     {
-        var note = GCUtils.InstantiateObject<Note>(_notePrefab, _noteContainer.transform);
+        var idx = Random.Range(0, _listNotePrefabs.Count);
+        var note = GCUtils.InstantiateObject<Note>(_listNotePrefabs[idx], _noteContainer.transform);
         note.SpawnPos = _spawnObj.transform.position;
         note.EndPos = endPos;
-        note.transform.rotation = _notePrefab.transform.rotation;
-        note.transform.localScale = _notePrefab.transform.localScale;
+        note.transform.rotation = _listNotePrefabs[idx].transform.rotation;
+        note.transform.localScale = _listNotePrefabs[idx].transform.localScale;
         note.gameObject.SetActive(true);
         return note;
     }
