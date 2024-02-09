@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class EventData
+{
+    
+}
+
 public class Define
 {
     public static int NoteInterval = 2;
@@ -27,7 +32,7 @@ public class Define
     }
 
     [Serializable]
-    public struct GameplayData
+    public class GameplayData: EventData
     {
         public int SongIndex;
 
@@ -35,7 +40,7 @@ public class Define
         //character
     }
 
-    public struct EndGameData
+    public class EndGameData: EventData
     {
         public int Score;
         public int Coins;
@@ -60,10 +65,16 @@ public class Define
         Gem,
     }
 
-    public struct RegisterInfo
+    public class RegisterInfo: EventData
     {
-        private string username;
-        private string password;
+        public string username;
+        public string password;
+    }
+
+    public class LoginInfo: EventData
+    {
+        public string username;
+        public string password;
     }
     
 }

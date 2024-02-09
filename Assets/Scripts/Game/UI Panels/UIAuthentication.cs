@@ -10,4 +10,14 @@ public class UIAuthentication : BaseUI
     public GameEvent onRegisterClick;
 
     private bool _staySignedIn;
+
+    public void onLogin()
+    {
+        var loginInfo = new Define.LoginInfo
+        {
+            username = "test",
+            password = "123456"
+        };
+        onLoginClick.Invoke(this, loginInfo);   
+    }
 }

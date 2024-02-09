@@ -16,6 +16,11 @@ public class GameEventListener : MonoBehaviour
         gameEvent.Deregister(this);
     }
 
+    public void OnEventInvoke(Component sender, EventData data)
+    {
+        response?.Invoke(sender, data);
+    }
+    
     public void OnEventInvoke(Component sender, object data)
     {
         response?.Invoke(sender, data);
