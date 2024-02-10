@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 820065715705467868}
   - component: {fileID: 4344238751933267154}
   m_Layer: 0
-  m_Name: NotePrefab
+  m_Name: NotePrefab1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,8 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6670611a4a82b4391b312913053c28c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inTargetZone: 0
-  onNoteInTargetZone: {fileID: 0}
+  onNoteInActivator: {fileID: 0}
 --- !u!65 &820065715705467868
 BoxCollider:
   m_ObjectHideFlags: 0

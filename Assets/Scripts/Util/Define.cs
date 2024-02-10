@@ -15,6 +15,10 @@ public class Define
 
     public static string MidiFilePath = "/Resources/Audio/MIDI/";
     public static string AudioFilePath = Application.streamingAssetsPath + "/Audio/";
+
+    public static int NormalHit = 10;
+    public static int GoodHit = 20;
+    public static int PerfectHit = 100;
     public enum InputMode
     {
         SingleKey,
