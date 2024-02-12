@@ -1,30 +1,31 @@
 using System;
 using Game.System;
 using UnityEngine;
-
+using UI;
 public abstract class BaseUI : MonoBehaviour
 {
     public UIIndex index;
+    public GameEvent playSoundOnClick;
     private RectTransform _transform;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _transform = GetComponent<RectTransform>();
     }
 
-    public void OnInit()
+    public virtual void OnInit()
     {
     }
 
-    private void OnSetup(UIParam param = null)
+    protected virtual void OnSetup(UIParam param = null)
     {
     }
 
-    private void OnShow(UIParam param = null)
+    protected virtual void OnShow(UIParam param = null)
     {
     }
 
-    private void OnHide()
+    protected virtual void OnHide()
     {
     }
 
@@ -41,10 +42,11 @@ public abstract class BaseUI : MonoBehaviour
     {
         OnHide();
         gameObject.SetActive(false);
-        callback?.Invoke();
+        callback?.Invoke(); 
     }
-}
 
-public abstract class UIParam
-{
+    protected virtual void PlaySoundOnClick()
+    {
+        playSoundOnClick.Invoke(this, null);
+    }
 }

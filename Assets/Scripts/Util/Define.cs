@@ -1,11 +1,37 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EventData
 {
     
+}
+
+namespace EventType
+{
+}
+
+namespace UI
+{
+    public class UIParam
+    {
+
+    }
+
+    public enum UIIndex
+    {
+        UIAuthentication,
+        UICharacter,
+        UIInventory,
+        UIItem,
+        UILoading,
+        UILobby,
+        UIMainMenu,
+        UIPause,
+        UISetting,
+        UIShop,
+        UISongSelection,
+        UIVictory
+    }
 }
 
 public class Define

@@ -11,7 +11,7 @@ public class UIAuthentication : BaseUI
 
     private bool _staySignedIn;
 
-    public void onLogin()
+    public void OnLogin()
     {
         var loginInfo = new Define.LoginInfo
         {
@@ -19,5 +19,15 @@ public class UIAuthentication : BaseUI
             password = "123456"
         };
         onLoginClick.Invoke(this, loginInfo);   
+    }
+
+    public void OnRegisterClick()
+    {
+        
+    }
+
+    public void OnForgotPasswordClick()
+    {
+        
     }
 }
