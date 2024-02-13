@@ -1,6 +1,4 @@
-namespace Game.System
+public class UIManager : ManualSingletonMono<UIManager>
 {
-    public class UIManager : ManualSingletonMono<UIManager>
-    {
-    }
+    
 }

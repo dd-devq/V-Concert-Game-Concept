@@ -105,6 +105,8 @@ public class Define
     {
         public string username;
         public string password;
+        public Action onLoginFail;
+        public Action onLoginSuccess;
     }
     
 }

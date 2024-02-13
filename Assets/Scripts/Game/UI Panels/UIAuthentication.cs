@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class UIAuthentication : BaseUI
 {
@@ -9,25 +7,57 @@ public class UIAuthentication : BaseUI
     public GameEvent onForgotPasswordClick;
     public GameEvent onRegisterClick;
 
-    private bool _staySignedIn;
+    public GameObject loginPanel;
+    public GameObject registerPanel;
+
 
     public void OnLogin()
     {
         var loginInfo = new Define.LoginInfo
         {
             username = "test",
-            password = "123456"
+            password = "123456",
+            onLoginFail = OnLoginFail,
+            onLoginSuccess = OnLoginSuccess
         };
-        onLoginClick.Invoke(this, loginInfo);   
+        onLoginClick.Invoke(this, loginInfo);
     }
 
     public void OnRegisterClick()
     {
-        
+    }
+
+    private void OnLoginFail()
+    {
+        Debug.Log("Login Failed");
+    }
+
+    private void OnLoginSuccess()
+    {
+        Debug.Log("Login Success");
+    }
+
+    public void RegisterToLogin()
+    {
+        if (registerPanel.activeSelf)
+        {
+            registerPanel.SetActive(false);
+            loginPanel.SetActive(true);
+            loginPanel.transform.SetAsLastSibling();
+        }
+    }
+
+    public void LoginToRegister()
+    {
+        if (loginPanel.activeSelf)
+        {
+            loginPanel.SetActive(false);
+            registerPanel.SetActive(true);
+            registerPanel.transform.SetAsLastSibling();
+        }
     }
 
     public void OnForgotPasswordClick()
     {
-        
     }
 }

@@ -1,7 +1,7 @@
 using System;
-using Game.System;
 using UnityEngine;
 using UI;
+
 public abstract class BaseUI : MonoBehaviour
 {
     public UIIndex index;
@@ -42,7 +42,7 @@ public abstract class BaseUI : MonoBehaviour
     {
         OnHide();
         gameObject.SetActive(false);
-        callback?.Invoke(); 
+        callback?.Invoke();
     }
 
     protected virtual void PlaySoundOnClick()
