@@ -367,8 +367,8 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -466,6 +466,7 @@ GameObject:
   - component: {fileID: 46621055}
   - component: {fileID: 46621054}
   - component: {fileID: 46621056}
+  - component: {fileID: 46621057}
   m_Layer: 0
   m_Name: Playfab Controller
   m_TagString: Untagged
@@ -519,6 +520,34 @@ MonoBehaviour:
       - m_Target: {fileID: 46621054}
         m_TargetAssemblyTypeName: PlayfabAuthentication, Assembly-CSharp
         m_MethodName: Login
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &46621057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46621053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2015ecbe932d044fc979fcc092bec833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 9394f4951e16144899932410926fd2f5, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 46621054}
+        m_TargetAssemblyTypeName: PlayfabAuthentication, Assembly-CSharp
+        m_MethodName: Register
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1319,7 +1348,7 @@ GameObject:
   - component: {fileID: 217035068}
   - component: {fileID: 217035067}
   m_Layer: 5
-  m_Name: Confirm Password
+  m_Name: Email
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1394,14 +1423,14 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
+  m_ContentType: 6
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 7
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 7
   m_RegexValue: 
   m_GlobalPointSize: 14
   m_CharacterLimit: 0
@@ -3568,7 +3597,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Password
+  m_text: Email
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7e822a337bb754ed0a93d8d96e5a8e28, type: 2}
   m_sharedMaterial: {fileID: -6786839204148433670, guid: 7e822a337bb754ed0a93d8d96e5a8e28, type: 2}
@@ -5553,7 +5582,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1209243674}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 380002947750837368}
+        m_TargetAssemblyTypeName: UIAuthentication, Assembly-CSharp
+        m_MethodName: OnRegisterClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1209243674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7813,8 +7854,8 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -9258,9 +9299,14 @@ MonoBehaviour:
   playSoundOnClick: {fileID: 0}
   onLoginClick: {fileID: 11400000, guid: 4f9f128ee3de146cfbf709ffa6a4cb0d, type: 2}
   onForgotPasswordClick: {fileID: 0}
-  onRegisterClick: {fileID: 0}
+  onRegisterClick: {fileID: 11400000, guid: 9394f4951e16144899932410926fd2f5, type: 2}
   loginPanel: {fileID: 618055376}
+  loginUsername: {fileID: 559485021}
+  loginPassword: {fileID: 25189154}
   registerPanel: {fileID: 441479014}
+  registerUsername: {fileID: 364170430}
+  registerPassword: {fileID: 1804538045}
+  registerEmail: {fileID: 217035067}
 --- !u!1 &380002947750837374
 GameObject:
   m_ObjectHideFlags: 0

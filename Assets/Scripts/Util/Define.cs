@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class EventData
 {
-    
 }
 
 namespace EventType
@@ -14,7 +13,6 @@ namespace UI
 {
     public class UIParam
     {
-
     }
 
     public enum UIIndex
@@ -34,7 +32,7 @@ namespace UI
     }
 }
 
-public class Define
+public static class Define
 {
     public static int NoteInterval = 2;
     public static int NumOfActivators = 4;
@@ -45,15 +43,18 @@ public class Define
     public static int NormalHit = 10;
     public static int GoodHit = 20;
     public static int PerfectHit = 100;
+
     public enum InputMode
     {
         SingleKey,
         MultiKey,
     }
+
     public enum PrefabName
     {
         NotePrefab
     }
+
     public enum Tags
     {
         Activator,
@@ -62,7 +63,7 @@ public class Define
     }
 
     [Serializable]
-    public class GameplayData: EventData
+    public class GameplayData : EventData
     {
         public int SongIndex;
 
@@ -70,7 +71,7 @@ public class Define
         //character
     }
 
-    public class EndGameData: EventData
+    public class EndGameData : EventData
     {
         public int Score;
         public int Coins;
@@ -86,27 +87,22 @@ public class Define
     {
         public string ItemName;
         public int Price;
-        public Currency Type;
     }
 
-    public enum Currency
-    {
-        Coin,
-        Gem,
-    }
-
-    public class RegisterInfo: EventData
+    public struct RegisterInfo
     {
         public string username;
         public string password;
+        public string email;
+        public Action onRegisterFail;
+        public Action onRegisterSuccess;
     }
 
-    public class LoginInfo: EventData
+    public class LoginInfo
     {
         public string username;
         public string password;
         public Action onLoginFail;
         public Action onLoginSuccess;
     }
-    
 }
