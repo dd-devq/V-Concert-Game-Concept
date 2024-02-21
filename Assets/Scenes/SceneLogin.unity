@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1007,13 +1007,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1763587916}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1763587920}
+        m_TargetAssemblyTypeName: UIAuthentication, Assembly-CSharp
+        m_MethodName: OnLoginClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3191,9 +3191,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
+  playSoundOnClick: {fileID: 0}
   onLoginClick: {fileID: 11400000, guid: 4f9f128ee3de146cfbf709ffa6a4cb0d, type: 2}
   onForgotPasswordClick: {fileID: 0}
   onRegisterClick: {fileID: 0}
+  loginPanel: {fileID: 0}
+  loginUsername: {fileID: 0}
+  loginPassword: {fileID: 0}
+  registerPanel: {fileID: 0}
+  registerUsername: {fileID: 0}
+  registerPassword: {fileID: 0}
+  registerEmail: {fileID: 0}
 --- !u!1 &1876482697
 GameObject:
   m_ObjectHideFlags: 0
