@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnNoteHit: {fileID: 11400000, guid: a9103b66fe4c74870907de86a254d925, type: 2}
   OnNoteMiss: {fileID: 11400000, guid: 0081127ff9d734589a220db7be3f4f02, type: 2}
+  PlayerModel: {fileID: 1015913242}
 --- !u!1 &110159002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,6 +1709,11 @@ MonoBehaviour:
   noteTapY: 0
   InputDelayInMilliseconds: 0
   _songName: take-me-to-your-heart
+--- !u!1 &1015913242 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 07a0c661e3e097641aa6e4f54576111c, type: 3}
+  m_PrefabInstance: {fileID: 413617401}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1106452875
 GameObject:
   m_ObjectHideFlags: 0

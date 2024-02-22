@@ -55,17 +55,20 @@ public class Note : MonoBehaviour
                     Debug.LogError("Normal Hit");
                     NoteManager.Instance.OnNormalHit();
                     _isHit = true;
+                    OnFinishNotes();
                 }
                 else if (_inPerfectHit)
                 {
                     Debug.LogError("Perfect Hit");
                     NoteManager.Instance.OnPerfectHit();
                     _isHit = true;
+                    OnFinishNotes();
                 }
                 else if (!_inActivator && !_inPerfectHit)
                 {
                     NoteManager.Instance.OnMissHit();
                     Debug.LogError("Missed Click");
+                    Destroy(gameObject);
                 }
             }
         }
@@ -85,13 +88,27 @@ public class Note : MonoBehaviour
         if (other.CompareTag(Define.Tags.Activator.ToString()))
         {
             _inActivator = true;
-            //Debug.LogError("Trigger Normal");
+            Debug.LogError("Trigger Normal");
         }
         if (other.CompareTag(Define.Tags.PerfectHit.ToString()))
         {
             _inPerfectHit = true;
-            //Debug.LogError("Trigger Perfect");
+            Debug.LogError("Trigger Perfect");
         } 
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(Define.Tags.Activator.ToString()))
+        {
+            _inActivator = false;
+            Debug.LogError("Exit Normal");
+        }
+        if (other.CompareTag(Define.Tags.PerfectHit.ToString()))
+        {
+            _inPerfectHit = false;
+            Debug.LogError("Exit Perfect");
+        }
     }
 
     private void Kill()

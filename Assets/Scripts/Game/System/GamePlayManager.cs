@@ -6,6 +6,8 @@ public class GamePlayManager : ManualSingletonMono<GamePlayManager>
 {
     public GameEvent OnNoteHit;
     public GameEvent OnNoteMiss;
+    public GameObject PlayerModel;
+
     public void OnTriggerNoteMiss(object data)
     {
         OnNoteMiss.Invoke(null, data);

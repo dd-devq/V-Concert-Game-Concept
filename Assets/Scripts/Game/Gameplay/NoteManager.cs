@@ -32,14 +32,15 @@ public class NoteManager : ManualSingletonMono<NoteManager>
     }
     public void OnNormalHit()
     {
-
+        ScoreManager.Hit();
     }
     public void OnPerfectHit()
     {
-
+        ScoreManager.Hit();
+        ScoreManager.Hit();
     }
     public void OnMissHit()
     {
-
+        ScoreManager.Miss();
     }
 }

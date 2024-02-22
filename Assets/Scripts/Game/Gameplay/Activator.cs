@@ -47,6 +47,10 @@ public class Activator : MonoBehaviour
         get => _spawnedTimes;
         set => _spawnedTimes = value;
     }
+    public GameObject EndZone
+    {
+        get => _endZone;
+    }
 
     void Update()
     {
@@ -96,24 +100,24 @@ public class Activator : MonoBehaviour
             //        Debug.LogError("you missed");
             //    }
             //}
-            if (_detectButton.IsButtonClicked())
-            {
-                if (_isInCollision)
-                {
-                    GamePlayManager.Instance.OnTriggerNoteHit(inputIndex);
-                }
-                else
-                {
-                    GamePlayManager.Instance.OnTriggerNoteMiss(inputIndex);
-                }
-                if (Math.Abs(audioTime - timeStamp) < marginOfError)
-                {
-                    Hit();
-                    var temp = notes[inputIndex];
-                    Destroy(temp.gameObject);
-                    inputIndex++;
-                }
-            }
+            //if (_detectButton.IsButtonClicked())
+            //{
+            //    if (_isInCollision)
+            //    {
+            //        GamePlayManager.Instance.OnTriggerNoteHit(inputIndex);
+            //    }
+            //    else
+            //    {
+            //        GamePlayManager.Instance.OnTriggerNoteMiss(inputIndex);
+            //    }
+            //    if (Math.Abs(audioTime - timeStamp) < marginOfError)
+            //    {
+            //        Hit();
+            //        var temp = notes[inputIndex];
+            //        Destroy(temp.gameObject);
+            //        inputIndex++;
+            //    }
+            //}
             if (timeStamp + marginOfError <= audioTime)
             {
                 Miss();

@@ -22,7 +22,19 @@ public class ActivatorManager : ManualSingletonMono<ActivatorManager>
     }
     private void Start()
     {
-        
+        //get each endzone in activator from list of activators and then calculate the position of endzone:
+        //the position of endzone, activator and the playermodel from GamePlayManager are on the same line,
+        //the distance between the endzone and the activator is = 20% of the distance between the activator and the playermodel,
+        //the position of endzone is opposite to the position of the activator.
+        for (var i = 0; i < _activators.Count; i++)
+        {
+            var endZone = _activators[i].EndZone;
+            var activator = _activators[i].gameObject;
+            var playerModel = GamePlayManager.Instance.PlayerModel;
+            var distance = Vector3.Distance(activator.transform.position, playerModel.transform.position);
+            var direction = (activator.transform.position - playerModel.transform.position).normalized;
+            endZone.transform.position = activator.transform.position + direction * distance * 0.3f;
+        }
     }
 
     private void GetListActivators()
