@@ -2,7 +2,7 @@ using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 
-public class PlayfabAuthentication : MonoBehaviour
+public class PlayfabAuthenticationController : MonoBehaviour
 {
     public void Login(Component sender, object data)
     {
@@ -14,11 +14,11 @@ public class PlayfabAuthentication : MonoBehaviour
         var tmp = (Define.RegisterInfo)data;
         PlayFabClientAPI.RegisterPlayFabUser(new RegisterPlayFabUserRequest()
         {
-            Email = tmp.email,
-            DisplayName = tmp.username,
-            Password = tmp.password,
+            Email = tmp.Email,
+            DisplayName = tmp.Username,
+            Password = tmp.Password,
             RequireBothUsernameAndEmail = false
-        }, succesResult => tmp.onRegisterSuccess(), RegisterFail);
+        }, succesResult => tmp.RegisterSuccessCallback(), RegisterFail);
     }
 
     public void ResetPassword(Component sender, object data)

@@ -91,11 +91,11 @@ public static class Define
 
     public struct RegisterInfo
     {
-        public string username;
-        public string password;
-        public string email;
-        public Action onRegisterFail;
-        public Action onRegisterSuccess;
+        public string Username;
+        public string Password;
+        public string Email;
+        public Action RegisterFailCallback;
+        public Action RegisterSuccessCallback;
     }
 
     public class LoginInfo
