@@ -21,7 +21,6 @@ public class SongManager : ManualSingletonMono<SongManager>
     public float noteSpawnY;
     public float noteTapY;
     public int InputDelayInMilliseconds;
-    //public List<Activator> _listActivators = new List<Activator>();
 
     private List<Vector3> _lstPosActivator = new List<Vector3>();
     public string _songName = "take-me-to-your-heart";

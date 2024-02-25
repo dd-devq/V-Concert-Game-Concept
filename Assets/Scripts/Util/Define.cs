@@ -34,12 +34,14 @@ namespace UI
 
 public static class Define
 {
+    //the gap time between 2 notes
     public static int NoteInterval = 2;
     public static int NumOfActivators = 4;
 
     public static string MidiFilePath = "/Resources/Audio/MIDI/";
     public static string AudioFilePath = Application.streamingAssetsPath + "/Audio/";
 
+    public static int BaseScore = 5;
     public static int NormalHit = 10;
     public static int GoodHit = 20;
     public static int PerfectHit = 100;

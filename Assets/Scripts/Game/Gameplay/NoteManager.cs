@@ -23,7 +23,7 @@ public class NoteManager : ManualSingletonMono<NoteManager>
     {
         var idx = Random.Range(0, _listNotePrefabs.Count);
         var note = GCUtils.InstantiateObject<Note>(_listNotePrefabs[idx], _noteContainer.transform);
-        note.SpawnPos = _spawnObj.transform.position;
+        note.SetSpawnPosition(_spawnObj.transform.position);
         note.EndPos = endPos;
         note.transform.rotation = _listNotePrefabs[idx].transform.rotation;
         note.transform.localScale = _listNotePrefabs[idx].transform.localScale;

@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Activator
   - Prefab
-  - TargetZone
   - PerfectHit
   layers:
   - Default
