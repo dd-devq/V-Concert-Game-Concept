@@ -2,93 +2,66 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using UI;
+using UnityEngine.Serialization;
 
 public class UIManager : ManualSingletonMono<UIManager>
 {
-    private Dictionary<UIIndex, BaseUI> dictUIs = new Dictionary<UIIndex, BaseUI>();
-    public UIIndex currentUIIndex;
-    public List<BaseUI> lsUIs = new List<BaseUI>();
-    public List<BaseUI> lsUIShows = new List<BaseUI>();
+    private Dictionary<UIIndex, BaseUI> _uiDictionary = new();
+    [SerializeField] private List<BaseUI> listUI = new();
 
-    public void InitUI(Action callback)
+    public UIIndex CurrentUIIndex;
+    
+
+    private void Start()
     {
-        for (int i = 0; i < lsUIs.Count; i++)
+        InitUI(null);
+    }
+
+    private void InitUI(Action callback)
+    {
+        foreach (var ui in listUI)
         {
-            GameObject goUI = lsUIs[i].gameObject;
+            var goUI = ui.gameObject;
             goUI.transform.SetParent(transform, false);
 
-            RectTransform rectTransform = goUI.transform.GetComponent<RectTransform>();
+            var rectTransform = goUI.transform.GetComponent<RectTransform>();
             rectTransform.offsetMax = rectTransform.offsetMin = Vector2.zero;
 
-            BaseUI baseUI = goUI.GetComponent<BaseUI>();
+            var baseUI = goUI.GetComponent<BaseUI>();
             baseUI.OnInit();
 
-            dictUIs.Add(baseUI.index, baseUI);
+            _uiDictionary.Add(baseUI.index, baseUI);
 
             goUI.SetActive(false);
         }
 
-        if (callback != null)
-        {
-            callback();
-        }
+        callback?.Invoke();
+        ShowUI(UIIndex.UIAuthentication);
     }
 
     public void ShowUI(UIIndex uiIndex, UIParam param = null, Action callback = null)
     {
-        BaseUI baseUI = dictUIs[uiIndex];
-        if (!lsUIShows.Contains(baseUI))
-        {
-            baseUI.ShowUI(param, callback);
-            lsUIShows.Add(baseUI);
-        }
+        var ui = GetUI(uiIndex);
+        ui.ShowUI(param, callback);
+        Debug.Log(ui.index);
     }
 
     public void HideUI(BaseUI baseUI, Action callback = null)
     {
         baseUI.HideUI(callback);
-        lsUIShows.Remove(baseUI);
+        Debug.Log(baseUI.index);
     }
 
     public void HideUI(UIIndex uiIndex, Action callback = null)
     {
-        BaseUI baseUI = FindUIVisible(uiIndex);
-        if (baseUI != null)
-        {
-            HideUI(baseUI);
-        }
     }
 
     public void HideAllUI(Action callback = null)
     {
-        for (int i = 0; i < lsUIShows.Count - 1; i++)
-        {
-            HideUI(lsUIShows[i], null);
-        }
-
-        if (lsUIShows.Count > 0)
-        {
-            HideUI(lsUIShows[lsUIShows.Count - 1], callback);
-        }
-
-        lsUIShows.Clear();
     }
 
-    public BaseUI FindUIVisible(UIIndex uiIndex)
+    private BaseUI GetUI(UIIndex uiIndex)
     {
-        for (int i = 0; i < lsUIShows.Count; i++)
-        {
-            if (lsUIShows[i].index == uiIndex)
-            {
-                return lsUIShows[i];
-            }
-        }
-
-        return null;
-    }
-
-    public BaseUI FindUI(UIIndex uiIndex)
-    {
-        return dictUIs[uiIndex];
+        return _uiDictionary[uiIndex];
     }
 }

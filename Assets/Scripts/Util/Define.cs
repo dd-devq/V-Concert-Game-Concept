@@ -28,7 +28,8 @@ namespace UI
         UISetting,
         UIShop,
         UISongSelection,
-        UIVictory
+        UIVictory,
+        None
     }
 }
 
@@ -100,11 +101,11 @@ public static class Define
         public Action RegisterSuccessCallback;
     }
 
-    public class LoginInfo
+    public struct LoginInfo
     {
-        public string username;
-        public string password;
-        public Action onLoginFail;
-        public Action onLoginSuccess;
+        public string Username;
+        public string Password;
+        public Action LoginFailCallback;
+        public Action LoginSuccessCallback;
     }
 }

@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using PlayFab.ClientModels;
 using UnityEngine;
 
 public class PlayfabPlayerDataController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void GetSongList()
     {
     }
 
-    // Update is called once per frame
-    void Update()
+    private void GetStoreItems()
     {
     }
 }

@@ -1,12 +1,13 @@
 using System;
 using TMPro;
+using UI;
 using UnityEngine;
 
 public class UIAuthentication : BaseUI
 {
     [Header("Events")]
     [SerializeField] private GameEvent onLoginClick;
-    [SerializeField] private GameEvent onForgotPasswordClick;
+    [SerializeField] private GameEvent onResetPasswordClick;
     [SerializeField] private GameEvent onRegisterClick;
 
     [Header("Login")]
@@ -20,15 +21,19 @@ public class UIAuthentication : BaseUI
     [SerializeField] private TMP_InputField registerEmail;
     [SerializeField] private TMP_InputField registerPassword;
 
+    [Header("Reset")]
+    [SerializeField] private GameObject resetPasswordPanel;
+    [SerializeField] private TMP_InputField accountUsername;
 
     public void OnLoginClick()
     {
+        // UI 
         var loginInfo = new Define.LoginInfo
         {
-            username = loginUsername.text,
-            password = loginPassword.text,
-            onLoginFail = OnLoginFail,
-            onLoginSuccess = OnLoginSuccess
+            Username = loginUsername.text,
+            Password = loginPassword.text,
+            LoginFailCallback = OnLoginFail,
+            LoginSuccessCallback = OnLoginSuccess
         };
         onLoginClick.Invoke(this, loginInfo);
     }
@@ -46,18 +51,21 @@ public class UIAuthentication : BaseUI
         onRegisterClick.Invoke(this, registerInfo);
     }
 
-    public void OnForgotPasswordClick()
+    public void OnResetPasswordClick()
     {
     }
 
     private void OnLoginFail()
     {
         Debug.Log("Login Failed");
+        // UI Manager Raise Warning
     }
 
     private void OnLoginSuccess()
     {
         Debug.Log("Login Success");
+        UIManager.Instance.HideUI(this);
+        UIManager.Instance.ShowUI(UIIndex.UIMainMenu);
     }
 
     private void OnRegisterFail()
@@ -89,4 +97,24 @@ public class UIAuthentication : BaseUI
             registerPanel.transform.SetAsLastSibling();
         }
     }
+    public void ResetToLogin()
+    {
+        if (registerPanel.activeSelf)
+        {
+            registerPanel.SetActive(false);
+            loginPanel.SetActive(true);
+            loginPanel.transform.SetAsLastSibling();
+        }
+    }
+
+    public void LoginToReset()
+    {
+        if (loginPanel.activeSelf)
+        {
+            loginPanel.SetActive(false);
+            registerPanel.SetActive(true);
+            registerPanel.transform.SetAsLastSibling();
+        }
+    }
+    
 }

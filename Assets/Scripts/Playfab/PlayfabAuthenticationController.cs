@@ -1,36 +1,76 @@
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
+using System.Text.RegularExpressions;
 
 public class PlayfabAuthenticationController : MonoBehaviour
 {
+    private const string EmailPattern =
+        @"^([0-9a-zA-Z]([\+\-_\.][0-9a-zA-Z]+)*)+@(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9]{2,17})$";
+
     public void Login(Component sender, object data)
     {
         var tmp = (Define.LoginInfo)data;
+        if (ValidateEmail(tmp.Username))
+        {
+            Debug.Log("Email Login");
+            LoginWithEmail(tmp);
+        }
+        else
+        {
+            LoginWithUsername(tmp);
+        }
+    }
+
+    private void LoginWithEmail(Define.LoginInfo data)
+    {
+        var request = new LoginWithEmailAddressRequest()
+        {
+            Email = data.Username,
+            Password = data.Password,
+            TitleId = PlayfabSettings.TitleID
+        };
+        PlayFabClientAPI.LoginWithEmailAddress(request, result => data.LoginSuccessCallback(),
+            error => data.LoginFailCallback());
+    }
+
+    private void LoginWithUsername(Define.LoginInfo data)
+    {
+        var request = new LoginWithPlayFabRequest()
+        {
+            Username = data.Username,
+            Password = data.Password,
+            TitleId = PlayfabSettings.TitleID
+        };
+        PlayFabClientAPI.LoginWithPlayFab(request, result => data.LoginSuccessCallback(),
+            error => data.LoginFailCallback());
+    }
+
+    public void Logout()
+    {
     }
 
     public void Register(Component sender, object data)
     {
         var tmp = (Define.RegisterInfo)data;
-        PlayFabClientAPI.RegisterPlayFabUser(new RegisterPlayFabUserRequest()
+        var request = new RegisterPlayFabUserRequest()
         {
             Email = tmp.Email,
-            DisplayName = tmp.Username,
+            Username = tmp.Username,
             Password = tmp.Password,
             RequireBothUsernameAndEmail = false
-        }, succesResult => tmp.RegisterSuccessCallback(), RegisterFail);
+        };
+        PlayFabClientAPI.RegisterPlayFabUser(request, successResult => tmp.RegisterSuccessCallback(),
+            failResult => tmp.RegisterFailCallback());
     }
+
 
     public void ResetPassword(Component sender, object data)
     {
     }
 
-    private void RegisterFail(PlayFabError error)
+    private static bool ValidateEmail(string em)
     {
-        Debug.Log("[PLAYFAB ERROR]: " + error);
-    }
-
-    private void LoginFail(PlayFabError error)
-    {
+        return Regex.IsMatch(em, EmailPattern);
     }
 }
