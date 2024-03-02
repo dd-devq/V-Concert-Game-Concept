@@ -1,13 +1,6 @@
 using System;
 using UnityEngine;
 
-public class EventData
-{
-}
-
-namespace EventType
-{
-}
 
 namespace UI
 {
@@ -30,6 +23,31 @@ namespace UI
         UISongSelection,
         UIVictory,
         None
+    }
+}
+
+namespace EventData
+{
+    public struct RegisterInfo
+    {
+        public string Username;
+        public string Password;
+        public string Email;
+        public Action RegisterFailCallback;
+        public Action RegisterSuccessCallback;
+    }
+
+    public struct LoginInfo
+    {
+        public string Username;
+        public string Password;
+        public Action LoginFailCallback;
+        public Action LoginSuccessCallback;
+    }
+
+    public struct ResetInfo
+    {
+        public string Username;
     }
 }
 
@@ -64,48 +82,5 @@ public static class Define
         PerfectHit,
         Note,
     }
-
-    [Serializable]
-    public class GameplayData : EventData
-    {
-        public int SongIndex;
-
-        public SceneIndex SceneIndex;
-        //character
-    }
-
-    public class EndGameData : EventData
-    {
-        public int Score;
-        public int Coins;
-        public int Gems;
-    }
-
-    public struct CharacterData
-    {
-        public string ModelName;
-    }
-
-    public struct ItemData
-    {
-        public string ItemName;
-        public int Price;
-    }
-
-    public struct RegisterInfo
-    {
-        public string Username;
-        public string Password;
-        public string Email;
-        public Action RegisterFailCallback;
-        public Action RegisterSuccessCallback;
-    }
-
-    public struct LoginInfo
-    {
-        public string Username;
-        public string Password;
-        public Action LoginFailCallback;
-        public Action LoginSuccessCallback;
-    }
+    
 }

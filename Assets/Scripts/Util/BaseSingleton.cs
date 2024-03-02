@@ -1,6 +1,4 @@
 //========================================================
-// class BaseSingleton
-//========================================================
 // - for making singleton object
 // - usage
 //		+ declare class(derived )	
@@ -45,7 +43,7 @@ public class ManualSingletonMono<T> : MonoBehaviour where T : MonoBehaviour
 			if (_applicationIsQuitting)
 				return null;
 
-			if (_instance == null)
+			if (!_instance)
 			{
 				Debug.LogError("Cannot find Object with type " + typeof(T));
 			}
@@ -56,7 +54,7 @@ public class ManualSingletonMono<T> : MonoBehaviour where T : MonoBehaviour
 
 	public static bool IsInstanceValid()
 	{
-		return (_instance != null);
+		return _instance != null;
 	}
 
 	//MUST OVERRIDE AWAKE AT CHILD CLASS
@@ -64,8 +62,8 @@ public class ManualSingletonMono<T> : MonoBehaviour where T : MonoBehaviour
 	{
 		if (_instance != null)
 		{
-			Debug.LogWarning("Already has intsance of " + typeof(T));
-			GameObject.Destroy(this);
+			Debug.LogWarning("Already has instance of " + typeof(T));
+			Destroy(this);
 			return;
 		}
 
@@ -74,18 +72,15 @@ public class ManualSingletonMono<T> : MonoBehaviour where T : MonoBehaviour
 
 		if (_instance == null)
 		{
-			Debug.LogError("Awake xong van NULL " + typeof(T));
+			Debug.LogError("NULL after Awake  " + typeof(T));
 		}
-		//Debug.LogError("Awake of " + typeof(T));
 	}
 
 	protected virtual void OnDestroy()
 	{
-		//self destroy?
 		if (_instance == this)
 		{
 			_instance = null;
-			//Debug.LogError ("OnDestroy " + typeof(T));
 		}
 	}
 

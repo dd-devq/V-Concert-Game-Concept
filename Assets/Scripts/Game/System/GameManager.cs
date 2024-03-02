@@ -40,8 +40,6 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0;
                 break;
             case GameState.End:
-                var data = new Define.EndGameData { Gems = 10, Coins = 200, Score = 200000 };
-                OnGameplayPause.Invoke(this, data);
                 break;
             default:
                 throw new Exception("Unknown Game State");

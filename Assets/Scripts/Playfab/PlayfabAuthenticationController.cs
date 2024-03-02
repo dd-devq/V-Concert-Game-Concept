@@ -2,7 +2,7 @@ using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 using System.Text.RegularExpressions;
-
+using EventData;
 public class PlayfabAuthenticationController : MonoBehaviour
 {
     private const string EmailPattern =
@@ -10,7 +10,7 @@ public class PlayfabAuthenticationController : MonoBehaviour
 
     public void Login(Component sender, object data)
     {
-        var tmp = (Define.LoginInfo)data;
+        var tmp = (LoginInfo)data;
         if (ValidateEmail(tmp.Username))
         {
             Debug.Log("Email Login");
@@ -22,7 +22,7 @@ public class PlayfabAuthenticationController : MonoBehaviour
         }
     }
 
-    private void LoginWithEmail(Define.LoginInfo data)
+    private void LoginWithEmail(LoginInfo data)
     {
         var request = new LoginWithEmailAddressRequest()
         {
@@ -34,9 +34,9 @@ public class PlayfabAuthenticationController : MonoBehaviour
             error => data.LoginFailCallback());
     }
 
-    private void LoginWithUsername(Define.LoginInfo data)
+    private void LoginWithUsername(LoginInfo data)
     {
-        var request = new LoginWithPlayFabRequest()
+        var request = new LoginWithPlayFabRequest
         {
             Username = data.Username,
             Password = data.Password,
@@ -52,8 +52,8 @@ public class PlayfabAuthenticationController : MonoBehaviour
 
     public void Register(Component sender, object data)
     {
-        var tmp = (Define.RegisterInfo)data;
-        var request = new RegisterPlayFabUserRequest()
+        var tmp = (RegisterInfo)data;
+        var request = new RegisterPlayFabUserRequest
         {
             Email = tmp.Email,
             Username = tmp.Username,

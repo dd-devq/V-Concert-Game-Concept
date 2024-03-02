@@ -1,34 +1,33 @@
-using System;
 using TMPro;
 using UI;
 using UnityEngine;
+using EventData;
 
 public class UIAuthentication : BaseUI
 {
-    [Header("Events")]
+    [Header("Events")] 
     [SerializeField] private GameEvent onLoginClick;
     [SerializeField] private GameEvent onResetPasswordClick;
     [SerializeField] private GameEvent onRegisterClick;
 
-    [Header("Login")]
+    [Header("Login")] 
     [SerializeField] private GameObject loginPanel;
     [SerializeField] private TMP_InputField loginUsername;
     [SerializeField] private TMP_InputField loginPassword;
 
-    [Header("Register")]
+    [Header("Register")] 
     [SerializeField] private GameObject registerPanel;
     [SerializeField] private TMP_InputField registerUsername;
     [SerializeField] private TMP_InputField registerEmail;
     [SerializeField] private TMP_InputField registerPassword;
 
-    [Header("Reset")]
+    [Header("Reset")] 
     [SerializeField] private GameObject resetPasswordPanel;
     [SerializeField] private TMP_InputField accountUsername;
 
     public void OnLoginClick()
     {
-        // UI 
-        var loginInfo = new Define.LoginInfo
+        var loginInfo = new LoginInfo
         {
             Username = loginUsername.text,
             Password = loginPassword.text,
@@ -40,7 +39,7 @@ public class UIAuthentication : BaseUI
 
     public void OnRegisterClick()
     {
-        var registerInfo = new Define.RegisterInfo
+        var registerInfo = new RegisterInfo
         {
             Username = registerUsername.text,
             Password = registerPassword.text,
@@ -97,6 +96,7 @@ public class UIAuthentication : BaseUI
             registerPanel.transform.SetAsLastSibling();
         }
     }
+
     public void ResetToLogin()
     {
         if (registerPanel.activeSelf)
@@ -116,5 +116,4 @@ public class UIAuthentication : BaseUI
             registerPanel.transform.SetAsLastSibling();
         }
     }
-    
 }
