@@ -46,7 +46,7 @@ public class Note : MonoBehaviour
             double timeSinceInstantiated = SongManager.GetAudioSourceTime() - _timeInstantiated;
             float t = (float)(timeSinceInstantiated / SongManager.Instance.NoteTime);
             
-            if (t > 2)
+            if (t > 1.2)
             {
                 OnFinishNotes();
             }
@@ -94,12 +94,12 @@ public class Note : MonoBehaviour
         if (other.CompareTag(Define.Tags.Activator.ToString()))
         {
             _inActivator = true;
-            Debug.LogError("Trigger Normal");
+            //Debug.LogError("Trigger Normal");
         }
         if (other.CompareTag(Define.Tags.PerfectHit.ToString()))
         {
             _inPerfectHit = true;
-            Debug.LogError("Trigger Perfect");
+            //Debug.LogError("Trigger Perfect");
         } 
     }
 
@@ -108,12 +108,12 @@ public class Note : MonoBehaviour
         if (other.CompareTag(Define.Tags.Activator.ToString()))
         {
             _inActivator = false;
-            Debug.LogError("Exit Normal");
+            //Debug.LogError("Exit Normal");
         }
         if (other.CompareTag(Define.Tags.PerfectHit.ToString()))
         {
             _inPerfectHit = false;
-            Debug.LogError("Exit Perfect");
+            //Debug.LogError("Exit Perfect");
         }
     }
 

@@ -5,7 +5,10 @@ using TMPro;
 
 public class ScoreManager : ManualSingletonMono<ScoreManager>
 {
-    public TextMeshProUGUI ScoreText = null;
+    [SerializeField]
+    private TextMeshProUGUI _scoreText = null;
+    [SerializeField]
+    private TextMeshProUGUI _comboText = null;
     
     private static int _comboScore;
 
@@ -33,6 +36,6 @@ public class ScoreManager : ManualSingletonMono<ScoreManager>
     }
     private void Update()
     {
-        ScoreText.text = _comboScore.ToString();
+        _scoreText.text = _comboScore.ToString();
     }
 }
