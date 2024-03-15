@@ -10,28 +10,23 @@ public class Note : MonoBehaviour
     [Header("Events")]
     public GameEvent onNoteInActivator;
 
-    private Vector3 _spawnPos;
+    private Vector3 _startPos;
     private Vector3 _endPos;
     private double _timeInstantiated;
     private bool _inActivator = false;
     private bool _inPerfectHit = false;
     private bool _isHit = false;
 
-    public Vector3 SpawnPos
-    {
-        get => _spawnPos;
-        set => _spawnPos = value;
-    }
     public Vector3 EndPos
     {
         get => _endPos;
         set => _endPos = value;
     }
 
-    public void SetSpawnPosition(Vector3 spawnPos)
+    public Vector3 StartPos
     {
-        _spawnPos = spawnPos;
-        transform.position = _spawnPos;
+        get => _startPos;
+        set => _startPos = value;
     }
 
     private void Start()
@@ -52,7 +47,7 @@ public class Note : MonoBehaviour
             }
             else
             {
-                transform.position = Vector3.Lerp(_spawnPos, _endPos, t);
+                transform.position = Vector3.Lerp(_startPos, _endPos, t);
             }
             if (Input.GetKeyDown(InputManager.KeyInput) && !_isHit)
             {

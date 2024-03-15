@@ -19,6 +19,8 @@ public class Activator : MonoBehaviour
     private ButtonDetection _detectButton = null;
     [SerializeField]
     private GameObject _endZone = null;
+    [SerializeField]
+    private GameObject _startZone = null;
 
     private List<Double> _spawnedTimes = new(); //timestamp that note spawned (based on midi)
     private List<Note> notes = new();
@@ -56,7 +58,7 @@ public class Activator : MonoBehaviour
         {
             if (SongManager.GetAudioSourceTime() >= _spawnedTimes[spawnIndex] - SongManager.Instance.NoteTime)
             {
-                var note = _noteManager.OnSpawnNotesToTarget(_endZone.transform.position);
+                var note = _noteManager.OnSpawnNotesToTarget(_startZone.transform.position, _endZone.transform.position);
                 notes.Add(note);
                 spawnIndex++;
             }
