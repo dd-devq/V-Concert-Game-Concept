@@ -49,6 +49,15 @@ namespace EventData
     {
         public string Username;
     }
+    
+}
+
+public enum HitType
+{
+    Hit,
+    Good,
+    Perfect,
+    Miss
 }
 
 public static class Define

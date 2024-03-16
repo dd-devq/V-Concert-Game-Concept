@@ -1,98 +1,62 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using System.Collections.Generic;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
-using UnityEngine.Networking;
-using System;
+using MidiNote = Melanchall.DryWetMidi.Interaction.Note;
 
 public class SongManager : ManualSingletonMono<SongManager>
 {
-    public AudioSource AudioSource = null;
-    public static MidiFile Midifile = null;
-    [SerializeField]
-    private ActivatorManager _ActivatorManager = null;
+    private static MidiFile _songMidiFile;
+    private float _songDelayInSeconds;
 
-    public float SongDelayInSeconds;
-    public double MarginOfError; //In Seconds
-    [HideInInspector]
-    public float NoteTime = 1;
-    public float noteSpawnY;
-    public float noteTapY;
-    public int InputDelayInMilliseconds;
+    public GameEvent startSong;
 
-    private List<Vector3> _lstPosActivator = new List<Vector3>();
-    public string _songName = "take-me-to-your-heart";
-
-    public float noteDespawnY
-    {
-        get { return noteTapY - (noteSpawnY - noteTapY); }
-    }
-
-    public override void Awake()
-    {
-        base.Awake();
-
-    }
+    [SerializeField] private string _songName;
 
     private void Start()
     {
-        if (Application.streamingAssetsPath.StartsWith("http://") ||
-            Application.streamingAssetsPath.StartsWith("https://"))
-        {
-            ReadFromWeb();
-        }
-        else
-        {
-            ReadFromFile();
-        }
-        foreach (var item in _ActivatorManager.Activators)
-        {
-            _lstPosActivator.Add(item.gameObject.transform.position);
-        }
-    }
-
-    private void ReadFromWeb()
-    {
-        Debug.LogError("Read From Web is being developped!");
+        ReadFromFile();
     }
 
     private void ReadFromFile()
     {
-        string midiFileName = _songName + ".mid";
-        string audioFileName = _songName + ".ogg";
-        string midiPath = Path.Combine(Define.MidiFilePath, midiFileName);
-        string audioPath = Path.Combine(Define.AudioFilePath, audioFileName);
-        Midifile = MidiFile.Read(Application.dataPath + midiPath);
-        AudioClip AudioClip = GCUtils.LoadAudioClip(audioPath);
-        AudioSource.clip = AudioClip;
-        GetDataFromMidi();
+        var midiFileName = _songName + ".mid";
+        var midiFilePath = Path.Combine(Define.MidiFilePath, midiFileName);
+        _songMidiFile = MidiFile.Read(Application.dataPath + midiFilePath);
+        if (_songMidiFile == null)
+        {
+            Debug.LogError("Unknown Midi File: " + midiFileName);
+            Debug.LogError("Unknown Resources: " + midiFilePath);
+        }
+        else
+        {
+            GetDataFromMidi();
+        }
     }
 
     private void GetDataFromMidi()
     {
-        var notes = Midifile.GetNotes();
-        List<Melanchall.DryWetMidi.Interaction.Note> listNote = new();
+        var notes = _songMidiFile.GetNotes();
+
+        List<MidiNote> listNote = new();
         listNote.AddRange(notes);
-        _ActivatorManager.SetSpawnedTimes(listNote);
-        //foreach (var zone in _ActivatorManager.Activators)
-        //{
-        //    zone.SetSpawnedTimes(listNote);
-        //}
-        Invoke(nameof(StartSong), SongDelayInSeconds);
+        Debug.Log(listNote.Count);
+        foreach (var activator in ActivatorManager.Instance.activators)
+        {
+            activator.SetTimeStamps(listNote);
+        }
+
+        Invoke(nameof(StartSong), _songDelayInSeconds);
     }
 
-    public void StartSong()
+    private void StartSong()
     {
-        AudioSource.Play();
+        // startSong.Invoke(this, true);
     }
 
-    /// <summary>
-    /// return current real-time in audio clip played.
-    /// </summary>
-    public static double GetAudioSourceTime()
+    public static TempoMap GetSongTempo()
     {
-        return (double)Instance.AudioSource.timeSamples / Instance.AudioSource.clip.frequency;
+        return _songMidiFile.GetTempoMap();
     }
 }

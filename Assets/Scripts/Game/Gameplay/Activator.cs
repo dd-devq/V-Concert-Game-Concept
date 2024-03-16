@@ -1,149 +1,87 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Melanchall.DryWetMidi.Interaction;
-using Melanchall.DryWetMidi.MusicTheory;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Linq;
+using System.Collections.Generic;
+using Melanchall.DryWetMidi.Core;
+using Melanchall.DryWetMidi.Interaction;
+using MidiNote = Melanchall.DryWetMidi.Interaction.Note;
+using NoteName = Melanchall.DryWetMidi.MusicTheory.NoteName;
 
 public class Activator : MonoBehaviour
 {
-    public KeyCode KeyInput;
+    public KeyCode keyInput;
+    public NoteName noteRestriction;
 
-    [SerializeField]
-    private NoteManager _noteManager = null;
-    [SerializeField]
-    private Button _playButton = null;
-    [SerializeField]
-    private ButtonDetection _detectButton = null;
-    [SerializeField]
-    private GameObject _endZone = null;
+    private List<double> _timeStamps;
+    private List<MidiNote> _listNotes;
 
-    private List<Double> _spawnedTimes = new(); //timestamp that note spawned (based on midi)
-    private List<Note> notes = new();
-    private List<NoteName> _pitches = new();
-    private int spawnIndex = 0;
-    private int inputIndex = 0;
-    private int _zoneIndex = 0;
+    [SerializeField] private GameEvent _hitNote;
 
-    /// <summary>
-    /// from 0 to 3
-    /// </summary>
-    public int ZoneIndex
+    [SerializeField] private double _resetTime;
+
+    private int spawnIndex;
+
+    private void Start()
     {
-        get => _zoneIndex;
-        set => _zoneIndex = value;
-    }
-    public List<NoteName> Pitches
-    {
-        get => _pitches;
-        set => _pitches = value;
-    }
-    public List<Double> SpawnedTimes
-    {
-        get => _spawnedTimes;
-        set => _spawnedTimes = value;
-    }
-    public GameObject EndZone
-    {
-        get => _endZone;
+        spawnIndex = 0;
+        _timeStamps = new List<double>();
     }
 
-    void Update()
+
+    private void Update()
     {
-        if (spawnIndex < _spawnedTimes.Count)
+        if (Input.GetKeyDown(keyInput) )
         {
-            if (SongManager.GetAudioSourceTime() >= _spawnedTimes[spawnIndex] - SongManager.Instance.NoteTime)
-            {
-                var note = _noteManager.OnSpawnNotesToTarget(_endZone.transform.position);
-                notes.Add(note);
-                spawnIndex++;
-            }
+            Compress();
         }
 
-        if (inputIndex < _spawnedTimes.Count)
+        if (Input.GetKeyUp(keyInput))
         {
-            double timeStamp = _spawnedTimes[inputIndex];
-            double marginOfError = SongManager.Instance.MarginOfError;
-            double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.InputDelayInMilliseconds / 1000.0);
+            Decompress();
+        }
+    }
 
-            //if (Input.GetKeyDown(KeyInput))
-            //{
-            //    if (Math.Abs(audioTime - timeStamp) < marginOfError)
-            //    {
-            //        //Hit();
-            //        Debug.LogError(String.Format("Hit on {0} note", inputIndex + 1));
-            //        var temp = notes[inputIndex];
-            //        Destroy(temp.gameObject);
-            //        inputIndex++;
-            //    }
-            //    else
-            //    {
-            //        //Debug.LogError(String.Format("Hit inaccurate on {0} note with {1} delay", inputIndex, Math.Abs(audioTime - timeStamp)));
-            //        //Debug.LogError("tre");
-            //    }
-            //}
-            //if (_detectButton.IsButtonClicked())
-            //{
-            //    if (_isInCollision)
-            //    {
-            //        Debug.LogError(String.Format("Hit on {0} note", inputIndex + 1));
-            //        var temp = notes[inputIndex];
-            //        Destroy(temp.gameObject);
-            //        inputIndex++;
-            //    }
-            //    else
-            //    {
-            //        Debug.LogError("you missed");
-            //    }
-            //}
-            //if (_detectButton.IsButtonClicked())
-            //{
-            //    if (_isInCollision)
-            //    {
-            //        GamePlayManager.Instance.OnTriggerNoteHit(inputIndex);
-            //    }
-            //    else
-            //    {
-            //        GamePlayManager.Instance.OnTriggerNoteMiss(inputIndex);
-            //    }
-            //    if (Math.Abs(audioTime - timeStamp) < marginOfError)
-            //    {
-            //        Hit();
-            //        var temp = notes[inputIndex];
-            //        Destroy(temp.gameObject);
-            //        inputIndex++;
-            //    }
-            //}
-            if (timeStamp + marginOfError <= audioTime)
+    public void SetTimeStamps(List<MidiNote> listNotes)
+    {
+        var tempoMap = SongManager.GetSongTempo();
+        foreach (var note in listNotes)
+        {
+            if (note.NoteName == noteRestriction)
             {
-                Miss();
-                inputIndex++;
+                var metricTimeSpan =
+                    TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, tempoMap);
+                var timeStamp = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
+                                (double)metricTimeSpan.Milliseconds / 1000f;
+                _timeStamps.Add(timeStamp);
+                Debug.Log(gameObject.name + ": " + timeStamp);
             }
         }
     }
-    public void OnResponseNoteMiss(Component component, object data)
+
+    private void Compress()
     {
-        int index;
-        if (data is int)
-        {
-            index = (int)data;
-            var temp = notes[index];
-            Destroy(temp.gameObject);
-            ScoreManager.Miss();
-        }
-        else
-        {
-            Debug.LogError("Wront data pack in OnResponseNoteMiss");
-        }
+        var newPosition = transform.localPosition;
+        newPosition.y /= 2;
+
+        var newScale = transform.localScale;
+        newScale.y /= 2;
+
+        transform.localPosition = newPosition;
+        transform.localScale = newScale;
     }
-    private void Hit()
+
+    private void Decompress()
     {
-        ScoreManager.Hit();
+        var newPosition = transform.localPosition;
+        newPosition.y *= 2;
+
+        var newScale = transform.localScale;
+        newScale.y *= 2;
+
+        transform.localPosition = newPosition;
+        transform.localScale = newScale;
     }
-    private void Miss()
+
+    public bool CheckHit()
     {
-        ScoreManager.Miss();
+        return false;
     }
 }
