@@ -28,7 +28,7 @@ public class Activator : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(keyInput) )
+        if (Input.GetKeyDown(keyInput))
         {
             Compress();
         }
@@ -41,7 +41,7 @@ public class Activator : MonoBehaviour
 
     public void SetTimeStamps(List<MidiNote> listNotes)
     {
-        var tempoMap = SongManager.GetSongTempo();
+        var tempoMap = Conductor.GetSongTempo();
         foreach (var note in listNotes)
         {
             if (note.NoteName == noteRestriction)

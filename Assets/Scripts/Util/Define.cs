@@ -49,7 +49,6 @@ namespace EventData
     {
         public string Username;
     }
-    
 }
 
 public enum HitType
@@ -58,6 +57,13 @@ public enum HitType
     Good,
     Perfect,
     Miss
+}
+
+public enum SongState
+{
+    Play,
+    Pause,
+    End
 }
 
 public static class Define
@@ -91,5 +97,4 @@ public static class Define
         PerfectHit,
         Note,
     }
-    
 }

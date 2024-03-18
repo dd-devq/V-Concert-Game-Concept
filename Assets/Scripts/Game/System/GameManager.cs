@@ -6,11 +6,9 @@ public class GameManager : MonoBehaviour
 {
     private GameState _gameState;
 
-    public GameEvent OnGameplayLoad;
-    public GameEvent OnGameplayEnd;
-    public GameEvent OnGameplayPause;
-    public GameEvent OnGameplay;
-
+    private GameEvent startSong;
+    private GameEvent pauseGame;
+    private GameEvent endGame;
     public void InitGame(Component sender, object data)
     {
     }
@@ -31,12 +29,9 @@ public class GameManager : MonoBehaviour
     {
         switch (_gameState)
         {
-            case GameState.Load:
-                break;
             case GameState.Play:
                 break;
             case GameState.Pause:
-                OnGameplayPause.Invoke(this, null);
                 Time.timeScale = 0;
                 break;
             case GameState.End:
