@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class PlayfabSettings
+public class UIItemViewer : BaseUI
 {
-    public const string TitleID = "3ED12";
+    public GameEvent onBuyClick;
 }

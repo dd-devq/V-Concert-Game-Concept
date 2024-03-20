@@ -28,7 +28,7 @@ public class PlayfabAuthenticationController : MonoBehaviour
         {
             Email = data.Username,
             Password = data.Password,
-            TitleId = PlayfabSettings.TitleID
+            TitleId = PlayFabSettings.TitleId
         };
         PlayFabClientAPI.LoginWithEmailAddress(request, result => data.LoginSuccessCallback(),
             error => data.LoginFailCallback());
@@ -40,7 +40,7 @@ public class PlayfabAuthenticationController : MonoBehaviour
         {
             Username = data.Username,
             Password = data.Password,
-            TitleId = PlayfabSettings.TitleID
+            TitleId = PlayFabSettings.TitleId
         };
         PlayFabClientAPI.LoginWithPlayFab(request, result => data.LoginSuccessCallback(),
             error => data.LoginFailCallback());

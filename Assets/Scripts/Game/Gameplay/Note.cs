@@ -8,7 +8,8 @@ using UnityEngine.Serialization;
 public class Note : MonoBehaviour
 {
     [Header("Events")] private Vector3 _spawnPos;
-    private Vector3 _targetPos;
+    private Vector3 _targetPos; // activator
+    private Vector3 _endPos; // destroy note
 
     private double _instantiatedTime;
     private double _assignedTime;
@@ -28,7 +29,7 @@ public class Note : MonoBehaviour
     public void Move()
     {
     }
-    
+
     private void Update()
     {
     }

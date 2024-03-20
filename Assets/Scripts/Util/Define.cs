@@ -11,17 +11,22 @@ namespace UI
     public enum UIIndex
     {
         UIAuthentication,
-        UICharacter,
-        UIInventory,
-        UIItem,
-        UILoading,
-        UILobby,
         UIMainMenu,
-        UIPause,
-        UISetting,
+        UISplash,
+        UIInventory,
         UIShop,
+        UISetting,
+        UIItemViewer,
+        UICharacterSelection,
+        UIModeSelection,
         UISongSelection,
+        UIAvatarSelection,
+        UILobby,
+        UILoading,
+        UINavigationTab,
+        UIHUD,
         UIVictory,
+        UIPause,
         None
     }
 }

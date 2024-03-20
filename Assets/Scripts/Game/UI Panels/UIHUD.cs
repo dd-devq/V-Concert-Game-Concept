@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class HUD : BaseUI
+public class UIHUD : BaseUI
 {
     [SerializeField] private TextMeshProUGUI score;
 
