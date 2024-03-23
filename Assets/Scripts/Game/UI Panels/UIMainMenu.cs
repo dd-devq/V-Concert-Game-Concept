@@ -1,19 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
 public class UIMainMenu : BaseUI
 {
-    public GameEvent onSongClick;
-    public GameEvent onHomeClick;
-    public GameEvent onShopClick;
-    public GameEvent onInventoryClick;
-    public GameEvent onCharacterClick;
-    public GameEvent onAvatarClick;
-    public GameEvent onPlayClick;
-
-    public void OnPlayClick()
+    public void OnShopClick()
     {
-        onPlayClick.Invoke(this, SceneIndex.Gameplay);
+        UIManager.Instance.HideUI(index);
+        UIManager.Instance.ShowUI(UIIndex.UIShop);
+        
+    }
+    
+    public void OnInventoryClick()
+    {
+        UIManager.Instance.HideUI(index);
+        UIManager.Instance.ShowUI(UIIndex.UIInventory);
+    }
+    
+    public void OnSettingClick()
+    {
+        UIManager.Instance.HideUI(index);
+        UIManager.Instance.HideUI(UIIndex.UINavigationTab);
+        UIManager.Instance.ShowUI(UIIndex.UISetting);
+    }
+    
+    public void OnExitClick()
+    {
+        Application.Quit();
     }
 }

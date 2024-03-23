@@ -6,11 +6,11 @@ using UnityEngine.Serialization;
 
 public class UIManager : ManualSingletonMono<UIManager>
 {
-    private Dictionary<UIIndex, BaseUI> _uiDictionary = new();
+    private readonly Dictionary<UIIndex, BaseUI> _uiDictionary = new();
     [SerializeField] private List<BaseUI> listUI = new();
 
-    public UIIndex CurrentUIIndex;
-    
+    public UIIndex currentUIIndex;
+
 
     private void Start()
     {
@@ -24,9 +24,6 @@ public class UIManager : ManualSingletonMono<UIManager>
             var goUI = ui.gameObject;
             goUI.transform.SetParent(transform, false);
 
-            var rectTransform = goUI.transform.GetComponent<RectTransform>();
-            rectTransform.offsetMax = rectTransform.offsetMin = Vector2.zero;
-
             var baseUI = goUI.GetComponent<BaseUI>();
             baseUI.OnInit();
 
@@ -36,24 +33,38 @@ public class UIManager : ManualSingletonMono<UIManager>
         }
 
         callback?.Invoke();
-        ShowUI(UIIndex.UIAuthentication);
+        ShowUI(UIIndex.UIMainMenu);
+        ShowUI(UIIndex.UINavigationTab);
     }
 
     public void ShowUI(UIIndex uiIndex, UIParam param = null, Action callback = null)
     {
         var ui = GetUI(uiIndex);
         ui.ShowUI(param, callback);
-        Debug.Log(ui.index);
+
+        if (uiIndex != UIIndex.UINavigationTab)
+        {
+            currentUIIndex = uiIndex;
+        }
     }
 
     public void HideUI(BaseUI baseUI, Action callback = null)
     {
         baseUI.HideUI(callback);
-        Debug.Log(baseUI.index);
+        if (baseUI.index != UIIndex.UINavigationTab)
+        {
+            currentUIIndex = UIIndex.None;
+        }
     }
 
     public void HideUI(UIIndex uiIndex, Action callback = null)
     {
+        var ui = GetUI(uiIndex);
+        ui.HideUI(callback);
+        if (uiIndex != UIIndex.UINavigationTab)
+        {
+            currentUIIndex = UIIndex.None;
+        }
     }
 
     public void HideAllUI(Action callback = null)

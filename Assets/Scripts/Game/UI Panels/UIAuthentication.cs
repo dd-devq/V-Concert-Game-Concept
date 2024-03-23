@@ -65,6 +65,7 @@ public class UIAuthentication : BaseUI
         Debug.Log("Login Success");
         UIManager.Instance.HideUI(this);
         UIManager.Instance.ShowUI(UIIndex.UIMainMenu);
+        UIManager.Instance.ShowUI(UIIndex.UINavigationTab);
     }
 
     private void OnRegisterFail()

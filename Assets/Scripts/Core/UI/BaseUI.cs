@@ -6,7 +6,7 @@ public abstract class BaseUI : MonoBehaviour
 {
     public UIIndex index;
     public GameEvent playSoundOnClick;
-    private RectTransform _transform;
+    protected RectTransform _transform;
 
     protected virtual void Awake()
     {
@@ -32,7 +32,6 @@ public abstract class BaseUI : MonoBehaviour
     public void ShowUI(UIParam param = null, Action callback = null)
     {
         gameObject.SetActive(true);
-        _transform.SetAsLastSibling();
         OnSetup(param);
         OnShow(param);
         callback?.Invoke();
