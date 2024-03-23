@@ -8,11 +8,11 @@ public class ActivatorManager : ManualSingletonMono<ActivatorManager>
 
     private void Start()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     private void Update()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 }
