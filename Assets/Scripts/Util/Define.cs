@@ -6,13 +6,13 @@ namespace UI
 {
     public class UIParam
     {
+        public object Data;
     }
 
     public enum UIIndex
     {
         UIAuthentication,
         UIMainMenu,
-        UISplash,
         UIInventory,
         UIShop,
         UISetting,
@@ -48,6 +48,12 @@ namespace EventData
         public string Password;
         public Action LoginFailCallback;
         public Action LoginSuccessCallback;
+    }
+    
+    public struct AutoLoginInfo
+    {
+        public Action AutoLoginFailCallback;
+        public Action AutoLoginSuccessCallback;
     }
 
     public struct ResetInfo

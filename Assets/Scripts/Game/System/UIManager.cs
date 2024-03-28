@@ -6,14 +6,21 @@ using UnityEngine.Serialization;
 
 public class UIManager : ManualSingletonMono<UIManager>
 {
-    private readonly Dictionary<UIIndex, BaseUI> _uiDictionary = new();
+    private Dictionary<UIIndex, BaseUI> _uiDictionary;
     [SerializeField] private List<BaseUI> listUI = new();
 
     public UIIndex currentUIIndex;
 
 
+    public override void Awake()
+    {
+        base.Awake();
+        _uiDictionary = new Dictionary<UIIndex, BaseUI>();
+    }
+
     private void Start()
     {
+        currentUIIndex = UIIndex.None;
         InitUI(null);
     }
 
@@ -33,8 +40,7 @@ public class UIManager : ManualSingletonMono<UIManager>
         }
 
         callback?.Invoke();
-        ShowUI(UIIndex.UIMainMenu);
-        ShowUI(UIIndex.UINavigationTab);
+        ShowUI(UIIndex.UIAuthentication);
     }
 
     public void ShowUI(UIIndex uiIndex, UIParam param = null, Action callback = null)

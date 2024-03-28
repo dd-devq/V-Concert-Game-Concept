@@ -24,9 +24,17 @@ public class UIMainMenu : BaseUI
         UIManager.Instance.HideUI(UIIndex.UINavigationTab);
         UIManager.Instance.ShowUI(UIIndex.UISetting);
     }
+
     
     public void OnExitClick()
     {
         Application.Quit();
     }
+    
+    public void OnCharacterSelectionClick()
+    {
+        UIManager.Instance.HideUI(index);
+        UIManager.Instance.ShowUI(UIIndex.UICharacterSelection);
+    }
+
 }

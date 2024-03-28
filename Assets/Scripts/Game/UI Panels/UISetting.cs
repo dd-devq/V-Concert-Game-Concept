@@ -38,5 +38,7 @@ public class UISetting : BaseUI
     public void OnLogoutClick()
     {
         onLogoutClick.Invoke(this, null);
+        UIManager.Instance.HideUI(this);
+        UIManager.Instance.ShowUI(UIIndex.UIAuthentication);
     }
 }

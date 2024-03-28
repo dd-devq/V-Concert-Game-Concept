@@ -1,29 +1,62 @@
+using System;
 using TMPro;
 using UI;
 using UnityEngine;
 using EventData;
+using Unity.VisualScripting;
 
 public class UIAuthentication : BaseUI
 {
-    [Header("Events")] 
-    [SerializeField] private GameEvent onLoginClick;
+    [Header("Events")] [SerializeField] private GameEvent onLoginClick;
     [SerializeField] private GameEvent onResetPasswordClick;
     [SerializeField] private GameEvent onRegisterClick;
+    [SerializeField] private GameEvent autoLogin;
 
-    [Header("Login")] 
-    [SerializeField] private GameObject loginPanel;
+    [Header("Login")] [SerializeField] private GameObject loginPanel;
     [SerializeField] private TMP_InputField loginUsername;
     [SerializeField] private TMP_InputField loginPassword;
 
-    [Header("Register")] 
-    [SerializeField] private GameObject registerPanel;
+    [Header("Register")] [SerializeField] private GameObject registerPanel;
     [SerializeField] private TMP_InputField registerUsername;
     [SerializeField] private TMP_InputField registerEmail;
     [SerializeField] private TMP_InputField registerPassword;
 
-    [Header("Reset")] 
-    [SerializeField] private GameObject resetPasswordPanel;
+    [Header("Reset")] [SerializeField] private GameObject resetPasswordPanel;
     [SerializeField] private TMP_InputField accountUsername;
+
+
+    private void Start()
+    {
+        if (PlayerPrefs.GetInt("PlayfabRememberMe", 0) == 1)
+        {
+            Invoke(nameof(AutoLogin), .25f);
+        }
+    }
+
+    private void AutoLogin()
+    {
+        var loginInfo = new AutoLoginInfo
+        {
+            AutoLoginFailCallback =  AutoLoginFail,
+            AutoLoginSuccessCallback =  AutoLoginSuccess
+        };
+        autoLogin.Invoke(this, loginInfo);
+    }
+    
+    private static void AutoLoginFail()
+    {
+        Debug.Log("Login Failed");
+        // UI Manager Raise Warning
+    }
+
+    private void AutoLoginSuccess()
+    {
+        Debug.Log("Login Success");
+        UIManager.Instance.HideUI(this);
+        UIManager.Instance.ShowUI(UIIndex.UIMainMenu);
+        UIManager.Instance.ShowUI(UIIndex.UINavigationTab);
+    }
+
 
     public void OnLoginClick()
     {
@@ -36,6 +69,7 @@ public class UIAuthentication : BaseUI
         };
         onLoginClick.Invoke(this, loginInfo);
     }
+
 
     public void OnRegisterClick()
     {
@@ -54,7 +88,7 @@ public class UIAuthentication : BaseUI
     {
     }
 
-    private void OnLoginFail()
+    private static void OnLoginFail()
     {
         Debug.Log("Login Failed");
         // UI Manager Raise Warning
@@ -68,12 +102,12 @@ public class UIAuthentication : BaseUI
         UIManager.Instance.ShowUI(UIIndex.UINavigationTab);
     }
 
-    private void OnRegisterFail()
+    private static void OnRegisterFail()
     {
         Debug.Log("Register Failed");
     }
 
-    private void OnRegisterSuccess()
+    private static void OnRegisterSuccess()
     {
         Debug.Log("Register Success");
     }

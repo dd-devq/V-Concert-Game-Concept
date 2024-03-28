@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
 public class UIModeSelection : BaseUI
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnSinglePlayerClick()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        UIManager.Instance.HideUI(this);   
+        UIManager.Instance.ShowUI(UIIndex.UISongSelection);   
     }
 }

@@ -1,19 +1,23 @@
+using System;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 using System.Text.RegularExpressions;
 using EventData;
+
 public class PlayfabAuthenticationController : MonoBehaviour
 {
-    private const string EmailPattern =
-        @"^([0-9a-zA-Z]([\+\-_\.][0-9a-zA-Z]+)*)+@(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9]{2,17})$";
+    private const string PlayfabRememberMeId = "PlayfabRememberMeId";
+    private const string PlayfabRememberMe = "PlayfabRememberMe";
+
+
+    #region Login
 
     public void Login(Component sender, object data)
     {
         var tmp = (LoginInfo)data;
         if (ValidateEmail(tmp.Username))
         {
-            Debug.Log("Email Login");
             LoginWithEmail(tmp);
         }
         else
@@ -22,7 +26,28 @@ public class PlayfabAuthenticationController : MonoBehaviour
         }
     }
 
-    private void LoginWithEmail(LoginInfo data)
+    public void AutoLogin(Component sender, object data)
+    {
+        var tmp = (AutoLoginInfo)data;
+        var rememberMeId = PlayerPrefs.GetString(PlayfabRememberMeId);
+        PlayFabClientAPI.LoginWithCustomID(new LoginWithCustomIDRequest
+        {
+            TitleId = PlayFabSettings.TitleId,
+            CustomId = rememberMeId,
+            CreateAccount = true
+        }, _ =>
+        {
+            // Debug.Log(result.PlayFabId);
+            // Debug.Log(result.SessionTicket);
+            tmp.AutoLoginSuccessCallback();
+        }, _ =>
+        {
+            tmp.AutoLoginFailCallback();
+            Logout(null, null);
+        });
+    }
+
+    private static void LoginWithEmail(LoginInfo data)
     {
         var request = new LoginWithEmailAddressRequest()
         {
@@ -30,11 +55,15 @@ public class PlayfabAuthenticationController : MonoBehaviour
             Password = data.Password,
             TitleId = PlayFabSettings.TitleId
         };
-        PlayFabClientAPI.LoginWithEmailAddress(request, result => data.LoginSuccessCallback(),
+        PlayFabClientAPI.LoginWithEmailAddress(request, _ =>
+            {
+                data.LoginSuccessCallback();
+                RememberMe();
+            },
             error => data.LoginFailCallback());
     }
 
-    private void LoginWithUsername(LoginInfo data)
+    private static void LoginWithUsername(LoginInfo data)
     {
         var request = new LoginWithPlayFabRequest
         {
@@ -42,13 +71,17 @@ public class PlayfabAuthenticationController : MonoBehaviour
             Password = data.Password,
             TitleId = PlayFabSettings.TitleId
         };
-        PlayFabClientAPI.LoginWithPlayFab(request, result => data.LoginSuccessCallback(),
+        PlayFabClientAPI.LoginWithPlayFab(request, _ =>
+            {
+                data.LoginSuccessCallback();
+                RememberMe();
+            },
             error => data.LoginFailCallback());
     }
 
-    public void Logout()
-    {
-    }
+    #endregion
+
+    #region Register
 
     public void Register(Component sender, object data)
     {
@@ -64,13 +97,54 @@ public class PlayfabAuthenticationController : MonoBehaviour
             failResult => tmp.RegisterFailCallback());
     }
 
+    #endregion
+
+    #region Logout
+
+    public void Logout(Component sender, object data)
+    {
+        PlayFabClientAPI.ForgetAllCredentials();
+        ClearRememberMe();
+    }
+
+    #endregion
+
+    #region ResetPassword
 
     public void ResetPassword(Component sender, object data)
     {
     }
 
+    #endregion
+
+    #region Utils
+
     private static bool ValidateEmail(string em)
     {
-        return Regex.IsMatch(em, EmailPattern);
+        const string emailPattern =
+            @"^([0-9a-zA-Z]([\+\-_\.][0-9a-zA-Z]+)*)+@(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9]{2,17})$";
+
+        return Regex.IsMatch(em, emailPattern);
     }
+
+    private static void ClearRememberMe()
+    {
+        PlayerPrefs.DeleteKey(PlayfabRememberMeId);
+        PlayerPrefs.DeleteKey(PlayfabRememberMe);
+    }
+
+    private static void RememberMe()
+    {
+        var rememberMeId = Guid.NewGuid().ToString();
+        PlayerPrefs.SetString(PlayfabRememberMeId, rememberMeId);
+        PlayerPrefs.SetInt(PlayfabRememberMe, 1);
+
+        PlayFabClientAPI.LinkCustomID(new LinkCustomIDRequest
+        {
+            CustomId = rememberMeId,
+            ForceLink = false
+        }, null, null);
+    }
+
+    #endregion
 }

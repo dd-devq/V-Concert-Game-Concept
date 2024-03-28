@@ -1,5 +1,7 @@
+using PlayFab.ClientModels;
 using TMPro;
 using UI;
+using UnityEngine;
 
 public class UINavigationTab : BaseUI
 {
@@ -21,9 +23,13 @@ public class UINavigationTab : BaseUI
 
     public void OnAvatarClick()
     {
-        UIManager.Instance.HideUI(this);
+        var uiParam = new UIParam
+        {
+            Data = UIManager.Instance.currentUIIndex
+        };
         UIManager.Instance.HideUI(UIManager.Instance.currentUIIndex);
-        UIManager.Instance.ShowUI(UIIndex.UIAvatarSelection);
+        UIManager.Instance.HideUI(this);
+        UIManager.Instance.ShowUI(UIIndex.UIAvatarSelection, uiParam);
     }
 
     private void UpdateCoin(string amount)
