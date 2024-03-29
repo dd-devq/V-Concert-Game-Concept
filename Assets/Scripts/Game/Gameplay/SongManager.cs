@@ -16,7 +16,7 @@ public class SongManager : ManualSingletonMono<SongManager>
 
     public float SongDelayInSeconds;
     public double MarginOfError; //In Seconds
-    [HideInInspector]
+    //[HideInInspector]
     public float NoteTime = 1;
     public float noteSpawnY;
     public float noteTapY;

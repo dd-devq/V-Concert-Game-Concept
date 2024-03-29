@@ -41,7 +41,8 @@ public class Note : MonoBehaviour
             double timeSinceInstantiated = SongManager.GetAudioSourceTime() - _timeInstantiated;
             float t = (float)(timeSinceInstantiated / SongManager.Instance.NoteTime);
             
-            if (t > 1.2)
+            //means the timeSinceInstantiated is greater than the NoteTime
+            if (t > 1)
             {
                 OnFinishNotes();
             }
@@ -82,34 +83,6 @@ public class Note : MonoBehaviour
             Debug.LogError("Missed!");
         }
         Destroy(gameObject);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag(Define.Tags.Activator.ToString()))
-        {
-            _inActivator = true;
-            //Debug.LogError("Trigger Normal");
-        }
-        if (other.CompareTag(Define.Tags.PerfectHit.ToString()))
-        {
-            _inPerfectHit = true;
-            //Debug.LogError("Trigger Perfect");
-        } 
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag(Define.Tags.Activator.ToString()))
-        {
-            _inActivator = false;
-            //Debug.LogError("Exit Normal");
-        }
-        if (other.CompareTag(Define.Tags.PerfectHit.ToString()))
-        {
-            _inPerfectHit = false;
-            //Debug.LogError("Exit Perfect");
-        }
     }
 
     private void Kill()

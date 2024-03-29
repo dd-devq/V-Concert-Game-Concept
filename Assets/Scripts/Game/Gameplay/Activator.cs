@@ -21,6 +21,8 @@ public class Activator : MonoBehaviour
     private GameObject _endZone = null;
     [SerializeField]
     private GameObject _startZone = null;
+    [SerializeField]
+    private NoteName _noteRestriction;
 
     private List<Double> _spawnedTimes = new(); //timestamp that note spawned (based on midi)
     private List<Note> notes = new();
@@ -47,6 +49,10 @@ public class Activator : MonoBehaviour
         get => _spawnedTimes;
         set => _spawnedTimes = value;
     }
+    public GameObject StartZone
+    {
+        get => _startZone;
+    }
     public GameObject EndZone
     {
         get => _endZone;
@@ -56,6 +62,7 @@ public class Activator : MonoBehaviour
     {
         if (spawnIndex < _spawnedTimes.Count)
         {
+            //spawn note truoc 1 khoang thoi gian NoteTime
             if (SongManager.GetAudioSourceTime() >= _spawnedTimes[spawnIndex] - SongManager.Instance.NoteTime)
             {
                 var note = _noteManager.OnSpawnNotesToTarget(_startZone.transform.position, _endZone.transform.position);
@@ -120,7 +127,7 @@ public class Activator : MonoBehaviour
             //}
             if (timeStamp + marginOfError <= audioTime)
             {
-                Miss();
+                ScoreManager.Miss();
                 inputIndex++;
             }
         }
@@ -139,13 +146,5 @@ public class Activator : MonoBehaviour
         {
             Debug.LogError("Wront data pack in OnResponseNoteMiss");
         }
-    }
-    private void Hit()
-    {
-        ScoreManager.Hit();
-    }
-    private void Miss()
-    {
-        ScoreManager.Miss();
     }
 }
