@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: _noteManager
       value: 
       objectReference: {fileID: 326452008}
+    - target: {fileID: 971781345056843653, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7085940461987913842, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1635,9 +1639,7 @@ MonoBehaviour:
   SongDelayInSeconds: 0
   MarginOfError: 0.07
   NoteTime: 2
-  noteSpawnY: 0
-  noteTapY: 0
-  InputDelayInMilliseconds: 0
+  _inputDelayInMilliseconds: 0
   _songName: take-me-to-your-heart
 --- !u!1 &1015913242 stripped
 GameObject:
@@ -1797,10 +1799,18 @@ PrefabInstance:
       objectReference: {fileID: 326452008}
     - target: {fileID: 971781345056843653, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2361673399136793795, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288875107891176855, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288875107891176855, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
+      propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7085940461987913842, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
@@ -2196,6 +2206,14 @@ PrefabInstance:
       propertyPath: _noteManager
       value: 
       objectReference: {fileID: 326452008}
+    - target: {fileID: 971781345056843653, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288875107891176855, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.55
+      objectReference: {fileID: 0}
     - target: {fileID: 7085940461987913842, guid: 06bb135bb1a71424ba7c7704ec424df0, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

@@ -24,15 +24,12 @@ public class ActivatorManager : ManualSingletonMono<ActivatorManager>
     {
         foreach (Activator activator in _activators)
         {
-            activator.EndZone.SetActive(false);
-        }
-        foreach (Activator activator in _activators)
-        {
             var endZone = activator.EndZone;
             var playerModel = GamePlayManager.Instance.PlayerModel;
             var distance = Vector3.Distance(activator.StartZone.transform.position, activator.EndZone.transform.position);
             var direction = (activator.EndZone.transform.position - activator.StartZone.transform.position).normalized;
             endZone.transform.position = activator.transform.position + direction * distance * 0.5f;
+            //endZone.SetActive(false);
         }
     }
 

@@ -16,20 +16,20 @@ public class SongManager : ManualSingletonMono<SongManager>
 
     public float SongDelayInSeconds;
     public double MarginOfError; //In Seconds
-    //[HideInInspector]
     public float NoteTime = 1;
-    public float noteSpawnY;
-    public float noteTapY;
-    public int InputDelayInMilliseconds;
+    //public float noteSpawnY = 0;
+    //public float noteTapY = 0;
+    [SerializeField]
+    private int _inputDelayInMilliseconds = 0;
 
     private List<Vector3> _lstPosActivator = new List<Vector3>();
     public string _songName = "take-me-to-your-heart";
 
-    public float noteDespawnY
+    public int InputDelayInMilliseconds
     {
-        get { return noteTapY - (noteSpawnY - noteTapY); }
+        get => _inputDelayInMilliseconds;
+        set => _inputDelayInMilliseconds = value;
     }
-
     public override void Awake()
     {
         base.Awake();

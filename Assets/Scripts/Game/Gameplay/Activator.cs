@@ -14,13 +14,11 @@ public class Activator : MonoBehaviour
     [SerializeField]
     private NoteManager _noteManager = null;
     [SerializeField]
-    private Button _playButton = null;
-    [SerializeField]
-    private ButtonDetection _detectButton = null;
-    [SerializeField]
     private GameObject _endZone = null;
     [SerializeField]
     private GameObject _startZone = null;
+    [SerializeField]
+    private GameObject _hitZone = null;
     [SerializeField]
     private NoteName _noteRestriction;
 
@@ -65,7 +63,7 @@ public class Activator : MonoBehaviour
             //spawn note truoc 1 khoang thoi gian NoteTime
             if (SongManager.GetAudioSourceTime() >= _spawnedTimes[spawnIndex] - SongManager.Instance.NoteTime)
             {
-                var note = _noteManager.OnSpawnNotesToTarget(_startZone.transform.position, _endZone.transform.position);
+                var note = _noteManager.OnSpawnNotesToTarget(_startZone.transform.position, _endZone.transform.position, _hitZone.transform.position);
                 notes.Add(note);
                 spawnIndex++;
             }
@@ -93,38 +91,7 @@ public class Activator : MonoBehaviour
             //        //Debug.LogError("tre");
             //    }
             //}
-            //if (_detectButton.IsButtonClicked())
-            //{
-            //    if (_isInCollision)
-            //    {
-            //        Debug.LogError(String.Format("Hit on {0} note", inputIndex + 1));
-            //        var temp = notes[inputIndex];
-            //        Destroy(temp.gameObject);
-            //        inputIndex++;
-            //    }
-            //    else
-            //    {
-            //        Debug.LogError("you missed");
-            //    }
-            //}
-            //if (_detectButton.IsButtonClicked())
-            //{
-            //    if (_isInCollision)
-            //    {
-            //        GamePlayManager.Instance.OnTriggerNoteHit(inputIndex);
-            //    }
-            //    else
-            //    {
-            //        GamePlayManager.Instance.OnTriggerNoteMiss(inputIndex);
-            //    }
-            //    if (Math.Abs(audioTime - timeStamp) < marginOfError)
-            //    {
-            //        Hit();
-            //        var temp = notes[inputIndex];
-            //        Destroy(temp.gameObject);
-            //        inputIndex++;
-            //    }
-            //}
+            
             if (timeStamp + marginOfError <= audioTime)
             {
                 ScoreManager.Miss();

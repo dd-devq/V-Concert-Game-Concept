@@ -109,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689177657362015197}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.502, z: -0.01}
+  m_LocalPosition: {x: 0, y: 0.502, z: -0.1}
   m_LocalScale: {x: 1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -439,10 +439,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KeyInput: 276
   _noteManager: {fileID: 0}
-  _playButton: {fileID: 0}
-  _detectButton: {fileID: 0}
   _endZone: {fileID: 7384505564582727393}
   _startZone: {fileID: 1689177657362015197}
+  _hitZone: {fileID: 4633207175683634121}
+  _noteRestriction: 0
 --- !u!114 &7815402051205388735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,7 +496,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7384505564582727393}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.315, z: -0.3}
+  m_LocalPosition: {x: 0, y: -1.996, z: -0.3}
   m_LocalScale: {x: 1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
