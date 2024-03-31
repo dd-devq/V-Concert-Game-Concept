@@ -19,8 +19,6 @@ public class Activator : MonoBehaviour
     private GameObject _startZone = null;
     [SerializeField]
     private GameObject _hitZone = null;
-    [SerializeField]
-    private NoteName _noteRestriction;
 
     private List<Double> _spawnedTimes = new(); //timestamp that note spawned (based on midi)
     private List<Note> notes = new();
@@ -29,6 +27,7 @@ public class Activator : MonoBehaviour
     private int inputIndex = 0;
     private int _zoneIndex = 0;
 
+    private Vector3 _originalHitPos = new Vector3(0, 0, 0);
     /// <summary>
     /// from 0 to 3
     /// </summary>
@@ -69,35 +68,56 @@ public class Activator : MonoBehaviour
             }
         }
 
-        if (inputIndex < _spawnedTimes.Count)
+        if (Input.GetKeyDown(KeyInput))
         {
-            double timeStamp = _spawnedTimes[inputIndex];
-            double marginOfError = SongManager.Instance.MarginOfError;
-            double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.InputDelayInMilliseconds / 1000.0);
-
-            //if (Input.GetKeyDown(KeyInput))
-            //{
-            //    if (Math.Abs(audioTime - timeStamp) < marginOfError)
-            //    {
-            //        //Hit();
-            //        Debug.LogError(String.Format("Hit on {0} note", inputIndex + 1));
-            //        var temp = notes[inputIndex];
-            //        Destroy(temp.gameObject);
-            //        inputIndex++;
-            //    }
-            //    else
-            //    {
-            //        //Debug.LogError(String.Format("Hit inaccurate on {0} note with {1} delay", inputIndex, Math.Abs(audioTime - timeStamp)));
-            //        //Debug.LogError("tre");
-            //    }
-            //}
-            
-            if (timeStamp + marginOfError <= audioTime)
-            {
-                ScoreManager.Miss();
-                inputIndex++;
-            }
+            OnClickDownKeyInput();
         }
+        if (Input.GetKeyUp(KeyInput))
+        {
+            OnClickUpKeyInput();
+        }
+        //if (inputIndex < _spawnedTimes.Count)
+        //{
+        //    double timeStamp = _spawnedTimes[inputIndex];
+        //    double marginOfError = SongManager.Instance.MarginOfError;
+        //    double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.InputDelayInMilliseconds / 1000.0);
+
+        //    if (Input.GetKeyDown(KeyInput))
+        //    {
+        //        if (Math.Abs(audioTime - timeStamp) < marginOfError)
+        //        {
+        //            //Hit();
+        //            Debug.LogError(String.Format("Hit on {0} note", inputIndex + 1));
+        //            var temp = notes[inputIndex];
+        //            Destroy(temp.gameObject);
+        //            inputIndex++;
+        //        }
+        //        else
+        //        {
+        //            //Debug.LogError(String.Format("Hit inaccurate on {0} note with {1} delay", inputIndex, Math.Abs(audioTime - timeStamp)));
+        //            //Debug.LogError("tre");
+        //        }
+        //    }
+
+        //    if (timeStamp + marginOfError <= audioTime)
+        //    {
+        //        ScoreManager.Miss();
+        //        inputIndex++;
+        //    }
+        //}
+    }
+
+    private void OnClickDownKeyInput()
+    {
+        //move hitObject 1 little bit down
+        _originalHitPos = _hitZone.transform.position;
+        _hitZone.transform.position = new Vector3(_hitZone.transform.position.x, 
+            _hitZone.transform.position.y - 0.4f, _hitZone.transform.position.z);
+    }
+    private void OnClickUpKeyInput()
+    {
+        //move hitObject back to original position
+        _hitZone.transform.position = _originalHitPos;
     }
     public void OnResponseNoteMiss(Component component, object data)
     {
