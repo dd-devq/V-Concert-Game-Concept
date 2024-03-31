@@ -14,11 +14,9 @@ public class Note : MonoBehaviour
     private Vector3 _endPos;
     private Vector3 _hitPos;
     private double _timeInstantiated;
-    private bool _inActivator = false;
-    private bool _inPerfectHit = false;
     private bool _isHit = false;
-    private float _startTime = 0;
 
+    private bool _isPerfectScore = false;
     public Vector3 EndPos
     {
         get => _endPos;
@@ -39,7 +37,6 @@ public class Note : MonoBehaviour
     private void Start()
     {
         _timeInstantiated = SongManager.GetAudioSourceTime();
-        _startTime = Time.time;
     }
 
     private void Update()
@@ -65,29 +62,40 @@ public class Note : MonoBehaviour
             {
                 transform.position = Vector3.Lerp(_startPos, _hitPos, t);
             }
-            if (Input.GetKeyDown(InputManager.KeyInput) && !_isHit)
+
+            double lowerBound = SongManager.Instance.NoteTime - SongManager.Instance.MarginOfError;
+            double upperBound = SongManager.Instance.NoteTime + SongManager.Instance.MarginOfError;
+            if (timeSinceInstantiated >= lowerBound && timeSinceInstantiated <= upperBound)
             {
-                if (_inActivator && !_inPerfectHit)
-                {
-                    Debug.LogError("Normal Hit");
-                    NoteManager.Instance.OnNormalHit();
-                    _isHit = true;
-                    OnFinishNotes();
-                }
-                else if (_inPerfectHit)
-                {
-                    Debug.LogError("Perfect Hit");
-                    NoteManager.Instance.OnPerfectHit();
-                    _isHit = true;
-                    OnFinishNotes();
-                }
-                else if (!_inActivator && !_inPerfectHit)
-                {
-                    NoteManager.Instance.OnMissHit();
-                    Debug.LogError("Missed Click");
-                    Destroy(gameObject);
-                }
+                _isPerfectScore = true;
             }
+            else
+            {
+                _isPerfectScore = false;
+            }
+            //if (Input.GetKeyDown(InputManager.KeyInput) && !_isHit)
+            //{
+            //    if (_inActivator && !_inPerfectHit)
+            //    {
+            //        Debug.LogError("Normal Hit");
+            //        NoteManager.Instance.OnNormalHit();
+            //        _isHit = true;
+            //        OnFinishNotes();
+            //    }
+            //    else if (_inPerfectHit)
+            //    {
+            //        Debug.LogError("Perfect Hit");
+            //        NoteManager.Instance.OnPerfectHit();
+            //        _isHit = true;
+            //        OnFinishNotes();
+            //    }
+            //    else if (!_inActivator && !_inPerfectHit)
+            //    {
+            //        NoteManager.Instance.OnMissHit();
+            //        Debug.LogError("Missed Click");
+            //        Destroy(gameObject);
+            //    }
+            //}
         }
     }
 
@@ -97,11 +105,6 @@ public class Note : MonoBehaviour
         {
             Debug.LogError("Missed!");
         }
-        Destroy(gameObject);
-    }
-
-    private void Kill()
-    {
         Destroy(gameObject);
     }
 }
