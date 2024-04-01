@@ -103,7 +103,7 @@ public class Note : MonoBehaviour
     {
         if (!_isHit)
         {
-            Debug.LogError("Missed!");
+            //Debug.LogError("Missed!");
         }
         Destroy(gameObject);
     }

@@ -13,18 +13,35 @@ public class SongManager : ManualSingletonMono<SongManager>
     public static MidiFile Midifile = null;
     [SerializeField]
     private ActivatorManager _ActivatorManager = null;
-
-    public float SongDelayInSeconds;
-    public double MarginOfError; //In Seconds
-    public float NoteTime = 1;
-    //public float noteSpawnY = 0;
-    //public float noteTapY = 0;
+    [SerializeField]
+    private float _songDelayInSeconds = 0;
+    [SerializeField]
+    private double _marginOfError = 0; //In Seconds
+    [SerializeField]
+    private float _noteTime = 1;
     [SerializeField]
     private int _inputDelayInMilliseconds = 0;
+    //public float noteSpawnY = 0;
+    //public float noteTapY = 0;
 
     private List<Vector3> _lstPosActivator = new List<Vector3>();
     public string _songName = "take-me-to-your-heart";
 
+    public float NoteTime
+    {
+        get => _noteTime;
+        set => _noteTime = value;
+    }
+    public double MarginOfError
+    {
+        get => _marginOfError;
+        set => _marginOfError = value;
+    }
+    public float SongDelayInSeconds
+    {
+        get => _songDelayInSeconds;
+        set => _songDelayInSeconds = value;
+    }
     public int InputDelayInMilliseconds
     {
         get => _inputDelayInMilliseconds;

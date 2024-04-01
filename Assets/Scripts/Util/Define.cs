@@ -65,6 +65,8 @@ public static class Define
     public static int GoodHit = 20;
     public static int PerfectHit = 100;
 
+    public static float HitObjectInterval = 0.2f;
+
     public enum InputMode
     {
         SingleKey,
