@@ -19,6 +19,8 @@ public class Activator : MonoBehaviour
     private GameObject _startZone = null;
     [SerializeField]
     private GameObject _hitZone = null;
+    [SerializeField]
+    private MeshRenderer _meshRenderer = null;
 
     private List<Double> _spawnedTimes = new(); //timestamp that note spawned (based on midi)
     private List<Note> notes = new();
@@ -26,8 +28,13 @@ public class Activator : MonoBehaviour
     private int spawnIndex = 0;
     private int inputIndex = 0;
     private int _zoneIndex = 0;
+    private float cooldown = Define.HitObjectInterval;
+    private float lastClickedTime = 0;
 
     private Vector3 _originalHitPos = new Vector3(0, 0, 0);
+    private bool _isClicked = false;
+    
+
     /// <summary>
     /// from 0 to 3
     /// </summary>
@@ -54,7 +61,10 @@ public class Activator : MonoBehaviour
     {
         get => _endZone;
     }
-
+    private void Start()
+    {
+        _originalHitPos = _hitZone.transform.position;
+    }
     void Update()
     {
         if (spawnIndex < _spawnedTimes.Count)
@@ -68,14 +78,17 @@ public class Activator : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyInput))
+        if (Input.GetKeyDown(KeyInput) && Time.time - lastClickedTime > cooldown)
         {
             OnClickDownKeyInput();
+            //check note
+
         }
-        if (Input.GetKeyUp(KeyInput))
+        if (_hitZone.transform.position != _originalHitPos && _isClicked)
         {
-            OnClickUpKeyInput();
+            Invoke("OnClickUpKeyInput", Define.HitObjectInterval);
         }
+
         //if (inputIndex < _spawnedTimes.Count)
         //{
         //    double timeStamp = _spawnedTimes[inputIndex];
@@ -109,16 +122,19 @@ public class Activator : MonoBehaviour
 
     private void OnClickDownKeyInput()
     {
-        //move hitObject 1 little bit down
-        _originalHitPos = _hitZone.transform.position;
-        _hitZone.transform.position = new Vector3(_hitZone.transform.position.x, 
-            _hitZone.transform.position.y - 0.4f, _hitZone.transform.position.z);
+        lastClickedTime = Time.time;
+        _hitZone.transform.position = new Vector3(_originalHitPos.x, _originalHitPos.y - 0.4f, _originalHitPos.z);
+        _meshRenderer.material = ActivatorManager.Instance.HitMaterial;
+        _isClicked = true;
     }
+
     private void OnClickUpKeyInput()
     {
-        //move hitObject back to original position
         _hitZone.transform.position = _originalHitPos;
+        _meshRenderer.material = ActivatorManager.Instance.DefaultMaterial;
+        _isClicked = false;
     }
+
     public void OnResponseNoteMiss(Component component, object data)
     {
         int index;

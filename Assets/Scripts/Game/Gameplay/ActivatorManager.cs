@@ -8,6 +8,8 @@ using Melanchall.DryWetMidi.Interaction;
 
 public class ActivatorManager : ManualSingletonMono<ActivatorManager>
 {
+    public Material DefaultMaterial = null;
+    public Material HitMaterial = null;
     private List<Activator> _activators = new();
     private Dictionary<NoteName, int> _pitchNameDict = new();
     public List<Activator> Activators
