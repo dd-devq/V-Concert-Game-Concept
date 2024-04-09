@@ -1,6 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
-
+using PlayFab.ClientModels;
 
 namespace UI
 {
@@ -60,6 +61,31 @@ namespace EventData
     {
         public string Username;
     }
+
+    public struct UserData
+    {
+        public Dictionary<string, int> virtualCurrency;
+        public List<ItemInstance> playerInventory;
+    }
+
+    public struct GameData
+    {
+        public List<ShopItem> ListShopItems;
+    }
+}
+
+public class CharacterData
+{
+    public string characterModel;
+    public string playerAvatar;
+    public string songData;
+}
+
+public class ShopItem
+{
+    public string name;
+    public int price;
+    public Currency type;
 }
 
 public enum HitType

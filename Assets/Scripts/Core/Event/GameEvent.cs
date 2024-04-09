@@ -6,8 +6,8 @@ using UnityEngine.Events;
 [CreateAssetMenu(menuName = "Game Event")]
 public class GameEvent : ScriptableObject
 {
-    public List<GameEventListener> listeners = new List<GameEventListener>();
-    
+    public List<GameEventListener> listeners = new();
+
     public void Invoke(Component sender, object data)
     {
         foreach (var listener in listeners)

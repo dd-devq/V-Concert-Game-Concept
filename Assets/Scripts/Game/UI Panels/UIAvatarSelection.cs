@@ -5,7 +5,7 @@ using UI;
 
 public class UIAvatarSelection : BaseUI
 {
-    public GameEvent onNewAvatarClick;
+    public GameEvent onAvatarClick;
     // Current Avatar
 
     private UIIndex _prevUIIndex;
@@ -17,9 +17,6 @@ public class UIAvatarSelection : BaseUI
         UIManager.Instance.ShowUI(UIIndex.UINavigationTab);
     }
 
-    public void OnNewAvatarClick()
-    {
-    }
 
     protected override void OnShow(UIParam param = null)
     {
@@ -29,4 +26,9 @@ public class UIAvatarSelection : BaseUI
             _prevUIIndex = (UIIndex)param.Data;
         }
     }
+    
+    public void OnAvatarClick()
+    {
+    }
+
 }

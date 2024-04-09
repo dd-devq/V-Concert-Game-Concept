@@ -1,7 +1,6 @@
-using Unity.Netcode;
 using UnityEngine;
 
-public class CharacterController : NetworkBehaviour
+public class CharacterManager : MonoBehaviour
 {
     private void HandleMovement()
     {

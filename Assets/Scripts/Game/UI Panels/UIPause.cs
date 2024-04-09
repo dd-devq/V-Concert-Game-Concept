@@ -6,7 +6,6 @@ public class UIPause : BaseUI
 {
     public GameEvent onMusicVolumeChange;
     public GameEvent onSoundVolumeChange;
-    public GameEvent onLanguageChange;
     public GameEvent onRetryClick;
     public GameEvent onResumeClick;
     public GameEvent onMainMenuClick;

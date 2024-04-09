@@ -59,7 +59,7 @@ public class DemoScript : MonoBehaviour
 
     private MidiFile CreateTestFile()
     {
-        Debug.LogError("Creating test MIDI file...");
+        Debug.Log("Creating test MIDI file...");
 
         var patternBuilder = new PatternBuilder()
             .SetNoteLength(MusicalTimeSpan.Eighth)

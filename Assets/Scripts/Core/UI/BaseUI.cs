@@ -6,11 +6,11 @@ public abstract class BaseUI : MonoBehaviour
 {
     public UIIndex index;
     public GameEvent playSoundOnClick;
-    protected RectTransform _transform;
+    protected RectTransform Transform;
 
     protected virtual void Awake()
     {
-        _transform = GetComponent<RectTransform>();
+        Transform = GetComponent<RectTransform>();
     }
 
     public virtual void OnInit()
@@ -44,7 +44,7 @@ public abstract class BaseUI : MonoBehaviour
         callback?.Invoke();
     }
 
-    protected virtual void PlaySoundOnClick()
+    protected void PlaySoundOnClick()
     {
         playSoundOnClick.Invoke(this, null);
     }

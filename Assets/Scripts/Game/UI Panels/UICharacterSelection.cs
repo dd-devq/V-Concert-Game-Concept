@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class UICharacterSelection : BaseUI
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameEvent onCharacterClick;
+
+    public void OnCharacterClick()
     {
-        
+        onCharacterClick.Invoke(this, null);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LoadCharacterList()
     {
-        
     }
 }

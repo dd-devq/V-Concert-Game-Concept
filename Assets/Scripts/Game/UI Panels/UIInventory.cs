@@ -1,18 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIInventory : BaseUI
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameEvent onEquipClick;
+
+    public void OnEquipClick()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LoadInventory()
     {
         
     }
+    
 }

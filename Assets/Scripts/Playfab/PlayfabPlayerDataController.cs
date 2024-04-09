@@ -6,8 +6,24 @@ using PlayFab;
 
 public class PlayfabPlayerDataController : MonoBehaviour
 {
+    public GameEvent onPlayerDataUpdated;
+
+    public void OnPlayerDataUpdated()
+    {
+        onPlayerDataUpdated.Invoke(this, null);
+    }
+    
     public void GetAllData()
     {
+        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), result =>
+        {
+            foreach (var pair in result.VirtualCurrency)
+            {
+                Debug.Log(pair.Key);
+                Debug.Log(pair.Value);
+            }
+        }, error => Debug.LogError(error.GenerateErrorReport()));
+        
     }
 
     public void InitAllData()

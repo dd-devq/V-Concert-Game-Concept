@@ -10,7 +10,6 @@ public class PlayfabAuthenticationController : MonoBehaviour
     private const string PlayfabRememberMeId = "PlayfabRememberMeId";
     private const string PlayfabRememberMe = "PlayfabRememberMe";
 
-
     #region Login
 
     public void Login(Component sender, object data)
