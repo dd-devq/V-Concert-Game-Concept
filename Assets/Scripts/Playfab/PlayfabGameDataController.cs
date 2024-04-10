@@ -5,7 +5,7 @@ using UnityEngine;
 using PlayFab.ClientModels;
 using PlayFab;
 
-public class PlayfabGameDataController : MonoBehaviour
+public class PlayfabGameDataController : PersistentManager<PlayfabGameDataController>
 {
     public GameEvent onGameDataUpdated;
 

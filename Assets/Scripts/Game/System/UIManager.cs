@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using UI;
-using UnityEngine.Serialization;
 
 public class UIManager : ManualSingletonMono<UIManager>
 {

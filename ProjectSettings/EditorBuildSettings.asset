@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/ScenePlay.unity
     guid: 57b0b5efddbf243a989fec97d7e45e4a
   - enabled: 1
+    path: Assets/Scenes/Scene System/Preloader.unity
+    guid: 79dd119efa88e4f92ba280385d0b19a7
+  - enabled: 0
     path: Assets/Scenes/Scene System/Main UI.unity
     guid: 19872da5ec3cc4977987627f9638db84
   m_configObjects:

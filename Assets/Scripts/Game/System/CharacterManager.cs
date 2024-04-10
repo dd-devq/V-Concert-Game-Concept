@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CharacterManager : MonoBehaviour
+public class CharacterManager : PersistentManager<CharacterManager>
 {
     private void HandleMovement()
     {

@@ -43,6 +43,13 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: 7df2d2d01c512454bb2c9231fd027a2a, type: 2}
   - {fileID: 11400000, guid: 7cdff5368b87f44a2b06fbd5a7159ea1, type: 2}
+  - {fileID: 11400000, guid: d191ddff6d49e418b9ec5062d176bdbb, type: 2}
+  - {fileID: 11400000, guid: 99dff96de661a451dbaf0b86cf7ce449, type: 2}
+  - {fileID: 11400000, guid: ca4398c4dd89949d39d186e9e0cde223, type: 2}
+  - {fileID: 11400000, guid: afc745a77579040499875ddaac42eda0, type: 2}
+  - {fileID: 11400000, guid: 551283f9e00ec45c59e06e22eacd6a2d, type: 2}
+  - {fileID: 11400000, guid: c4eb04d8810624a648cf4d7a35df3fad, type: 2}
+  - {fileID: 11400000, guid: 5c14d214755b6435b96eb9323b5e3f61, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -77,7 +84,7 @@ MonoBehaviour:
       - m_Id: ef6921bc435f042fe8a4bf683079a61c
         m_Value: ServerData/[BuildTarget]
       - m_Id: 2a4ffb315dac245eea10fde8d0bd2d71
-        m_Value: https://vconcert.blob.core.windows.net/[BuildTarget]
+        m_Value: https://vconcert.blob.core.windows.net/standaloneosx
     m_ProfileEntryNames:
     - m_Id: f454995065fb044b9a445da6bdc2d14b
       m_Name: BuildTarget
@@ -98,7 +105,7 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
-    - smpl
+    - auth
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 16732a594b3b1421c9e976439676ae16, type: 2}

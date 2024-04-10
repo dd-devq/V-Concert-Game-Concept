@@ -1,4 +1,5 @@
 using System;
+using System.Net.Mime;
 using TMPro;
 using UI;
 using UnityEngine;
@@ -23,6 +24,8 @@ public class UIAuthentication : BaseUI
 
     [Header("Reset")] [SerializeField] private GameObject resetPasswordPanel;
     [SerializeField] private TMP_InputField accountUsername;
+
+    public TextMeshProUGUI txt;
 
 
     private void Start()
@@ -88,9 +91,10 @@ public class UIAuthentication : BaseUI
     {
     }
 
-    private static void OnLoginFail()
+    private void OnLoginFail()
     {
         Debug.Log("Login Failed");
+        txt.SetText("Login Failed");
         // UI Manager Raise Warning
     }
 

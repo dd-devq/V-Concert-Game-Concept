@@ -4,7 +4,7 @@ using UnityEngine;
 using PlayFab.ClientModels;
 using PlayFab;
 
-public class PlayfabGamePlayController : MonoBehaviour
+public class PlayfabGamePlayController : PersistentManager<PlayfabGamePlayController>
 {
     public void ConsumeItem()
     {

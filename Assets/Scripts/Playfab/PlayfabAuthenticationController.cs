@@ -4,8 +4,9 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System.Text.RegularExpressions;
 using EventData;
+using TMPro;
 
-public class PlayfabAuthenticationController : MonoBehaviour
+public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenticationController>
 {
     private const string PlayfabRememberMeId = "PlayfabRememberMeId";
     private const string PlayfabRememberMe = "PlayfabRememberMe";
@@ -34,12 +35,7 @@ public class PlayfabAuthenticationController : MonoBehaviour
             TitleId = PlayFabSettings.TitleId,
             CustomId = rememberMeId,
             CreateAccount = true
-        }, _ =>
-        {
-            // Debug.Log(result.PlayFabId);
-            // Debug.Log(result.SessionTicket);
-            tmp.AutoLoginSuccessCallback();
-        }, _ =>
+        }, _ => { tmp.AutoLoginSuccessCallback(); }, _ =>
         {
             tmp.AutoLoginFailCallback();
             Logout(null, null);
@@ -62,7 +58,7 @@ public class PlayfabAuthenticationController : MonoBehaviour
             error => data.LoginFailCallback());
     }
 
-    private static void LoginWithUsername(LoginInfo data)
+    private void LoginWithUsername(LoginInfo data)
     {
         var request = new LoginWithPlayFabRequest
         {
@@ -75,7 +71,10 @@ public class PlayfabAuthenticationController : MonoBehaviour
                 data.LoginSuccessCallback();
                 RememberMe();
             },
-            error => data.LoginFailCallback());
+            error =>
+            {
+                data.LoginFailCallback();
+            });
     }
 
     #endregion

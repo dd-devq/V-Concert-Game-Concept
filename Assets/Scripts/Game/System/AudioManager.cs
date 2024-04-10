@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : ManualSingletonMono<AudioManager>
+public class AudioManager : PersistentManager<AudioManager>
 {
     [SerializeField]
     private AudioSource _hitSFX = null;

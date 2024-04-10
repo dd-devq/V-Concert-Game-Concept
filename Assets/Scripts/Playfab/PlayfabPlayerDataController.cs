@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using PlayFab;
 
-public class PlayfabPlayerDataController : MonoBehaviour
+public class PlayfabPlayerDataController : PersistentManager<PlayfabPlayerDataController>
 {
     public GameEvent onPlayerDataUpdated;
 
