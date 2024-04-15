@@ -1,33 +1,14 @@
-using System;
-using System.Collections;
-using System.Linq;
-using Unity.VisualScripting;
+using System.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class ResourceManager : PersistentManager<ResourceManager>
 {
-    private void Start()
+    public GameObject LoadPrefabAsset(AssetReference assetReference)
     {
-    }
-
-    private void LoadMenuScene()
-    {
-        
-    }
-
-    private void LoadGameplayScene()
-    {
-        
-    }
-
-    private void LoadController()
-    {
-        
-    }
-
-    private void LoadPersistentManager()
-    {
-        
+        var handle = Addressables.LoadAssetAsync<GameObject>(assetReference);
+        handle.WaitForCompletion();
+        return handle.Status == AsyncOperationStatus.Succeeded ? handle.Result : null;
     }
 }

@@ -6,6 +6,7 @@
     <type fullname="GameEvent" preserve="all" />
     <type fullname="GameEventListener" preserve="all" />
     <type fullname="PlayfabAuthenticationController" preserve="all" />
+    <type fullname="PlayfabErrorHandler" preserve="all" />
     <type fullname="PlayfabGameDataController" preserve="all" />
     <type fullname="PlayfabPlayerDataController" preserve="all" />
     <type fullname="ResourceManager" preserve="all" />
@@ -14,6 +15,7 @@
     <type fullname="UIAvatarSelection" preserve="all" />
     <type fullname="UICharacterSelection" preserve="all" />
     <type fullname="UIInventory" preserve="all" />
+    <type fullname="UIInventoryItem" preserve="all" />
     <type fullname="UIItemViewer" preserve="all" />
     <type fullname="UILoading" preserve="all" />
     <type fullname="UILobby" preserve="all" />
@@ -28,6 +30,8 @@
   </assembly>
   <assembly fullname="Unity.Addressables, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
     <type fullname="UnityEngine.AddressableAssets.Addressables" preserve="all" />
+    <type fullname="UnityEngine.AddressableAssets.AssetReference" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.AddressableAssets.AssetReferenceGameObject" preserve="nothing" serialized="true" />
   </assembly>
   <assembly fullname="Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
     <type fullname="UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider" preserve="all" />
@@ -66,10 +70,14 @@
   </assembly>
   <assembly fullname="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.Camera" preserve="all" />
+    <type fullname="UnityEngine.Cubemap" preserve="all" />
     <type fullname="UnityEngine.GameObject" preserve="all" />
+    <type fullname="UnityEngine.Light" preserve="all" />
     <type fullname="UnityEngine.LightmapSettings" preserve="all" />
     <type fullname="UnityEngine.Material" preserve="all" />
     <type fullname="UnityEngine.Mesh" preserve="all" />
+    <type fullname="UnityEngine.MeshFilter" preserve="all" />
+    <type fullname="UnityEngine.MeshRenderer" preserve="all" />
     <type fullname="UnityEngine.Object" preserve="all" />
     <type fullname="UnityEngine.RectTransform" preserve="all" />
     <type fullname="UnityEngine.RenderSettings" preserve="all" />

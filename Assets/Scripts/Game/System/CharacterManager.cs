@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterManager : PersistentManager<CharacterManager>
 {
-    private void HandleMovement()
+    public List<AnimationClip> ListAnimationsl;
+    public AnimationClip MainDance;
+    public Avatar Avatar;
+    public void Dance()
     {
-
     }
 }

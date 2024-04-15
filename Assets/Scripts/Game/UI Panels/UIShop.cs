@@ -1,22 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using EventData;
 using UI;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class UIShop : BaseUI
 {
     public GameEvent onBuyClick;
 
-    public GameObject content;
+    public GameObject contentDrawer;
 
     // List Data
     private List<ShopItem> _listItems = new();
     public List<ShopItem> listCharacters = new();
 
-    public GameObject itemPrefab;
+    public AssetReferenceGameObject itemRef;
 
     public void OnItemClick()
     {
@@ -28,6 +30,20 @@ public class UIShop : BaseUI
     public void OnBuyClick()
     {
         onBuyClick.Invoke(this, null);
+    }
+
+    private async void OnEnable()
+    {
+        var catalogItems = PlayfabGameDataController.Instance.CatalogItems;
+        var prefab = ResourceManager.Instance.LoadPrefabAsset(itemRef);
+        foreach (var item in catalogItems)
+        {
+            Instantiate(prefab, contentDrawer.transform, false);
+        }
+    }
+
+    private void OnDisable()
+    {
     }
 
     public void OnCharacterCategoryClick()
@@ -42,33 +58,11 @@ public class UIShop : BaseUI
     {
     }
 
-    private void LoadShop()
-    {
-        foreach (var item in _listItems)
-        {
-            var go = Instantiate(itemPrefab);
-            go.transform.parent = content.transform;
-        }
-    }
-
-    protected override void OnShow(UIParam param = null)
-    {
-        base.OnShow(param);
-        for (var i = 0; i < 22; i++)
-        {
-            var go = Instantiate(itemPrefab, content.transform, false);
-            go.GetComponentInChildren<Button>().onClick.AddListener(OnItemClick);
-        }
-    }
 
     public void UpdateShop(Component sender, object data)
     {
-        Debug.Log("Hello");
-        Debug.Log(data);
         // check sender
         var temp = (GameData)data;
         _listItems = temp.ListShopItems;
-        LoadShop();
-        // Character
     }
 }

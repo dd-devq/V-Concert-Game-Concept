@@ -1,8 +1,7 @@
-using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.SceneManagement;
 
 public class Preloader : MonoBehaviour
 {
@@ -14,9 +13,6 @@ public class Preloader : MonoBehaviour
         var handleSo = Addressables.LoadAssetAsync<ScriptableObject>("auth");
         await handleSo.Task;
 
-        var handleScene = Addressables.LoadSceneAsync(sceneRef, LoadSceneMode.Additive);
-
-        await handleScene.Task;
 
         foreach (var manager in persistentManagers.listManagers)
         {
@@ -36,6 +32,11 @@ public class Preloader : MonoBehaviour
 
             Addressables.Release(handle);
         }
+        
+        var handleScene = Addressables.LoadSceneAsync(sceneRef, LoadSceneMode.Additive);
+
+        await handleScene.Task;
+        
 
         if (handleScene.Status == AsyncOperationStatus.Succeeded)
         {

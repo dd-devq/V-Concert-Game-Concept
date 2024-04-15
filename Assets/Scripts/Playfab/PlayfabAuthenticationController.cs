@@ -4,7 +4,6 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System.Text.RegularExpressions;
 using EventData;
-using TMPro;
 
 public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenticationController>
 {
@@ -35,16 +34,21 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
             TitleId = PlayFabSettings.TitleId,
             CustomId = rememberMeId,
             CreateAccount = true
-        }, _ => { tmp.AutoLoginSuccessCallback(); }, _ =>
+        }, _ =>
         {
-            tmp.AutoLoginFailCallback();
+            PlayfabGameDataController.Instance.GetAllData();
+            PlayfabPlayerDataController.Instance.GetAllData();
+            tmp.AutoLoginSuccessCallback();
+        }, error =>
+        {
+            PlayfabErrorHandler.HandleError(error);
             Logout(null, null);
         });
     }
 
     private static void LoginWithEmail(LoginInfo data)
     {
-        var request = new LoginWithEmailAddressRequest()
+        var request = new LoginWithEmailAddressRequest
         {
             Email = data.Username,
             Password = data.Password,
@@ -52,10 +56,12 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
         };
         PlayFabClientAPI.LoginWithEmailAddress(request, _ =>
             {
+                PlayfabGameDataController.Instance.GetAllData();
+                PlayfabPlayerDataController.Instance.GetAllData();
                 data.LoginSuccessCallback();
                 RememberMe();
             },
-            error => data.LoginFailCallback());
+            PlayfabErrorHandler.HandleError);
     }
 
     private void LoginWithUsername(LoginInfo data)
@@ -68,13 +74,12 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
         };
         PlayFabClientAPI.LoginWithPlayFab(request, _ =>
             {
+                PlayfabGameDataController.Instance.GetAllData();
+                PlayfabPlayerDataController.Instance.GetAllData();
                 data.LoginSuccessCallback();
                 RememberMe();
             },
-            error =>
-            {
-                data.LoginFailCallback();
-            });
+            PlayfabErrorHandler.HandleError);
     }
 
     #endregion

@@ -17,10 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 6b373bee569fa4f219ddb3b4d798100c
   m_SerializeEntries:
-  - m_GUID: dc960c4a1cc8641a2b75dfb0f5503767
-    m_Address: Assets/Prefabs/Gameplay/SMPL.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: dd665e47793e143c295c85674202e10f
     m_Address: Models/Women/Adventurer
     m_ReadOnly: 0

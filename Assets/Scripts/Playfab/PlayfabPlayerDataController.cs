@@ -1,42 +1,27 @@
+using System;
 using System.Collections.Generic;
 using PlayFab.ClientModels;
-using Unity.VisualScripting;
 using UnityEngine;
 using PlayFab;
 
 public class PlayfabPlayerDataController : PersistentManager<PlayfabPlayerDataController>
 {
-    public GameEvent onPlayerDataUpdated;
+    private readonly Dictionary<string, int> _currencies = new();
+    public Dictionary<string, int> Currencies => _currencies;
 
-    public void OnPlayerDataUpdated()
-    {
-        onPlayerDataUpdated.Invoke(this, null);
-    }
-    
+    private readonly List<ItemInstance> _inventory = new();
+    public List<ItemInstance> Inventory => _inventory;
+
+
     public void GetAllData()
     {
-        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), result =>
-        {
-            foreach (var pair in result.VirtualCurrency)
-            {
-                Debug.Log(pair.Key);
-                Debug.Log(pair.Value);
-            }
-        }, error => Debug.LogError(error.GenerateErrorReport()));
-        
-    }
-
-    public void InitAllData()
-    {
+        GetInventory();
     }
 
     public void UpdateCurrency()
     {
     }
 
-    public void GetCurrency()
-    {
-    }
 
     public void UpdateInventory()
     {
@@ -44,13 +29,35 @@ public class PlayfabPlayerDataController : PersistentManager<PlayfabPlayerDataCo
 
     public void GetInventory()
     {
+        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), result =>
+        {
+            _currencies.Clear();
+            _inventory.Clear();
+
+            foreach (var pair in result.VirtualCurrency)
+            {
+                _currencies.Add(pair.Key, pair.Value);
+            }
+
+            foreach (var item in result.Inventory)
+            {
+                _inventory.Add(item);
+            }
+        }, PlayfabErrorHandler.HandleError);
     }
 
-    private void GetSongList()
+
+    public void AddCurrency()
     {
+        PlayFabClientAPI.AddUserVirtualCurrency(new AddUserVirtualCurrencyRequest
+        {
+        }, _ => { }, PlayfabErrorHandler.HandleError);
     }
 
-    private void UpdateSongList()
+    public void SubtractCurrency()
     {
+        PlayFabClientAPI.SubtractUserVirtualCurrency(new SubtractUserVirtualCurrencyRequest
+        {
+        }, _ => { }, PlayfabErrorHandler.HandleError);
     }
 }

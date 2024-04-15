@@ -21,7 +21,7 @@ MonoBehaviour:
   m_BundleLocalCatalog: 0
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
-  m_IgnoreUnsupportedFilesInBuild: 0
+  m_IgnoreUnsupportedFilesInBuild: 1
   m_UniqueBundleIds: 0
   m_NonRecursiveBuilding: 1
   m_CCDEnabled: 0
@@ -50,6 +50,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 551283f9e00ec45c59e06e22eacd6a2d, type: 2}
   - {fileID: 11400000, guid: c4eb04d8810624a648cf4d7a35df3fad, type: 2}
   - {fileID: 11400000, guid: 5c14d214755b6435b96eb9323b5e3f61, type: 2}
+  - {fileID: 11400000, guid: c19689e9873374200af54d5b10b4f11d, type: 2}
+  - {fileID: 11400000, guid: bd14429d692f94b02abe210e94c4c7d9, type: 2}
+  - {fileID: 11400000, guid: 2b617440965414e79ac6e960a231eac3, type: 2}
+  - {fileID: 11400000, guid: 9fdd03068867f438d98edd1ffcc5c42c, type: 2}
+  - {fileID: 11400000, guid: e1c99e29ace4e4f15935d608f7498075, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1

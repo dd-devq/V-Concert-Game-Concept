@@ -25,8 +25,6 @@ public class UIAuthentication : BaseUI
     [Header("Reset")] [SerializeField] private GameObject resetPasswordPanel;
     [SerializeField] private TMP_InputField accountUsername;
 
-    public TextMeshProUGUI txt;
-
 
     private void Start()
     {
@@ -40,12 +38,12 @@ public class UIAuthentication : BaseUI
     {
         var loginInfo = new AutoLoginInfo
         {
-            AutoLoginFailCallback =  AutoLoginFail,
-            AutoLoginSuccessCallback =  AutoLoginSuccess
+            AutoLoginFailCallback = AutoLoginFail,
+            AutoLoginSuccessCallback = AutoLoginSuccess
         };
         autoLogin.Invoke(this, loginInfo);
     }
-    
+
     private static void AutoLoginFail()
     {
         Debug.Log("Login Failed");
@@ -94,13 +92,11 @@ public class UIAuthentication : BaseUI
     private void OnLoginFail()
     {
         Debug.Log("Login Failed");
-        txt.SetText("Login Failed");
         // UI Manager Raise Warning
     }
 
     private void OnLoginSuccess()
     {
-        Debug.Log("Login Success");
         UIManager.Instance.HideUI(this);
         UIManager.Instance.ShowUI(UIIndex.UIMainMenu);
         UIManager.Instance.ShowUI(UIIndex.UINavigationTab);
@@ -111,9 +107,10 @@ public class UIAuthentication : BaseUI
         Debug.Log("Register Failed");
     }
 
-    private static void OnRegisterSuccess()
+    private void OnRegisterSuccess()
     {
         Debug.Log("Register Success");
+        RegisterToLogin();
     }
 
     public void RegisterToLogin()

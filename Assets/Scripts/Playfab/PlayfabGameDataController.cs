@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using EventData;
@@ -7,19 +8,9 @@ using PlayFab;
 
 public class PlayfabGameDataController : PersistentManager<PlayfabGameDataController>
 {
-    public GameEvent onGameDataUpdated;
+    private readonly List<CatalogItem> _catalogItems = new();
+    public IEnumerable<CatalogItem> CatalogItems => _catalogItems;
 
-    private void OnPlayerDataUpdated(List<ShopItem> listItem)
-    {
-        onGameDataUpdated.Invoke(this, new GameData
-        {
-            ListShopItems = listItem
-        });
-    }
-
-    void GetSongs()
-    {
-    }
 
     private void GetCatalogItems(string catalogVersion = "1")
     {
@@ -27,24 +18,34 @@ public class PlayfabGameDataController : PersistentManager<PlayfabGameDataContro
         {
             CatalogVersion = catalogVersion
         };
+
         PlayFabClientAPI.GetCatalogItems(req, result =>
         {
-            var listItems = new List<ShopItem>();
             foreach (var item in result.Catalog)
             {
-                var tmp = new ShopItem
-                {
-                    name = item.DisplayName
-                };
-                listItems.Add(tmp);
-                Debug.Log(item.DisplayName);
+                _catalogItems.Add(item);
             }
-            OnPlayerDataUpdated(listItems);
-        }, Debug.Log);
+        }, PlayfabErrorHandler.HandleError);
     }
 
-    void GetLeaderBoard()
+    void GetLeaderBoard(string leaderBoardName)
     {
+    }
+
+    void SendLeaderBoard(string leaderBoardName, int score)
+    {
+        var req = new UpdatePlayerStatisticsRequest
+        {
+            Statistics = new List<StatisticUpdate>
+            {
+                new()
+                {
+                    StatisticName = leaderBoardName,
+                    Value = score
+                }
+            }
+        };
+        PlayFabClientAPI.UpdatePlayerStatistics(req, null, PlayfabErrorHandler.HandleError);
     }
 
     public void GetAllData()

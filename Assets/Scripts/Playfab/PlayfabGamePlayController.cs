@@ -6,12 +6,18 @@ using PlayFab;
 
 public class PlayfabGamePlayController : PersistentManager<PlayfabGamePlayController>
 {
-    public void ConsumeItem()
+    public void StartPurchaseItem()
     {
-        
     }
 
-    public void PurchaseItem()
+    public void PurchaseItemSuccess()
     {
+    }
+
+    public void ConsumeItems()
+    {
+        PlayFabClientAPI.ConsumeItem(new ConsumeItemRequest
+        {
+        }, _ => { }, PlayfabErrorHandler.HandleError);
     }
 }

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Midi Data
+  m_EditorClassIdentifier: 
+  m_GroupName: Midi Data
+  m_Data:
+    m_SerializedData: []
+  m_GUID: b0e6b84acdcf642d6bcc4474649e0be0
+  m_SerializeEntries:
+  - m_GUID: 88278e556541848ccb1606b81d67d140
+    m_Address: MIDI/Never-Gonna-Give-You-Up
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f125ced536935db41be4e7f98e1cda3e
+    m_Address: MIDI/take-me-to-your-heart
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c07e38a10e3104a4287731640b8dd800
+    m_Address: MIDI/we_made_a_chart_pog
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 33f0c0a813db642d5856e2e5d17f969f, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 41bb6fd9bc96b49baaf1b9be4897681f, type: 2}
+    - {fileID: 11400000, guid: 6a6022c04e7ee41b28e1cd2b44f8b134, type: 2}
