@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Events
+  m_EditorClassIdentifier: 
+  m_GroupName: Events
+  m_Data:
+    m_SerializedData: []
+  m_GUID: fc8945c6cc07b4695bdff97ab32d93cd
+  m_SerializeEntries:
+  - m_GUID: e980c7de8228743869fa4a8d95634c7c
+    m_Address: Assets/Scripts/Game/Game Events/Authentication/AutoLogin.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - auth
+  - m_GUID: 4f9f128ee3de146cfbf709ffa6a4cb0d
+    m_Address: Assets/Scripts/Game/Game Events/Authentication/OnLoginClick.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - auth
+  - m_GUID: d794bb3627cf34ac88fc7e7092e97029
+    m_Address: Assets/Scripts/Game/Game Events/Authentication/OnLogoutClick.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - auth
+  - m_GUID: 9394f4951e16144899932410926fd2f5
+    m_Address: Assets/Scripts/Game/Game Events/Authentication/OnRegisterClick.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - auth
+  - m_GUID: edaa0198a3883444186a4ff869d8c624
+    m_Address: Assets/Scripts/Game/Game Events/Authentication/OnResetPassword.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - auth
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 33f0c0a813db642d5856e2e5d17f969f, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a7e25f8722d2a4e0288ce64aa3048097, type: 2}
+    - {fileID: 11400000, guid: 89b5f6b20bd824479b21e0ee0ae39717, type: 2}
