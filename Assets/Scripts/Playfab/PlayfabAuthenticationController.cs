@@ -64,7 +64,7 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
             PlayfabErrorHandler.HandleError);
     }
 
-    private void LoginWithUsername(LoginInfo data)
+    private static void LoginWithUsername(LoginInfo data)
     {
         var request = new LoginWithPlayFabRequest
         {

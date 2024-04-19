@@ -111,7 +111,7 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
-    - auth
+    - event
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 16732a594b3b1421c9e976439676ae16, type: 2}

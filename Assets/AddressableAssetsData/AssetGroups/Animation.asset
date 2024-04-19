@@ -25,10 +25,6 @@ MonoBehaviour:
     m_Address: Assets/Animations/Animation Clips/Idle.anim
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: c089ef9096a744ff2a26770171fc20ef
-    m_Address: Assets/Animations/Dances/006.anim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: e346c06ed0f0242ecb3c46a45a4c2bcd
     m_Address: Assets/Animations/Dances/06.anim
     m_ReadOnly: 0
