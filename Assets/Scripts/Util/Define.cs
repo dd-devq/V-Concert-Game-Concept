@@ -50,7 +50,7 @@ namespace EventData
         public Action LoginFailCallback;
         public Action LoginSuccessCallback;
     }
-    
+
     public struct AutoLoginInfo
     {
         public Action AutoLoginFailCallback;
@@ -64,29 +64,42 @@ namespace EventData
 
     public struct UserData
     {
-        public Dictionary<string, int> virtualCurrency;
-        public List<ItemInstance> playerInventory;
+        public int Coin;
+        public int Gem;
+        public string Username;
     }
 
-    public struct GameData
+    public struct RewardData
     {
-        public List<ShopItem> ListShopItems;
+        public string Key;
+        public int Amount;
     }
 }
 
-public class CharacterData
+
+[Serializable]
+public struct Song
 {
-    public string characterModel;
-    public string playerAvatar;
-    public string songData;
+    public string Title;
+    public string Artist;
+    public string Cover;
 }
 
-public class ShopItem
+[Serializable]
+public struct Item
 {
-    public string name;
-    public int price;
-    public Currency type;
+    public ItemInstance Data;
+    public string Image;
 }
+
+[Serializable]
+public struct Character
+{
+    public string Path;
+    public string ModelName;
+    public string Image;
+}
+
 
 public enum HitType
 {

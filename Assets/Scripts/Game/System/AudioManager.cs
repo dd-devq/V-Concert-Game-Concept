@@ -1,23 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AudioManager : PersistentManager<AudioManager>
 {
-    [SerializeField]
-    private AudioSource _hitSFX = null;
-    [SerializeField]
-    private AudioSource _missSFX = null;
+    public AudioSource musicSource;
+    public AudioSource soundFxSource;
+    public SongData songData;
+
     public override void Awake()
     {
-        base.Awake();
+        musicSource = GetComponent<AudioSource>();
+        songData = Resources.Load<SongData>("Scriptable Objects/Song Data");
     }
-    public void PlayHitSFX()
+
+    private void Start()
     {
-        _hitSFX.Play();
+        PlaySong(100);
     }
-    public void PlayMissSFX()
+
+    public void PlaySong(int songIndex)
     {
-        _missSFX.Play();
+        var audioClip = ResourceManager.LoadAudioClip(songData.SongPath + songData.ListSong[songIndex].Title);
+        musicSource.clip = audioClip;
+        musicSource.Play();
+    }
+
+    public void PauseSong()
+    {
+        if (!musicSource) return;
+        musicSource.Pause();
+    }
+
+    public void RemoveSong()
+    {
+        if (!musicSource) return;
+        musicSource.clip = null;
+    }
+
+    public void PlaySoundFx(string soundFx)
+    {
     }
 }

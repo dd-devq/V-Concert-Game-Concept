@@ -7,7 +7,7 @@ using UnityEngine.AddressableAssets;
 public class UIInventory : BaseUI
 {
     public GameEvent onEquipClick;
-    public GameEvent onUnEquipClick;
+    public GameEvent onUnequipClick;
 
     public GameObject equipSlot;
 

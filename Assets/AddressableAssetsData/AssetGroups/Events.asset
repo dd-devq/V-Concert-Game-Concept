@@ -47,6 +47,16 @@ MonoBehaviour:
     m_SerializedLabels:
     - auth
     - event
+  - m_GUID: a6610d11d8caa4e40bbeb7150081595e
+    m_Address: Assets/Scripts/Game/Game Events/Playbfab/OnGameDataRetrieve.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - event
+  - m_GUID: a088435a4bbb149f0b6dbd05962c03c6
+    m_Address: Assets/Scripts/Game/Game Events/Playbfab/OnPlayerDataRetrieve.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - event
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 33f0c0a813db642d5856e2e5d17f969f, type: 2}
   m_SchemaSet:

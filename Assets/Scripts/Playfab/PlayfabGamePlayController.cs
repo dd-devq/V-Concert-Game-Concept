@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using PlayFab.ClientModels;
 using PlayFab;
@@ -14,10 +12,13 @@ public class PlayfabGamePlayController : PersistentManager<PlayfabGamePlayContro
     {
     }
 
-    public void ConsumeItems()
+    public void ConsumeItems(Component sender, object data)
     {
-        PlayFabClientAPI.ConsumeItem(new ConsumeItemRequest
+        var req = new ConsumeItemRequest
         {
-        }, _ => { }, PlayfabErrorHandler.HandleError);
+            ConsumeCount = 1,
+            // ItemInstanceId = id
+        };
+        PlayFabClientAPI.ConsumeItem(req, null, PlayfabErrorHandler.HandleError);
     }
 }

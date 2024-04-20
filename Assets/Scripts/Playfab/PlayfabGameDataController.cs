@@ -11,6 +11,7 @@ public class PlayfabGameDataController : PersistentManager<PlayfabGameDataContro
     private readonly List<CatalogItem> _catalogItems = new();
     public IEnumerable<CatalogItem> CatalogItems => _catalogItems;
 
+    public GameEvent onGameDataRetrieve;
 
     private void GetCatalogItems(string catalogVersion = "1")
     {

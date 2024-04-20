@@ -15,7 +15,7 @@ public class CharacterManager : PersistentManager<CharacterManager>
         if (Input.GetKeyDown(KeyCode.Space))
         {
             var character = ResourceManager.LoadPrefabAsset(refChar);
-            
+
             Instantiate(character);
         }
     }
