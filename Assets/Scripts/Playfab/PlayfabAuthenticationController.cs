@@ -39,6 +39,7 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
             PlayfabGameDataController.Instance.GetAllData();
             PlayfabPlayerDataController.Instance.GetAllData();
             tmp.AutoLoginSuccessCallback();
+            PlayfabGameDataController.SendLeaderBoard("001", 2540);
         }, error =>
         {
             PlayfabErrorHandler.HandleError(error);
@@ -93,6 +94,7 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
         {
             Email = tmp.Email,
             Username = tmp.Username,
+            DisplayName = tmp.Username,
             Password = tmp.Password,
             RequireBothUsernameAndEmail = false
         };

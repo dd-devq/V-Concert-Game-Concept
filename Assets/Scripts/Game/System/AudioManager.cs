@@ -1,44 +1,63 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class AudioManager : PersistentManager<AudioManager>
 {
-    public AudioSource musicSource;
-    public AudioSource soundFxSource;
-    public SongData songData;
+    public AudioSource musicChannel;
+    public AudioSource soundFxChannel;
+    private SongData _songData;
+    private AudioData _audioData;
 
     public override void Awake()
     {
-        musicSource = GetComponent<AudioSource>();
-        songData = Resources.Load<SongData>("Scriptable Objects/Song Data");
+        _songData = Resources.Load<SongData>("Scriptable Objects/Song Data");
+        _audioData = Resources.Load<AudioData>("Scriptable Objects/Audio Data");
     }
 
-    private void Start()
-    {
-        PlaySong(100);
-    }
 
-    public void PlaySong(int songIndex)
+    public void PlaySong(Component sender, object data)
     {
-        var audioClip = ResourceManager.LoadAudioClip(songData.SongPath + songData.ListSong[songIndex].Title);
-        musicSource.clip = audioClip;
-        musicSource.Play();
+        if (data is int songIndex)
+        {
+            var audioClip = ResourceManager.LoadAudioClip(_songData.SongPath + _songData.ListSong[songIndex].Title);
+            musicChannel.clip = audioClip;
+            musicChannel.Play();
+        }
     }
 
     public void PauseSong()
     {
-        if (!musicSource) return;
-        musicSource.Pause();
+        if (!musicChannel) return;
+        musicChannel.Pause();
     }
 
     public void RemoveSong()
     {
-        if (!musicSource) return;
-        musicSource.clip = null;
+        if (!musicChannel) return;
+        musicChannel.clip = null;
     }
 
-    public void PlaySoundFx(string soundFx)
+    public void PlaySoundFx(Component sender, object data)
     {
+        if (data is int audioIndex)
+        {
+            var audioClip = ResourceManager.LoadAudioClip(_audioData.AudioPath + _audioData.ListAudio[audioIndex]);
+            soundFxChannel.clip = audioClip;
+            soundFxChannel.Play();
+        }
+    }
+
+    public void PauseSoundFx()
+    {
+        if (!soundFxChannel) return;
+        soundFxChannel.Pause();
+    }
+
+    public void RemoveSoundFx()
+    {
+        if (!soundFxChannel) return;
+        soundFxChannel.clip = null;
     }
 }

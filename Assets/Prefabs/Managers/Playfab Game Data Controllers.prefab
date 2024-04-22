@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6780645012453485242}
   - component: {fileID: 6780645012453485235}
+  - component: {fileID: -7527451757156972335}
   m_Layer: 0
   m_Name: Playfab Game Data Controllers
   m_TagString: Untagged
@@ -45,3 +46,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onGameDataRetrieve: {fileID: 11400000, guid: a6610d11d8caa4e40bbeb7150081595e, type: 2}
+--- !u!114 &-7527451757156972335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6780645012453485234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2015ecbe932d044fc979fcc092bec833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 77d768fb7c8364460a9a65886b2a3b7c, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6780645012453485235}
+        m_TargetAssemblyTypeName: PlayfabGameDataController, Assembly-CSharp
+        m_MethodName: GetLeaderBoard
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

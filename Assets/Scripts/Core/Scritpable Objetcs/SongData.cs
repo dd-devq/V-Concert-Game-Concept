@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using GameData;
 [CreateAssetMenu(menuName = "Scriptable Object/Song Data")]
 public class SongData : ScriptableObject
 {
