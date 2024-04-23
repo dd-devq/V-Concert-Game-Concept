@@ -9,7 +9,6 @@ public class Note : MonoBehaviour
 {
     [Header("Events")] private Vector3 _spawnPos;
     private Vector3 _targetPos; // activator
-    private Vector3 _endPos; // destroy note
 
     private Vector3 _startPos;
     private Vector3 _endPos;

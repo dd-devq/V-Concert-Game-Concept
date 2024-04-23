@@ -10,7 +10,6 @@ public class UIManager : ManualSingletonMono<UIManager>
 
     public UIIndex currentUIIndex;
 
-
     public override void Awake()
     {
         base.Awake();
