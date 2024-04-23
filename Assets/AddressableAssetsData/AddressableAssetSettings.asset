@@ -50,7 +50,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c4eb04d8810624a648cf4d7a35df3fad, type: 2}
   - {fileID: 11400000, guid: 5c14d214755b6435b96eb9323b5e3f61, type: 2}
   - {fileID: 11400000, guid: 2b617440965414e79ac6e960a231eac3, type: 2}
-  - {fileID: 11400000, guid: 9fdd03068867f438d98edd1ffcc5c42c, type: 2}
   - {fileID: 11400000, guid: a8107c16119ce44a09c3cc7cfe87482f, type: 2}
   - {fileID: 11400000, guid: d191ddff6d49e418b9ec5062d176bdbb, type: 2}
   - {fileID: 11400000, guid: e1c99e29ace4e4f15935d608f7498075, type: 2}
@@ -92,6 +91,20 @@ MonoBehaviour:
         m_Value: ServerData/[BuildTarget]
       - m_Id: 2a4ffb315dac245eea10fde8d0bd2d71
         m_Value: https://vconcert.blob.core.windows.net/standaloneosx
+    - m_InheritedParent: 
+      m_Id: cf052d78da490459ca4fc4890935f62f
+      m_ProfileName: Android
+      m_Values:
+      - m_Id: f454995065fb044b9a445da6bdc2d14b
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: 98a1389c1b9b847a7a6169f1f412dfc7
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: eb7231abb139048fc86d5cf5a5800137
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: ef6921bc435f042fe8a4bf683079a61c
+        m_Value: ServerData/[BuildTarget]
+      - m_Id: 2a4ffb315dac245eea10fde8d0bd2d71
+        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
     m_ProfileEntryNames:
     - m_Id: f454995065fb044b9a445da6bdc2d14b
       m_Name: BuildTarget

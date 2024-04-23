@@ -35,7 +35,7 @@ public class UIShop : BaseUI
 
     private async void OnEnable()
     {
-        var catalogItems = PlayfabGameDataController.Instance.CatalogItems;
+        var catalogItems = PlayFabGameDataController.Instance.CatalogItems;
         var prefab = ResourceManager.LoadPrefabAsset(itemRef);
         foreach (var item in catalogItems)
         {

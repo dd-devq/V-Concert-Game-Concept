@@ -7,8 +7,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class Preloader : MonoBehaviour
 {
-    public PersistentManagers persistentManagers;
-    public AssetReference sceneRef;
+    public bool clearCache;
 
     private static async void DownloadAssets()
     {
@@ -30,10 +29,15 @@ public class Preloader : MonoBehaviour
 
     private async void Start()
     {
+        if (clearCache)
+            Caching.ClearCache();
+
         DownloadAssets();
 
         var handleSo = Addressables.LoadAssetAsync<ScriptableObject>("event");
         await handleSo.Task;
+
+        var persistentManagers = Resources.Load<PersistentManagers>("Scriptable Objects/Persistent Managers");
 
         foreach (var manager in persistentManagers.listManagers)
         {
@@ -49,7 +53,9 @@ public class Preloader : MonoBehaviour
             Addressables.Release(handle);
         }
 
-        var handleScene = Addressables.LoadSceneAsync(sceneRef, LoadSceneMode.Additive);
+        var sceneData = Resources.Load<SceneData>("Scriptable Objects/Scene Data");
+
+        var handleScene = Addressables.LoadSceneAsync(sceneData.ListSceneReference[0], LoadSceneMode.Additive);
         await handleScene.Task;
 
         if (handleScene.Status == AsyncOperationStatus.Succeeded)

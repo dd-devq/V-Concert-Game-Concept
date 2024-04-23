@@ -36,13 +36,12 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
             CreateAccount = true
         }, _ =>
         {
-            PlayfabGameDataController.Instance.GetAllData();
-            PlayfabPlayerDataController.Instance.GetAllData();
+            PlayFabGameDataController.Instance.GetAllData();
+            PlayFabPlayerDataController.Instance.GetAllData();
             tmp.AutoLoginSuccessCallback();
-            PlayfabGameDataController.SendLeaderBoard("001", 2540);
         }, error =>
         {
-            PlayfabErrorHandler.HandleError(error);
+            PlayFabErrorHandler.HandleError(error);
             Logout(null, null);
         });
     }
@@ -57,12 +56,12 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
         };
         PlayFabClientAPI.LoginWithEmailAddress(request, _ =>
             {
-                PlayfabGameDataController.Instance.GetAllData();
-                PlayfabPlayerDataController.Instance.GetAllData();
+                PlayFabGameDataController.Instance.GetAllData();
+                PlayFabPlayerDataController.Instance.GetAllData();
                 data.LoginSuccessCallback();
                 RememberMe();
             },
-            PlayfabErrorHandler.HandleError);
+            PlayFabErrorHandler.HandleError);
     }
 
     private static void LoginWithUsername(LoginInfo data)
@@ -75,12 +74,12 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
         };
         PlayFabClientAPI.LoginWithPlayFab(request, _ =>
             {
-                PlayfabGameDataController.Instance.GetAllData();
-                PlayfabPlayerDataController.Instance.GetAllData();
+                PlayFabGameDataController.Instance.GetAllData();
+                PlayFabPlayerDataController.Instance.GetAllData();
                 data.LoginSuccessCallback();
                 RememberMe();
             },
-            PlayfabErrorHandler.HandleError);
+            PlayFabErrorHandler.HandleError);
     }
 
     #endregion
@@ -98,8 +97,12 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
             Password = tmp.Password,
             RequireBothUsernameAndEmail = false
         };
-        PlayFabClientAPI.RegisterPlayFabUser(request, successResult => tmp.RegisterSuccessCallback(),
-            failResult => tmp.RegisterFailCallback());
+        PlayFabClientAPI.RegisterPlayFabUser(request, _ => tmp.RegisterSuccessCallback(),
+            error =>
+            {
+                tmp.RegisterFailCallback();
+                PlayFabErrorHandler.HandleError(error);
+            });
     }
 
     #endregion

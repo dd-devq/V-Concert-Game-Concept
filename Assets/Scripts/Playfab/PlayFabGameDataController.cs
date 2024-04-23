@@ -4,7 +4,7 @@ using UnityEngine;
 using PlayFab.ClientModels;
 using PlayFab;
 
-public class PlayfabGameDataController : PersistentManager<PlayfabGameDataController>
+public class PlayFabGameDataController : PersistentManager<PlayFabGameDataController>
 {
     private readonly List<CatalogItem> _catalogItems = new();
     public IEnumerable<CatalogItem> CatalogItems => _catalogItems;
@@ -16,7 +16,7 @@ public class PlayfabGameDataController : PersistentManager<PlayfabGameDataContro
 
     public GameEvent onGameDataRetrieve;
 
-    
+
     private void GetCatalogItems(string catalogVersion = "1")
     {
         var req = new GetCatalogItemsRequest
@@ -30,7 +30,7 @@ public class PlayfabGameDataController : PersistentManager<PlayfabGameDataContro
             {
                 _catalogItems.Add(item);
             }
-        }, PlayfabErrorHandler.HandleError);
+        }, PlayFabErrorHandler.HandleError);
     }
 
     public void GetLeaderBoard(Component sender, object data)
@@ -49,7 +49,7 @@ public class PlayfabGameDataController : PersistentManager<PlayfabGameDataContro
                     _currentLeaderBoard = result.Leaderboard;
                     tmp.SuccessCallback();
                 },
-                PlayfabErrorHandler.HandleError
+                PlayFabErrorHandler.HandleError
             );
         }
     }
@@ -67,7 +67,7 @@ public class PlayfabGameDataController : PersistentManager<PlayfabGameDataContro
                 }
             }
         };
-        PlayFabClientAPI.UpdatePlayerStatistics(req, null, PlayfabErrorHandler.HandleError);
+        PlayFabClientAPI.UpdatePlayerStatistics(req, null, PlayFabErrorHandler.HandleError);
     }
 
     public void GetAllData()

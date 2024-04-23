@@ -4,13 +4,17 @@ using EventData;
 using PlayFab.ClientModels;
 using UnityEngine;
 using PlayFab;
+using UnityEngine.Serialization;
 
-public class PlayfabPlayerDataController : PersistentManager<PlayfabPlayerDataController>
+public class PlayFabPlayerDataController : PersistentManager<PlayFabPlayerDataController>
 {
+    public string playerId;
     private Dictionary<string, int> Currencies { get; } = new();
     public List<ItemInstance> Inventory { get; } = new();
     public GameEvent onPlayerDataRetrieve;
     public GameEvent onPlayerInventoryRetrieve;
+
+    public string equipItem;
 
     public void GetAllData()
     {
@@ -43,9 +47,31 @@ public class PlayfabPlayerDataController : PersistentManager<PlayfabPlayerDataCo
             {
                 Inventory.Add(item);
             }
-        }, PlayfabErrorHandler.HandleError);
+        }, PlayFabErrorHandler.HandleError);
     }
 
+    public void SetPlayerData(Component sender, object data)
+    {
+        var listDataKeys = Resources.Load<PlayerData>("Scriptable Objects/Player Data Key").PlayerDataKeys;
+        var req = new UpdateUserDataRequest
+        {
+            Data = null
+        };
+
+        PlayFabClientAPI.UpdateUserData(req, result => { }, PlayFabErrorHandler.HandleError);
+    }
+
+
+    public void GetPlayerData()
+    {
+        var listDataKeys = Resources.Load<PlayerData>("Scriptable Objects/Player Data Key").PlayerDataKeys;
+        var req = new GetUserDataRequest
+        {
+            Keys = listDataKeys,
+            PlayFabId = playerId
+        };
+        PlayFabClientAPI.GetUserData(req, result => { }, PlayFabErrorHandler.HandleError);
+    }
 
     public void AddCurrency(Component sender, object data)
     {
@@ -54,7 +80,7 @@ public class PlayfabPlayerDataController : PersistentManager<PlayfabPlayerDataCo
         {
             VirtualCurrency = temp.Key,
             Amount = temp.Amount
-        }, null, PlayfabErrorHandler.HandleError);
+        }, null, PlayFabErrorHandler.HandleError);
     }
 
     public void SubtractCurrency(string key, int amount)
@@ -63,6 +89,6 @@ public class PlayfabPlayerDataController : PersistentManager<PlayfabPlayerDataCo
         {
             VirtualCurrency = key,
             Amount = amount
-        }, null, PlayfabErrorHandler.HandleError);
+        }, null, PlayFabErrorHandler.HandleError);
     }
 }

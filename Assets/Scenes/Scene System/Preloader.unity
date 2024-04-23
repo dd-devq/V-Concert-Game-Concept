@@ -167,9 +167,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367a1f8abdc6943dea48f2034d48eda3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistentManagers: {fileID: 11400000, guid: 9a7e4c9f68223498b897eb8d29811063, type: 2}
-  sceneRef:
-    m_AssetGUID: 19872da5ec3cc4977987627f9638db84
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
+  clearCache: 0

@@ -87,7 +87,7 @@ public class UISongSelection : BaseUI
         var playerPrefab = ResourceManager.LoadPrefabAsset(playerRef);
         if (playerPrefab)
         {
-            var leaderBoard = PlayfabGameDataController.Instance.CurrentLeaderBoard;
+            var leaderBoard = PlayFabGameDataController.Instance.CurrentLeaderBoard;
             if (leaderBoard.Count != 0)
             {
                 leaderBoardWarningText.SetActive(false);

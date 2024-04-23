@@ -2,7 +2,7 @@ using UnityEngine;
 using PlayFab.ClientModels;
 using PlayFab;
 
-public class PlayfabGamePlayController : PersistentManager<PlayfabGamePlayController>
+public class PlayFabGamePlayController : PersistentManager<PlayFabGamePlayController>
 {
     public void StartPurchaseItem()
     {
@@ -19,6 +19,6 @@ public class PlayfabGamePlayController : PersistentManager<PlayfabGamePlayContro
             ConsumeCount = 1,
             // ItemInstanceId = id
         };
-        PlayFabClientAPI.ConsumeItem(req, null, PlayfabErrorHandler.HandleError);
+        PlayFabClientAPI.ConsumeItem(req, null, PlayFabErrorHandler.HandleError);
     }
 }
