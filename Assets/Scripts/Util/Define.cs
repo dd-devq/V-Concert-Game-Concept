@@ -139,4 +139,23 @@ public static class Define
     public static int NormalHit = 10;
     public static int GoodHit = 20;
     public static int PerfectHit = 100;
+
+    public enum InputMode
+    {
+        SingleKey,
+        MultiKey,
+    }
+
+    public enum PrefabName
+    {
+        NotePrefab
+    }
+
+    public enum Tags
+    {
+        Activator,
+        PerfectHit,
+        Note,
+    }
+    
 }
