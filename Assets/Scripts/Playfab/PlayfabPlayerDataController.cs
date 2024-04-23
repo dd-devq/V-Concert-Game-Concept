@@ -1,63 +1,94 @@
 using System;
 using System.Collections.Generic;
+using EventData;
 using PlayFab.ClientModels;
 using UnityEngine;
 using PlayFab;
+using UnityEngine.Serialization;
 
-public class PlayfabPlayerDataController : PersistentManager<PlayfabPlayerDataController>
+public class PlayFabPlayerDataController : PersistentManager<PlayFabPlayerDataController>
 {
-    private readonly Dictionary<string, int> _currencies = new();
-    public Dictionary<string, int> Currencies => _currencies;
+    public string playerId;
+    private Dictionary<string, int> Currencies { get; } = new();
+    public List<ItemInstance> Inventory { get; } = new();
+    public GameEvent onPlayerDataRetrieve;
+    public GameEvent onPlayerInventoryRetrieve;
 
-    private readonly List<ItemInstance> _inventory = new();
-    public List<ItemInstance> Inventory => _inventory;
-
+    public string equipItem;
 
     public void GetAllData()
     {
-        GetInventory();
+        GetInventory(null, null);
     }
 
-    public void UpdateCurrency()
-    {
-    }
-
-
-    public void UpdateInventory()
-    {
-    }
-
-    public void GetInventory()
+    public void GetInventory(Component sender, object data)
     {
         PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), result =>
         {
-            _currencies.Clear();
-            _inventory.Clear();
-
+            Currencies.Clear();
             foreach (var pair in result.VirtualCurrency)
             {
-                _currencies.Add(pair.Key, pair.Value);
+                Currencies.Add(pair.Key, pair.Value);
             }
+
+            var playerData = new UserData
+            {
+                Coin = Currencies["CN"],
+                Gem = Currencies["GM"],
+                Username = "User"
+            };
+
+            onPlayerDataRetrieve.Invoke(this, playerData);
+
+
+            Inventory.Clear();
 
             foreach (var item in result.Inventory)
             {
-                _inventory.Add(item);
+                Inventory.Add(item);
             }
-        }, PlayfabErrorHandler.HandleError);
+        }, PlayFabErrorHandler.HandleError);
+    }
+
+    public void SetPlayerData(Component sender, object data)
+    {
+        var listDataKeys = Resources.Load<PlayerData>("Scriptable Objects/Player Data Key").PlayerDataKeys;
+        var req = new UpdateUserDataRequest
+        {
+            Data = null
+        };
+
+        PlayFabClientAPI.UpdateUserData(req, result => { }, PlayFabErrorHandler.HandleError);
     }
 
 
-    public void AddCurrency()
+    public void GetPlayerData()
     {
+        var listDataKeys = Resources.Load<PlayerData>("Scriptable Objects/Player Data Key").PlayerDataKeys;
+        var req = new GetUserDataRequest
+        {
+            Keys = listDataKeys,
+            PlayFabId = playerId
+        };
+        PlayFabClientAPI.GetUserData(req, result => { }, PlayFabErrorHandler.HandleError);
+    }
+
+    public void AddCurrency(Component sender, object data)
+    {
+        var temp = (RewardData)data;
         PlayFabClientAPI.AddUserVirtualCurrency(new AddUserVirtualCurrencyRequest
         {
-        }, _ => { }, PlayfabErrorHandler.HandleError);
+            VirtualCurrency = temp.Key,
+            Amount = temp.Amount
+        }, null, PlayFabErrorHandler.HandleError);
     }
 
-    public void SubtractCurrency()
+    public void SubtractCurrency(string key, int amount)
     {
         PlayFabClientAPI.SubtractUserVirtualCurrency(new SubtractUserVirtualCurrencyRequest
         {
-        }, _ => { }, PlayfabErrorHandler.HandleError);
+            VirtualCurrency = key,
+            Amount = amount
+        }, null, PlayFabErrorHandler.HandleError);
     }
 }

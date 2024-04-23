@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using PlayFab.ClientModels;
+using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 
 public class UIInventory : BaseUI
 {
@@ -17,36 +20,46 @@ public class UIInventory : BaseUI
 
     private List<ItemInstance> _inventory = new();
 
-    private void OnEnable()
+    protected override void OnShow(UIParam param = null)
     {
-        if (_inventory.Count == PlayfabPlayerDataController.Instance.Inventory.Count) return;
+        base.OnShow(param);
+        if (_inventory.Count == PlayFabPlayerDataController.Instance.Inventory.Count) return;
 
-        _inventory = PlayfabPlayerDataController.Instance.Inventory;
-        // GameObject prefab = null;
-        //
-        // for (int i = 0; i < 3; i++) // Retry 3 times
-        // {
-        //     prefab = await ResourceManager.Instance.LoadPrefabAsset(itemSlotRef);
-        //     if (prefab != null)
-        //         break; // If loaded successfully, exit loop
-        //     else
-        //         await Task.Delay(1000); // Wait for 1 second before retrying
-        // }
+        _inventory = PlayFabPlayerDataController.Instance.Inventory;
 
-        var prefab = ResourceManager.Instance.LoadPrefabAsset(itemSlotRef);
+        var prefab = ResourceManager.LoadPrefabAsset(itemSlotRef);
         foreach (var item in _inventory)
         {
-            var itemGo = Instantiate(prefab, contentDrawer.transform, false);
-            var invItem = itemGo.GetComponent<UIInventoryItem>();
-            invItem.SetAmount(item.RemainingUses ?? 0);
+            var invItemGameObject = Instantiate(prefab, contentDrawer.transform, false);
+            var invItemImage = invItemGameObject.GetComponent<Image>();
+            var invItemAmount = invItemGameObject.transform.Find("Amount").GetComponent<TextMeshProUGUI>();
+
+            invItemAmount.SetText((item.RemainingUses ?? 0).ToString());
+
+            //Load and Set Image
+
+            invItemGameObject.GetComponent<Button>().onClick.AddListener(() => { OnEquipClick(invItemImage); });
         }
     }
 
-    public void OnEquipClick()
+    private void OnEquipClick(Image itemImage)
     {
+        var equipItemImage = equipSlot.GetComponent<Image>();
+        if (equipItemImage.sprite)
+        {
+        }
+
+        equipItemImage.sprite = itemImage.sprite;
+        ReloadInventory();
+        onEquipClick.Invoke(this, null);
     }
 
-    public void ReloadInventory()
+    public void OnUnEquipClick()
+    {
+        onUnEquipClick.Invoke(this, null);
+    }
+
+    private void ReloadInventory()
     {
     }
 }

@@ -15,6 +15,25 @@ public class UIManager : ManualSingletonMono<UIManager>
     {
         base.Awake();
         _uiDictionary = new Dictionary<UIIndex, BaseUI>();
+        Application.quitting += () =>
+        {
+            if (_uiDictionary != null)
+            {
+                // Dispose each value in the dictionary if they implement IDisposable
+                foreach (var item in _uiDictionary)
+                {
+                    var disposable = item.Value as IDisposable;
+                    if (disposable != null)
+                    {
+                        disposable.Dispose();
+                    }
+                }
+
+                // Clear the dictionary
+                _uiDictionary.Clear();
+                _uiDictionary = null;
+            }
+        };
     }
 
     private void Start()

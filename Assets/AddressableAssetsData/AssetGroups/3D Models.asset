@@ -101,6 +101,14 @@ MonoBehaviour:
     m_Address: Models/Men/Worker
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: ad08681bae0df44f7bcf461603639fed
+    m_Address: Models/SMPL/SMPL
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 810f58c60f8044ea9b180459c5e904f0
+    m_Address: Assets/Prefabs/Models/stage.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 33f0c0a813db642d5856e2e5d17f969f, type: 2}
   m_SchemaSet:

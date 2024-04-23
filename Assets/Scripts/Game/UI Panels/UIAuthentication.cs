@@ -30,7 +30,7 @@ public class UIAuthentication : BaseUI
     {
         if (PlayerPrefs.GetInt("PlayfabRememberMe", 0) == 1)
         {
-            Invoke(nameof(AutoLogin), .25f);
+            Invoke(nameof(AutoLogin), .5f);
         }
     }
 

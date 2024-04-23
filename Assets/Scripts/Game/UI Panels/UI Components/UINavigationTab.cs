@@ -1,3 +1,5 @@
+using System;
+using EventData;
 using PlayFab.ClientModels;
 using TMPro;
 using UI;
@@ -8,6 +10,13 @@ public class UINavigationTab : BaseUI
     public TextMeshProUGUI usernameTxt;
     public TextMeshProUGUI coinAmountTxt;
     public TextMeshProUGUI gemAmountTxt;
+
+    private void Start()
+    {
+        SetCoin("0");
+        SetGem("0");
+        SetUsername("John Doe");
+    }
 
     public void OnPlayClick()
     {
@@ -32,18 +41,27 @@ public class UINavigationTab : BaseUI
         UIManager.Instance.ShowUI(UIIndex.UIAvatarSelection, uiParam);
     }
 
-    private void UpdateCoin(string amount)
+    private void SetCoin(string amount)
     {
         coinAmountTxt.SetText(amount);
     }
 
-    private void UpdateGem(string amount)
+    private void SetGem(string amount)
     {
         gemAmountTxt.SetText(amount);
     }
 
-    private void UpdateUsername(string username)
+    private void SetUsername(string username)
     {
         usernameTxt.SetText(username);
+    }
+
+    public void UpdateData(Component sender, object data)
+    {
+        var temp = (UserData)data;
+
+        SetCoin(temp.Coin.ToString());
+        SetGem(temp.Gem.ToString());
+        SetUsername(temp.Username);
     }
 }

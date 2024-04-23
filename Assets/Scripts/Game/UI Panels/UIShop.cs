@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using EventData;
+using PlayFab.ClientModels;
 using UI;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -15,8 +16,8 @@ public class UIShop : BaseUI
     public GameObject contentDrawer;
 
     // List Data
-    private List<ShopItem> _listItems = new();
-    public List<ShopItem> listCharacters = new();
+    private List<ItemInstance> _listItems = new();
+    public List<ItemInstance> listCharacters = new();
 
     public AssetReferenceGameObject itemRef;
 
@@ -32,10 +33,10 @@ public class UIShop : BaseUI
         onBuyClick.Invoke(this, null);
     }
 
-    private async void OnEnable()
+    private void OnEnable()
     {
-        var catalogItems = PlayfabGameDataController.Instance.CatalogItems;
-        var prefab = ResourceManager.Instance.LoadPrefabAsset(itemRef);
+        var catalogItems = PlayFabGameDataController.Instance.CatalogItems;
+        var prefab = ResourceManager.LoadPrefabAsset(itemRef);
         foreach (var item in catalogItems)
         {
             Instantiate(prefab, contentDrawer.transform, false);
@@ -62,7 +63,6 @@ public class UIShop : BaseUI
     public void UpdateShop(Component sender, object data)
     {
         // check sender
-        var temp = (GameData)data;
-        _listItems = temp.ListShopItems;
+
     }
 }

@@ -43,18 +43,19 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: 7df2d2d01c512454bb2c9231fd027a2a, type: 2}
   - {fileID: 11400000, guid: 7cdff5368b87f44a2b06fbd5a7159ea1, type: 2}
-  - {fileID: 11400000, guid: d191ddff6d49e418b9ec5062d176bdbb, type: 2}
   - {fileID: 11400000, guid: 99dff96de661a451dbaf0b86cf7ce449, type: 2}
-  - {fileID: 11400000, guid: ca4398c4dd89949d39d186e9e0cde223, type: 2}
+  - {fileID: 11400000, guid: 7d40ab44ddb1d4f05bb0087be0dd54df, type: 2}
   - {fileID: 11400000, guid: afc745a77579040499875ddaac42eda0, type: 2}
   - {fileID: 11400000, guid: 551283f9e00ec45c59e06e22eacd6a2d, type: 2}
   - {fileID: 11400000, guid: c4eb04d8810624a648cf4d7a35df3fad, type: 2}
   - {fileID: 11400000, guid: 5c14d214755b6435b96eb9323b5e3f61, type: 2}
-  - {fileID: 11400000, guid: c19689e9873374200af54d5b10b4f11d, type: 2}
-  - {fileID: 11400000, guid: bd14429d692f94b02abe210e94c4c7d9, type: 2}
   - {fileID: 11400000, guid: 2b617440965414e79ac6e960a231eac3, type: 2}
-  - {fileID: 11400000, guid: 9fdd03068867f438d98edd1ffcc5c42c, type: 2}
+  - {fileID: 11400000, guid: a8107c16119ce44a09c3cc7cfe87482f, type: 2}
+  - {fileID: 11400000, guid: d191ddff6d49e418b9ec5062d176bdbb, type: 2}
   - {fileID: 11400000, guid: e1c99e29ace4e4f15935d608f7498075, type: 2}
+  - {fileID: 11400000, guid: 2b1e5897a623b406db17c0b344ead57e, type: 2}
+  - {fileID: 11400000, guid: de3532de11ff247d9b21a3553148be66, type: 2}
+  - {fileID: 11400000, guid: 285a6a00d00a94b15bad2b2c9149e3d6, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -90,6 +91,20 @@ MonoBehaviour:
         m_Value: ServerData/[BuildTarget]
       - m_Id: 2a4ffb315dac245eea10fde8d0bd2d71
         m_Value: https://vconcert.blob.core.windows.net/standaloneosx
+    - m_InheritedParent: 
+      m_Id: cf052d78da490459ca4fc4890935f62f
+      m_ProfileName: Android
+      m_Values:
+      - m_Id: f454995065fb044b9a445da6bdc2d14b
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: 98a1389c1b9b847a7a6169f1f412dfc7
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: eb7231abb139048fc86d5cf5a5800137
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: ef6921bc435f042fe8a4bf683079a61c
+        m_Value: ServerData/[BuildTarget]
+      - m_Id: 2a4ffb315dac245eea10fde8d0bd2d71
+        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
     m_ProfileEntryNames:
     - m_Id: f454995065fb044b9a445da6bdc2d14b
       m_Name: BuildTarget
@@ -110,7 +125,7 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
-    - auth
+    - event
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 16732a594b3b1421c9e976439676ae16, type: 2}

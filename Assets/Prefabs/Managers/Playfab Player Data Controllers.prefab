@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3392fe5667424ef9a6aba1d83c58876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPlayerDataUpdated: {fileID: 0}
+  onPlayerDataRetrieve: {fileID: 11400000, guid: a088435a4bbb149f0b6dbd05962c03c6, type: 2}

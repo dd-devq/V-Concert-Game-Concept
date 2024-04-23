@@ -44,3 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d694fbb34ea284fb28a9f740f3e76a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ListAnimationsl: []
+  MainDance: {fileID: 0}
+  Avatar: {fileID: 0}
+  refChar:
+    m_AssetGUID: 99f010c4e7125468ab513abfcdf61972
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

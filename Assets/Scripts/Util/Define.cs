@@ -25,7 +25,7 @@ namespace UI
         UILobby,
         UILoading,
         UINavigationTab,
-        UIHUD,
+        UIHud,
         UIVictory,
         UIPause,
         None
@@ -50,7 +50,7 @@ namespace EventData
         public Action LoginFailCallback;
         public Action LoginSuccessCallback;
     }
-    
+
     public struct AutoLoginInfo
     {
         public Action AutoLoginFailCallback;
@@ -64,29 +64,51 @@ namespace EventData
 
     public struct UserData
     {
-        public Dictionary<string, int> virtualCurrency;
-        public List<ItemInstance> playerInventory;
+        public int Coin;
+        public int Gem;
+        public string Username;
     }
 
-    public struct GameData
+    public struct RewardData
     {
-        public List<ShopItem> ListShopItems;
+        public string Key;
+        public int Amount;
+    }
+
+    public struct LeaderBoardReqInfo
+    {
+        public string Name;
+        public Action SuccessCallback;
     }
 }
 
-public class CharacterData
+
+namespace GameData
 {
-    public string characterModel;
-    public string playerAvatar;
-    public string songData;
+    [Serializable]
+    public struct Song
+    {
+        public string Title;
+        public string Artist;
+        public string Cover;
+    }
+
+    [Serializable]
+    public struct Item
+    {
+        public ItemInstance Data;
+        public string Image;
+    }
+
+    [Serializable]
+    public struct Character
+    {
+        public string Path;
+        public string ModelName;
+        public string Image;
+    }
 }
 
-public class ShopItem
-{
-    public string name;
-    public int price;
-    public Currency type;
-}
 
 public enum HitType
 {
@@ -103,6 +125,7 @@ public enum SongState
     End
 }
 
+
 public static class Define
 {
     //the gap time between 2 notes
@@ -116,22 +139,4 @@ public static class Define
     public static int NormalHit = 10;
     public static int GoodHit = 20;
     public static int PerfectHit = 100;
-
-    public enum InputMode
-    {
-        SingleKey,
-        MultiKey,
-    }
-
-    public enum PrefabName
-    {
-        NotePrefab
-    }
-
-    public enum Tags
-    {
-        Activator,
-        PerfectHit,
-        Note,
-    }
 }

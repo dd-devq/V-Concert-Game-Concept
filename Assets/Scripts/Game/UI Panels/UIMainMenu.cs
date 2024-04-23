@@ -5,16 +5,6 @@ using UnityEngine;
 
 public class UIMainMenu : BaseUI
 {
-    public TextMeshProUGUI txt;
-    public GameObject stage;
-    public GameObject smpl;
-
-    private void Update()
-    {
-        txt.SetText(stage.transform.localPosition.ToString() + '\n' + stage.transform.localRotation.ToString());
-        txt.SetText(smpl.transform.localPosition.ToString() + '\n' + smpl.transform.localRotation.ToString());
-    }
-
     public void OnShopClick()
     {
         UIManager.Instance.HideUI(index);

@@ -7,8 +7,8 @@ using EventData;
 
 public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenticationController>
 {
-    private const string PlayfabRememberMeId = "PlayfabRememberMeId";
-    private const string PlayfabRememberMe = "PlayfabRememberMe";
+    private const string PlayFabRememberMeId = "PlayfabRememberMeId";
+    private const string PlayFabRememberMe = "PlayfabRememberMe";
 
     #region Login
 
@@ -28,20 +28,21 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
     public void AutoLogin(Component sender, object data)
     {
         var tmp = (AutoLoginInfo)data;
-        var rememberMeId = PlayerPrefs.GetString(PlayfabRememberMeId);
+        var rememberMeId = PlayerPrefs.GetString(PlayFabRememberMeId);
         PlayFabClientAPI.LoginWithCustomID(new LoginWithCustomIDRequest
         {
             TitleId = PlayFabSettings.TitleId,
             CustomId = rememberMeId,
             CreateAccount = true
-        }, _ =>
+        }, result =>
         {
-            PlayfabGameDataController.Instance.GetAllData();
-            PlayfabPlayerDataController.Instance.GetAllData();
+            PlayFabGameDataController.Instance.GetAllData();
+            PlayFabPlayerDataController.Instance.GetAllData();
+            PlayFabPlayerDataController.Instance.playerId = result.PlayFabId;
             tmp.AutoLoginSuccessCallback();
         }, error =>
         {
-            PlayfabErrorHandler.HandleError(error);
+            PlayFabErrorHandler.HandleError(error);
             Logout(null, null);
         });
     }
@@ -54,17 +55,18 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
             Password = data.Password,
             TitleId = PlayFabSettings.TitleId
         };
-        PlayFabClientAPI.LoginWithEmailAddress(request, _ =>
+        PlayFabClientAPI.LoginWithEmailAddress(request, result =>
             {
-                PlayfabGameDataController.Instance.GetAllData();
-                PlayfabPlayerDataController.Instance.GetAllData();
+                PlayFabGameDataController.Instance.GetAllData();
+                PlayFabPlayerDataController.Instance.GetAllData();
+                PlayFabPlayerDataController.Instance.playerId = result.PlayFabId;
                 data.LoginSuccessCallback();
                 RememberMe();
             },
-            PlayfabErrorHandler.HandleError);
+            PlayFabErrorHandler.HandleError);
     }
 
-    private void LoginWithUsername(LoginInfo data)
+    private static void LoginWithUsername(LoginInfo data)
     {
         var request = new LoginWithPlayFabRequest
         {
@@ -72,14 +74,15 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
             Password = data.Password,
             TitleId = PlayFabSettings.TitleId
         };
-        PlayFabClientAPI.LoginWithPlayFab(request, _ =>
+        PlayFabClientAPI.LoginWithPlayFab(request, result =>
             {
-                PlayfabGameDataController.Instance.GetAllData();
-                PlayfabPlayerDataController.Instance.GetAllData();
+                PlayFabGameDataController.Instance.GetAllData();
+                PlayFabPlayerDataController.Instance.GetAllData();
+                PlayFabPlayerDataController.Instance.playerId = result.PlayFabId;
                 data.LoginSuccessCallback();
                 RememberMe();
             },
-            PlayfabErrorHandler.HandleError);
+            PlayFabErrorHandler.HandleError);
     }
 
     #endregion
@@ -93,11 +96,16 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
         {
             Email = tmp.Email,
             Username = tmp.Username,
+            DisplayName = tmp.Username,
             Password = tmp.Password,
             RequireBothUsernameAndEmail = false
         };
-        PlayFabClientAPI.RegisterPlayFabUser(request, successResult => tmp.RegisterSuccessCallback(),
-            failResult => tmp.RegisterFailCallback());
+        PlayFabClientAPI.RegisterPlayFabUser(request, _ => tmp.RegisterSuccessCallback(),
+            error =>
+            {
+                tmp.RegisterFailCallback();
+                PlayFabErrorHandler.HandleError(error);
+            });
     }
 
     #endregion
@@ -132,15 +140,15 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
 
     private static void ClearRememberMe()
     {
-        PlayerPrefs.DeleteKey(PlayfabRememberMeId);
-        PlayerPrefs.DeleteKey(PlayfabRememberMe);
+        PlayerPrefs.DeleteKey(PlayFabRememberMeId);
+        PlayerPrefs.DeleteKey(PlayFabRememberMe);
     }
 
     private static void RememberMe()
     {
         var rememberMeId = Guid.NewGuid().ToString();
-        PlayerPrefs.SetString(PlayfabRememberMeId, rememberMeId);
-        PlayerPrefs.SetInt(PlayfabRememberMe, 1);
+        PlayerPrefs.SetString(PlayFabRememberMeId, rememberMeId);
+        PlayerPrefs.SetInt(PlayFabRememberMe, 1);
 
         PlayFabClientAPI.LinkCustomID(new LinkCustomIDRequest
         {

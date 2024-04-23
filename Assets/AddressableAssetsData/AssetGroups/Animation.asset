@@ -16,7 +16,31 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 08813ec7b9b9247538e4eb18bf686e0c
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 0aaf7c86bab1d4df7b8cec0d5c93f51a
+    m_Address: Assets/Animations/Controllers/SMPL.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cd7267f161cc4437f8ffe3af882b5fc1
+    m_Address: Assets/Animations/Animation Clips/Idle.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e346c06ed0f0242ecb3c46a45a4c2bcd
+    m_Address: Assets/Animations/Dances/06.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fcacb4a38361d4c5fad04ad17efd928c
+    m_Address: Assets/Animations/Dances/009.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6315b2c2078e2498e94aa2c29f11ba20
+    m_Address: Assets/Animations/Dances/010.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 776f0c1a3da7f47a2a5043734433ac69
+    m_Address: Assets/Animations/Dances/014.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 33f0c0a813db642d5856e2e5d17f969f, type: 2}
   m_SchemaSet:

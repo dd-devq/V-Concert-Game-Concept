@@ -46,6 +46,6 @@ public abstract class BaseUI : MonoBehaviour
 
     protected void PlaySoundOnClick()
     {
-        playSoundOnClick.Invoke(this, null);
+        playSoundOnClick.Invoke(this, 0);
     }
 }
