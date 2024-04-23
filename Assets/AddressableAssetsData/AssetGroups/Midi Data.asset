@@ -25,10 +25,6 @@ MonoBehaviour:
     m_Address: MIDI/take-me-to-your-heart
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: c07e38a10e3104a4287731640b8dd800
-    m_Address: MIDI/we_made_a_chart_pog
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 33f0c0a813db642d5856e2e5d17f969f, type: 2}
   m_SchemaSet:
