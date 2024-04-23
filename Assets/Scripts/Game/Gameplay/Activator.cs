@@ -1,14 +1,15 @@
-using UnityEngine;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
-using MidiNote = Melanchall.DryWetMidi.Interaction.Note;
-using NoteName = Melanchall.DryWetMidi.MusicTheory.NoteName;
+using Melanchall.DryWetMidi.MusicTheory;
+using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
 
 public class Activator : MonoBehaviour
 {
-    public KeyCode keyInput;
-    public NoteName noteRestriction;
+    public KeyCode KeyInput;
 
     [SerializeField]
     private NoteManager _noteManager = null;
@@ -39,8 +40,8 @@ public class Activator : MonoBehaviour
     /// </summary>
     public int ZoneIndex
     {
-        spawnIndex = 0;
-        _timeStamps = new List<double>();
+        get => _zoneIndex;
+        set => _zoneIndex = value;
     }
     public List<NoteName> Pitches
     {
@@ -66,7 +67,7 @@ public class Activator : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(keyInput))
+        if (spawnIndex < _spawnedTimes.Count)
         {
             //spawn note truoc 1 khoang thoi gian NoteTime
             if (SongManager.GetAudioSourceTime() >= _spawnedTimes[spawnIndex] - SongManager.Instance.NoteTime)
@@ -136,13 +137,17 @@ public class Activator : MonoBehaviour
 
     public void OnResponseNoteMiss(Component component, object data)
     {
-        var newPosition = transform.localPosition;
-        newPosition.y /= 2;
-
-        var newScale = transform.localScale;
-        newScale.y /= 2;
-
-        transform.localPosition = newPosition;
-        transform.localScale = newScale;
+        int index;
+        if (data is int)
+        {
+            index = (int)data;
+            var temp = notes[index];
+            Destroy(temp.gameObject);
+            ScoreManager.Miss();
+        }
+        else
+        {
+            Debug.LogError("Wront data pack in OnResponseNoteMiss");
+        }
     }
 }

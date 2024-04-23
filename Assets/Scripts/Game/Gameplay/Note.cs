@@ -7,8 +7,8 @@ using UnityEngine.Serialization;
 
 public class Note : MonoBehaviour
 {
-    [Header("Events")] private Vector3 _spawnPos;
-    private Vector3 _targetPos; // activator
+    [Header("Events")]
+    public GameEvent onNoteInActivator;
 
     private Vector3 _startPos;
     private Vector3 _endPos;
@@ -39,7 +39,7 @@ public class Note : MonoBehaviour
         _timeInstantiated = SongManager.GetAudioSourceTime();
     }
 
-    public void SetTargetPosition(Vector3 targetPos)
+    private void Update()
     {
         if (gameObject != null && gameObject.name != Define.PrefabName.NotePrefab.ToString())
         {
@@ -99,7 +99,7 @@ public class Note : MonoBehaviour
         }
     }
 
-    public void Move()
+    private void OnFinishNotes()
     {
         if (!_isHit)
         {

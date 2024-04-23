@@ -66,10 +66,10 @@ public class Conductor : ManualSingletonMono<Conductor>
         List<MidiNote> listNote = new();
         listNote.AddRange(notes);
         Debug.Log(listNote.Count);
-        foreach (var activator in ActivatorManager.Instance.activators)
-        {
-            activator.SetTimeStamps(listNote);
-        }
+        // foreach (var activator in ActivatorManager.Instance.activators)
+        // {
+        // activator.SetTimeStamps(listNote);
+        // }
     }
 
     public static TempoMap GetSongTempo()
