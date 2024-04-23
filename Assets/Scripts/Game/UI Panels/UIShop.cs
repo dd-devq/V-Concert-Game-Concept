@@ -33,7 +33,7 @@ public class UIShop : BaseUI
         onBuyClick.Invoke(this, null);
     }
 
-    private async void OnEnable()
+    private void OnEnable()
     {
         var catalogItems = PlayFabGameDataController.Instance.CatalogItems;
         var prefab = ResourceManager.LoadPrefabAsset(itemRef);

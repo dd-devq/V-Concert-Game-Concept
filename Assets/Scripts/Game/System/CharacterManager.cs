@@ -4,7 +4,7 @@ using UnityEngine.AddressableAssets;
 
 public class CharacterManager : PersistentManager<CharacterManager>
 {
-    public List<AnimationClip> ListAnimationsl;
+    public List<AnimationClip> ListAnimations;
     public AnimationClip MainDance;
     public Avatar Avatar;
     public AssetReference refChar;

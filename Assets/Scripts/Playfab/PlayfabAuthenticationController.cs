@@ -7,8 +7,8 @@ using EventData;
 
 public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenticationController>
 {
-    private const string PlayfabRememberMeId = "PlayfabRememberMeId";
-    private const string PlayfabRememberMe = "PlayfabRememberMe";
+    private const string PlayFabRememberMeId = "PlayfabRememberMeId";
+    private const string PlayFabRememberMe = "PlayfabRememberMe";
 
     #region Login
 
@@ -28,16 +28,17 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
     public void AutoLogin(Component sender, object data)
     {
         var tmp = (AutoLoginInfo)data;
-        var rememberMeId = PlayerPrefs.GetString(PlayfabRememberMeId);
+        var rememberMeId = PlayerPrefs.GetString(PlayFabRememberMeId);
         PlayFabClientAPI.LoginWithCustomID(new LoginWithCustomIDRequest
         {
             TitleId = PlayFabSettings.TitleId,
             CustomId = rememberMeId,
             CreateAccount = true
-        }, _ =>
+        }, result =>
         {
             PlayFabGameDataController.Instance.GetAllData();
             PlayFabPlayerDataController.Instance.GetAllData();
+            PlayFabPlayerDataController.Instance.playerId = result.PlayFabId;
             tmp.AutoLoginSuccessCallback();
         }, error =>
         {
@@ -54,10 +55,11 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
             Password = data.Password,
             TitleId = PlayFabSettings.TitleId
         };
-        PlayFabClientAPI.LoginWithEmailAddress(request, _ =>
+        PlayFabClientAPI.LoginWithEmailAddress(request, result =>
             {
                 PlayFabGameDataController.Instance.GetAllData();
                 PlayFabPlayerDataController.Instance.GetAllData();
+                PlayFabPlayerDataController.Instance.playerId = result.PlayFabId;
                 data.LoginSuccessCallback();
                 RememberMe();
             },
@@ -72,10 +74,11 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
             Password = data.Password,
             TitleId = PlayFabSettings.TitleId
         };
-        PlayFabClientAPI.LoginWithPlayFab(request, _ =>
+        PlayFabClientAPI.LoginWithPlayFab(request, result =>
             {
                 PlayFabGameDataController.Instance.GetAllData();
                 PlayFabPlayerDataController.Instance.GetAllData();
+                PlayFabPlayerDataController.Instance.playerId = result.PlayFabId;
                 data.LoginSuccessCallback();
                 RememberMe();
             },
@@ -137,15 +140,15 @@ public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenti
 
     private static void ClearRememberMe()
     {
-        PlayerPrefs.DeleteKey(PlayfabRememberMeId);
-        PlayerPrefs.DeleteKey(PlayfabRememberMe);
+        PlayerPrefs.DeleteKey(PlayFabRememberMeId);
+        PlayerPrefs.DeleteKey(PlayFabRememberMe);
     }
 
     private static void RememberMe()
     {
         var rememberMeId = Guid.NewGuid().ToString();
-        PlayerPrefs.SetString(PlayfabRememberMeId, rememberMeId);
-        PlayerPrefs.SetInt(PlayfabRememberMe, 1);
+        PlayerPrefs.SetString(PlayFabRememberMeId, rememberMeId);
+        PlayerPrefs.SetInt(PlayFabRememberMe, 1);
 
         PlayFabClientAPI.LinkCustomID(new LinkCustomIDRequest
         {
