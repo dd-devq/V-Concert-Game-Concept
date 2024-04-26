@@ -17,7 +17,7 @@ public class UIInventory : BaseUI
     public AssetReference itemSlotRef;
 
     private GameObject _itemSlotPrefab;
-    private readonly List<Sprite> _listItemSprite = new();
+    private readonly Dictionary<string, Sprite> _listItemSprite = new();
     private string _equipItem;
 
     private List<ItemInstance> _inventory;
@@ -39,12 +39,20 @@ public class UIInventory : BaseUI
     {
         foreach (var sprite in _listItemSprite)
         {
-            ResourceManager.UnloadSpriteAsset(sprite);
+            ResourceManager.UnloadSpriteAsset(sprite.Value);
         }
 
         ResourceManager.UnloadPrefabAsset(_itemSlotPrefab);
         _listItemSprite.Clear();
 
+        foreach (Transform child in contentDrawer.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    private void DestroyInventoryItems()
+    {
         foreach (Transform child in contentDrawer.transform)
         {
             Destroy(child.gameObject);
@@ -62,15 +70,53 @@ public class UIInventory : BaseUI
     {
         _equipItem = "None";
         equipSlot.GetComponent<Image>().sprite = null;
+        
     }
 
-    private void OnEquipClick(string itemName, Sprite itemSprite)
+    private void OnEquipClick(string itemName)
     {
-        LoadEquipSlot(itemName, itemSprite);
+        _equipItem = itemName;
+        DestroyInventoryItems();
+        ReloadInventory();
         onEquipClick.Invoke(this, new Dictionary<string, string>
         {
             { "Equip Item", _equipItem }
         });
+    }
+
+    private void ReloadInventory()
+    {
+        foreach (var item in _inventory)
+        {
+            if (item.RemainingUses == 1 && item.DisplayName == _equipItem)
+            {
+                LoadEquipSlot(item.DisplayName, _listItemSprite[item.DisplayName]);
+                continue;
+            }
+
+            var invItemGameObject = Instantiate(_itemSlotPrefab, contentDrawer.transform, false);
+            var invItemImage = invItemGameObject.GetComponent<Image>();
+            var invItemAmount = invItemGameObject.transform.Find("Amount").GetComponent<TextMeshProUGUI>();
+
+            invItemImage.sprite = _listItemSprite[item.DisplayName];
+
+            invItemGameObject.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                OnEquipClick(item.DisplayName);
+                invItemAmount.SetText((item.RemainingUses - 1 ?? 0).ToString());
+            });
+
+
+            if (item.DisplayName == _equipItem)
+            {
+                LoadEquipSlot(item.DisplayName, _listItemSprite[item.DisplayName]);
+                invItemAmount.SetText((item.RemainingUses - 1 ?? 0).ToString());
+            }
+            else
+            {
+                invItemAmount.SetText((item.RemainingUses ?? 0).ToString());
+            }
+        }
     }
 
     private void LoadInventory()
@@ -85,7 +131,7 @@ public class UIInventory : BaseUI
             if (item.RemainingUses == 1 && item.DisplayName == _equipItem)
             {
                 var equipItemSprite = ResourceManager.LoadSprite(item.DisplayName);
-                _listItemSprite.Add(equipItemSprite);
+                _listItemSprite.Add(item.DisplayName, equipItemSprite);
                 LoadEquipSlot(item.DisplayName, equipItemSprite);
                 continue;
             }
@@ -96,15 +142,13 @@ public class UIInventory : BaseUI
 
             var itemSprite = ResourceManager.LoadSprite(item.DisplayName);
 
-            _listItemSprite.Add(itemSprite);
+            _listItemSprite.Add(item.DisplayName, itemSprite);
             invItemImage.sprite = itemSprite;
 
             invItemGameObject.GetComponent<Button>().onClick.AddListener(() =>
             {
-                OnEquipClick(item.DisplayName, itemSprite);
+                OnEquipClick(item.DisplayName);
                 invItemAmount.SetText((item.RemainingUses - 1 ?? 0).ToString());
-                DestroyAllContent();
-                LoadInventory();
             });
 
 
@@ -123,7 +167,8 @@ public class UIInventory : BaseUI
     public void OnUnEquipClick()
     {
         RemoveEquipSlot();
-
+        DestroyInventoryItems();
+        ReloadInventory();
         onUnEquipClick.Invoke(this, new Dictionary<string, string>
         {
             { "Equip Item", _equipItem }
