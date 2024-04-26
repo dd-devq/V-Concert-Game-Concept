@@ -1,87 +1,153 @@
-using UnityEngine;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
-using MidiNote = Melanchall.DryWetMidi.Interaction.Note;
-using NoteName = Melanchall.DryWetMidi.MusicTheory.NoteName;
+using Melanchall.DryWetMidi.MusicTheory;
+using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
 
 public class Activator : MonoBehaviour
 {
-    public KeyCode keyInput;
-    public NoteName noteRestriction;
+    public KeyCode KeyInput;
 
-    private List<double> _timeStamps;
-    private List<MidiNote> _listNotes;
+    [SerializeField]
+    private NoteManager _noteManager = null;
+    [SerializeField]
+    private GameObject _endZone = null;
+    [SerializeField]
+    private GameObject _startZone = null;
+    [SerializeField]
+    private GameObject _hitZone = null;
+    [SerializeField]
+    private MeshRenderer _meshRenderer = null;
 
-    [SerializeField] private GameEvent _hitNote;
+    private List<Double> _spawnedTimes = new(); //timestamp that note spawned (based on midi)
+    private List<Note> notes = new();
+    private List<NoteName> _pitches = new();
+    private int spawnIndex = 0;
+    private int inputIndex = 0;
+    private int _zoneIndex = 0;
+    private float cooldown = Define.HitObjectInterval;
+    private float lastClickedTime = 0;
 
-    [SerializeField] private double _resetTime;
+    private Vector3 _originalHitPos = new Vector3(0, 0, 0);
+    private bool _isClicked = false;
+    
 
-    private int spawnIndex;
-
+    /// <summary>
+    /// from 0 to 3
+    /// </summary>
+    public int ZoneIndex
+    {
+        get => _zoneIndex;
+        set => _zoneIndex = value;
+    }
+    public List<NoteName> Pitches
+    {
+        get => _pitches;
+        set => _pitches = value;
+    }
+    public List<Double> SpawnedTimes
+    {
+        get => _spawnedTimes;
+        set => _spawnedTimes = value;
+    }
+    public GameObject StartZone
+    {
+        get => _startZone;
+    }
+    public GameObject EndZone
+    {
+        get => _endZone;
+    }
     private void Start()
     {
-        spawnIndex = 0;
-        _timeStamps = new List<double>();
+        _originalHitPos = _hitZone.transform.position;
     }
-
-
-    private void Update()
+    void Update()
     {
-        if (Input.GetKeyDown(keyInput))
+        if (spawnIndex < _spawnedTimes.Count)
         {
-            Compress();
-        }
-
-        if (Input.GetKeyUp(keyInput))
-        {
-            Decompress();
-        }
-    }
-
-    public void SetTimeStamps(List<MidiNote> listNotes)
-    {
-        var tempoMap = Conductor.GetSongTempo();
-        foreach (var note in listNotes)
-        {
-            if (note.NoteName == noteRestriction)
+            //spawn note truoc 1 khoang thoi gian NoteTime
+            if (SongManager.GetAudioSourceTime() >= _spawnedTimes[spawnIndex] - SongManager.Instance.NoteTime)
             {
-                var metricTimeSpan =
-                    TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, tempoMap);
-                var timeStamp = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
-                                (double)metricTimeSpan.Milliseconds / 1000f;
-                _timeStamps.Add(timeStamp);
-                Debug.Log(gameObject.name + ": " + timeStamp);
+                var note = _noteManager.OnSpawnNotesToTarget(_startZone.transform.position, _endZone.transform.position, _hitZone.transform.position);
+                notes.Add(note);
+                spawnIndex++;
             }
         }
+
+        if (Input.GetKeyDown(KeyInput) && Time.time - lastClickedTime > cooldown)
+        {
+            OnClickDownKeyInput();
+            //check note
+
+        }
+        if (_hitZone.transform.position != _originalHitPos && _isClicked)
+        {
+            Invoke("OnClickUpKeyInput", Define.HitObjectInterval);
+        }
+
+        //if (inputIndex < _spawnedTimes.Count)
+        //{
+        //    double timeStamp = _spawnedTimes[inputIndex];
+        //    double marginOfError = SongManager.Instance.MarginOfError;
+        //    double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.InputDelayInMilliseconds / 1000.0);
+
+        //    if (Input.GetKeyDown(KeyInput))
+        //    {
+        //        if (Math.Abs(audioTime - timeStamp) < marginOfError)
+        //        {
+        //            //Hit();
+        //            Debug.LogError(String.Format("Hit on {0} note", inputIndex + 1));
+        //            var temp = notes[inputIndex];
+        //            Destroy(temp.gameObject);
+        //            inputIndex++;
+        //        }
+        //        else
+        //        {
+        //            //Debug.LogError(String.Format("Hit inaccurate on {0} note with {1} delay", inputIndex, Math.Abs(audioTime - timeStamp)));
+        //            //Debug.LogError("tre");
+        //        }
+        //    }
+
+        //    if (timeStamp + marginOfError <= audioTime)
+        //    {
+        //        ScoreManager.Miss();
+        //        inputIndex++;
+        //    }
+        //}
     }
 
-    private void Compress()
+    private void OnClickDownKeyInput()
     {
-        var newPosition = transform.localPosition;
-        newPosition.y /= 2;
-
-        var newScale = transform.localScale;
-        newScale.y /= 2;
-
-        transform.localPosition = newPosition;
-        transform.localScale = newScale;
+        lastClickedTime = Time.time;
+        _hitZone.transform.position = new Vector3(_originalHitPos.x, _originalHitPos.y - 0.4f, _originalHitPos.z);
+        _meshRenderer.material = ActivatorManager.Instance.HitMaterial;
+        _isClicked = true;
     }
 
-    private void Decompress()
+    private void OnClickUpKeyInput()
     {
-        var newPosition = transform.localPosition;
-        newPosition.y *= 2;
-
-        var newScale = transform.localScale;
-        newScale.y *= 2;
-
-        transform.localPosition = newPosition;
-        transform.localScale = newScale;
+        _hitZone.transform.position = _originalHitPos;
+        _meshRenderer.material = ActivatorManager.Instance.DefaultMaterial;
+        _isClicked = false;
     }
 
-    public bool CheckHit()
+    public void OnResponseNoteMiss(Component component, object data)
     {
-        return false;
+        int index;
+        if (data is int)
+        {
+            index = (int)data;
+            var temp = notes[index];
+            Destroy(temp.gameObject);
+            ScoreManager.Miss();
+        }
+        else
+        {
+            Debug.LogError("Wront data pack in OnResponseNoteMiss");
+        }
     }
 }
