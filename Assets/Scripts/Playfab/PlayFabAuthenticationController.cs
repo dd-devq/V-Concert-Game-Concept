@@ -5,7 +5,7 @@ using PlayFab.ClientModels;
 using System.Text.RegularExpressions;
 using EventData;
 
-public class PlayfabAuthenticationController : PersistentManager<PlayfabAuthenticationController>
+public class PlayFabAuthenticationController : PersistentManager<PlayFabAuthenticationController>
 {
     private const string PlayFabRememberMeId = "PlayfabRememberMeId";
     private const string PlayFabRememberMe = "PlayfabRememberMe";

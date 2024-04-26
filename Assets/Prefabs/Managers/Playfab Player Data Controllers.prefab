@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1589542558443849914}
   - component: {fileID: 1589542558443849915}
+  - component: {fileID: -2091873979469560223}
+  - component: {fileID: 8708279781614714694}
   m_Layer: 0
   m_Name: Playfab Player Data Controllers
   m_TagString: Untagged
@@ -44,4 +46,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3392fe5667424ef9a6aba1d83c58876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerId: 
   onPlayerDataRetrieve: {fileID: 11400000, guid: a088435a4bbb149f0b6dbd05962c03c6, type: 2}
+--- !u!114 &-2091873979469560223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589542558443849906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2015ecbe932d044fc979fcc092bec833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 7d8fd5d17c81e49b2b9dd003f8c9e0c6, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1589542558443849915}
+        m_TargetAssemblyTypeName: PlayFabPlayerDataController, Assembly-CSharp
+        m_MethodName: SetPlayerData
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8708279781614714694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589542558443849906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2015ecbe932d044fc979fcc092bec833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: dd3af1d111ab04106b4c9c89e35b78fc, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1589542558443849915}
+        m_TargetAssemblyTypeName: PlayFabPlayerDataController, Assembly-CSharp
+        m_MethodName: SetPlayerData
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

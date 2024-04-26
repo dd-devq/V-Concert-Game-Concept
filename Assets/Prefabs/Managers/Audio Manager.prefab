@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4491925718759821062}
-  - component: {fileID: 4491925718759821061}
   - component: {fileID: -7865553752951246225}
   - component: {fileID: -6964142173706770433}
   - component: {fileID: 2732328066289646287}
   - component: {fileID: -154245205383882891}
+  - component: {fileID: -1320711485269934990}
   m_Layer: 0
   m_Name: Audio Manager
   m_TagString: Untagged
@@ -36,20 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4491925718759821061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4491925718759821063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdaa190b5a9dc447cb2b16a3093d4658, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musicChannel: {fileID: -6964142173706770433}
-  soundFxChannel: {fileID: 2732328066289646287}
 --- !u!81 &-7865553752951246225
 AudioListener:
   m_ObjectHideFlags: 0
@@ -266,7 +252,7 @@ MonoBehaviour:
   response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4491925718759821061}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: PlaySoundFx
         m_Mode: 0
@@ -278,3 +264,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-1320711485269934990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4491925718759821063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdaa190b5a9dc447cb2b16a3093d4658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicChannel: {fileID: -6964142173706770433}
+  soundFxChannel: {fileID: 2732328066289646287}

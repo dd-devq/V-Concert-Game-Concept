@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2766450873067082281}
-  - component: {fileID: 2766450873067082452}
+  - component: {fileID: 937173928879133552}
   - component: {fileID: 2766450873067082454}
   - component: {fileID: 2766450873067082455}
   - component: {fileID: 2766450873067082450}
@@ -36,7 +36,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2766450873067082452
+--- !u!114 &937173928879133552
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,7 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dece6c9aae49749b389140d0215ba6f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txt: {fileID: 0}
 --- !u!114 &2766450873067082454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,8 +64,8 @@ MonoBehaviour:
   response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2766450873067082452}
-        m_TargetAssemblyTypeName: PlayfabAuthenticationController, Assembly-CSharp
+      - m_Target: {fileID: 937173928879133552}
+        m_TargetAssemblyTypeName: PlayFabAuthenticationController, Assembly-CSharp
         m_MethodName: Login
         m_Mode: 0
         m_Arguments:
@@ -93,8 +92,8 @@ MonoBehaviour:
   response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2766450873067082452}
-        m_TargetAssemblyTypeName: PlayfabAuthenticationController, Assembly-CSharp
+      - m_Target: {fileID: 937173928879133552}
+        m_TargetAssemblyTypeName: PlayFabAuthenticationController, Assembly-CSharp
         m_MethodName: Register
         m_Mode: 0
         m_Arguments:
@@ -121,8 +120,8 @@ MonoBehaviour:
   response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2766450873067082452}
-        m_TargetAssemblyTypeName: PlayfabAuthenticationController, Assembly-CSharp
+      - m_Target: {fileID: 937173928879133552}
+        m_TargetAssemblyTypeName: PlayFabAuthenticationController, Assembly-CSharp
         m_MethodName: AutoLogin
         m_Mode: 0
         m_Arguments:
@@ -149,8 +148,8 @@ MonoBehaviour:
   response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2766450873067082452}
-        m_TargetAssemblyTypeName: PlayfabAuthenticationController, Assembly-CSharp
+      - m_Target: {fileID: 937173928879133552}
+        m_TargetAssemblyTypeName: PlayFabAuthenticationController, Assembly-CSharp
         m_MethodName: Logout
         m_Mode: 0
         m_Arguments:

@@ -8,15 +8,21 @@ public class CharacterManager : PersistentManager<CharacterManager>
     public AnimationClip MainDance;
     public Avatar Avatar;
     public AssetReference refChar;
-
+    private GameObject _characterPrefab;
+    private GameObject _character;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            var character = ResourceManager.LoadPrefabAsset(refChar);
+            _characterPrefab = ResourceManager.LoadPrefabAsset(refChar);
+            _character = Instantiate(_characterPrefab);
+        }
 
-            Instantiate(character);
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Destroy(_character);
+            ResourceManager.UnloadPrefabAsset(_characterPrefab);
         }
     }
 

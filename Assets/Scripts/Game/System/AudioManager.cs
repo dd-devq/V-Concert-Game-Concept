@@ -1,7 +1,4 @@
-using System;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class AudioManager : PersistentManager<AudioManager>
 {
@@ -12,6 +9,7 @@ public class AudioManager : PersistentManager<AudioManager>
 
     public override void Awake()
     {
+        base.Awake();
         _songData = Resources.Load<SongData>("Scriptable Objects/Song Data");
         _audioData = Resources.Load<AudioData>("Scriptable Objects/Audio Data");
     }
