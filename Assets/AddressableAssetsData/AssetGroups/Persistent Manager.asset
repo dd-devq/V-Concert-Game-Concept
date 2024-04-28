@@ -49,6 +49,10 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/Managers/Audio Manager.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: e6bdfe4ed3cec40a383bc65525701a36
+    m_Address: Assets/Prefabs/Managers/PlayFab Game Play Data Controller.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 33f0c0a813db642d5856e2e5d17f969f, type: 2}
   m_SchemaSet:

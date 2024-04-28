@@ -4,12 +4,23 @@ using PlayFab;
 
 public class PlayFabGamePlayController : PersistentManager<PlayFabGamePlayController>
 {
-    public void StartPurchaseItem()
+    public GameEvent onPurchaseItemSuccess;
+
+    public void StartPurchaseItem(Component sender, object data)
     {
+        var tmp = (ItemInstance)data;
+        var req = new PurchaseItemRequest
+        {
+            ItemId = tmp.ItemId,
+            VirtualCurrency = tmp.UnitCurrency,
+            Price = (int)tmp.UnitPrice
+        };
+        PlayFabClientAPI.PurchaseItem(req, OnPurchaseItemSuccess, PlayFabErrorHandler.HandleError);
     }
 
-    public void PurchaseItemSuccess()
+    private void OnPurchaseItemSuccess(PurchaseItemResult result)
     {
+        onPurchaseItemSuccess.Invoke(this, null);
     }
 
     public void ConsumeItems(Component sender, object data)

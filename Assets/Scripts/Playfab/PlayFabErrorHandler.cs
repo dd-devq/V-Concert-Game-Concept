@@ -1,4 +1,5 @@
 using PlayFab;
+using UnityEngine;
 
 public class PlayFabErrorHandler : PersistentManager<PlayFabErrorHandler>
 {
@@ -11,5 +12,6 @@ public class PlayFabErrorHandler : PersistentManager<PlayFabErrorHandler>
 
     public static void HandleError(PlayFabError error)
     {
+        Debug.LogWarning(error.GenerateErrorReport());
     }
 }

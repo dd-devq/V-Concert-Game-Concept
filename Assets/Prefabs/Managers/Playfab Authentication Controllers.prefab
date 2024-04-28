@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2766450873067082450}
   - component: {fileID: 2766450873067082451}
   m_Layer: 0
-  m_Name: Playfab Authentication Controllers
+  m_Name: PlayFab Authentication Controllers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

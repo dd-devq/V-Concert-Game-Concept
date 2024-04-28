@@ -123,7 +123,7 @@ public class UIInventory : BaseUI
     {
         _equipItem = PlayFabPlayerDataController.Instance.PlayerTitleData["Equip Item"].Value;
         _inventory = PlayFabPlayerDataController.Instance.Inventory;
-
+        
         _itemSlotPrefab = ResourceManager.LoadPrefabAsset(itemSlotRef);
 
         foreach (var item in _inventory)

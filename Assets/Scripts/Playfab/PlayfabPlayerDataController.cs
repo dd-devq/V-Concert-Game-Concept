@@ -18,7 +18,7 @@ public class PlayFabPlayerDataController : PersistentManager<PlayFabPlayerDataCo
         GetPlayerData();
     }
 
-    private void GetInventory(Component sender, object data)
+    public void GetInventory(Component sender, object data)
     {
         PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), result =>
         {
@@ -75,10 +75,7 @@ public class PlayFabPlayerDataController : PersistentManager<PlayFabPlayerDataCo
             Keys = listDataKeys,
             PlayFabId = playerId
         };
-        PlayFabClientAPI.GetUserData(req, result =>
-            {
-                PlayerTitleData = result.Data;
-            },
+        PlayFabClientAPI.GetUserData(req, result => { PlayerTitleData = result.Data; },
             PlayFabErrorHandler.HandleError);
     }
 

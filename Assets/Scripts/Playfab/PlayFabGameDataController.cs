@@ -9,9 +9,8 @@ public class PlayFabGameDataController : PersistentManager<PlayFabGameDataContro
     private readonly List<CatalogItem> _catalogItems = new();
     public IEnumerable<CatalogItem> CatalogItems => _catalogItems;
 
-
-    private List<PlayerLeaderboardEntry> _currentLeaderBoard = new();
-    public List<PlayerLeaderboardEntry> CurrentLeaderBoard => _currentLeaderBoard;
+    public List<PlayerLeaderboardEntry> CurrentLeaderBoard { get; private set; } = new();
+    public int PlayerRank { get; private set; }
 
 
     public GameEvent onGameDataRetrieve;
@@ -46,12 +45,27 @@ public class PlayFabGameDataController : PersistentManager<PlayFabGameDataContro
 
             PlayFabClientAPI.GetLeaderboard(req, result =>
                 {
-                    _currentLeaderBoard = result.Leaderboard;
+                    CurrentLeaderBoard = result.Leaderboard;
                     tmp.SuccessCallback();
                 },
                 PlayFabErrorHandler.HandleError
             );
+            GetPlayerRank(tmp.Name);
         }
+    }
+
+    private void GetPlayerRank(string statName)
+    {
+        var req = new GetLeaderboardAroundPlayerRequest
+        {
+            MaxResultsCount = 1,
+            StatisticName = statName
+        };
+
+        PlayFabClientAPI.GetLeaderboardAroundPlayer(req,
+            result => { PlayerRank = result.Leaderboard[0].Position + 1; },
+            PlayFabErrorHandler.HandleError
+        );
     }
 
     public static void SendLeaderBoard(string leaderBoardName, int score)

@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 7277621858804130142}
   - component: {fileID: 7277621858804130141}
   m_Layer: 5
-  m_Name: 'View Button '
+  m_Name: View Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

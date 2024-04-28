@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4024929002363878326}
   - component: {fileID: 4024929002363878321}
   m_Layer: 0
-  m_Name: Playfab Error Handler
+  m_Name: PlayFab Error Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

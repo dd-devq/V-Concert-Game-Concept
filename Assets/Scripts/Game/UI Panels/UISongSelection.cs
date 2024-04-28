@@ -100,6 +100,8 @@ public class UISongSelection : BaseUI
                     playerName.SetText(player.DisplayName);
                     playerScore.SetText(player.StatValue.ToString());
                 }
+
+                ShowPlayerRank();
             }
             else
             {
@@ -112,5 +114,10 @@ public class UISongSelection : BaseUI
     {
         leaderBoardWarningText.SetActive(true);
         warningTxt.SetText("No Record");
+    }
+
+    private void ShowPlayerRank()
+    {
+        playerRankTxt.SetText("Rank: #" + PlayFabGameDataController.Instance.PlayerRank);
     }
 }

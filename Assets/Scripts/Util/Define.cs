@@ -158,5 +158,4 @@ public static class Define
         PerfectHit,
         Note,
     }
-    
 }

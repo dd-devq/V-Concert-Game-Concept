@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6780645012453485235}
   - component: {fileID: -7527451757156972335}
   m_Layer: 0
-  m_Name: Playfab Game Data Controllers
+  m_Name: PlayFab Game Data Controllers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6780645012453485235}
-        m_TargetAssemblyTypeName: PlayfabGameDataController, Assembly-CSharp
+        m_TargetAssemblyTypeName: PlayFabGameDataController, Assembly-CSharp
         m_MethodName: GetLeaderBoard
         m_Mode: 0
         m_Arguments:
