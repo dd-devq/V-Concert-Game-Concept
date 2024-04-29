@@ -14,6 +14,19 @@ public class AudioManager : PersistentManager<AudioManager>
         _audioData = Resources.Load<AudioData>("Scriptable Objects/Audio Data");
     }
 
+    private void Start()
+    {
+        musicChannel.volume = PlayerPrefs.GetFloat("Music Volume");
+        soundFxChannel.volume = PlayerPrefs.GetFloat("Sound Volume");
+        PlaySong(this, 10);
+    }
+
+    public void UpdateVolume(Component sender, object data)
+    {
+        musicChannel.volume = PlayerPrefs.GetFloat("Music Volume");
+        soundFxChannel.volume = PlayerPrefs.GetFloat("Sound Volume");
+    }
+
 
     public void PlaySong(Component sender, object data)
     {

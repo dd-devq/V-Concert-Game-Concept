@@ -9,7 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ec0485dc84724da0821a9b6bdc74331, type: 3}
-  m_Name: OnResume
+  m_Script: {fileID: 11500000, guid: a5b783f791cf04d0593cf4f287ce361e, type: 3}
+  m_Name: Setting Data
   m_EditorClassIdentifier: 
-  listeners: []
+  ListSetting:
+  - FPS
+  - Music Volume
+  - Sound Volume
+  - Language
+  ListData:
+  - 60
+  - 1.0
+  - 1.0
+  - English

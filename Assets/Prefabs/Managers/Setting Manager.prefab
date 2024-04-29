@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5174806490859845067}
   - component: {fileID: 5174806490859845066}
+  - component: {fileID: 5038688094655901006}
   m_Layer: 0
   m_Name: Setting Manager
   m_TagString: Untagged
@@ -44,3 +45,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b182a0403df043029a9ad870269ef67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onVolumeUpdated: {fileID: 11400000, guid: 4a63710680eb54496affebe37edb073a, type: 2}
+--- !u!114 &5038688094655901006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5174806490859845064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2015ecbe932d044fc979fcc092bec833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: c10fc85b32a9a4675b81c708d9fc9ff2, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5174806490859845066}
+        m_TargetAssemblyTypeName: SettingManager, Assembly-CSharp
+        m_MethodName: OnVolumeUpdate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

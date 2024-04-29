@@ -21,10 +21,6 @@ MonoBehaviour:
     m_Address: Assets/Art/Sprite/Background/background_login.png
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 1b519784b86d84914a7cf6ec07598e13
-    m_Address: Assets/Art/Sprite/Button/Button.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 699e7d51a0a104e39afe264f133d9566
     m_Address: Assets/Art/Sprite/Button/Login.png
     m_ReadOnly: 0

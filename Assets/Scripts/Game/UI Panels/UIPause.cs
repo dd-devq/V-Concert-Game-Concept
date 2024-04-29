@@ -4,10 +4,28 @@ using UnityEngine;
 
 public class UIPause : BaseUI
 {
-    public GameEvent onMusicVolumeChange;
-    public GameEvent onSoundVolumeChange;
-    public GameEvent onRetryClick;
+    public GameEvent onVolumeChange;
     public GameEvent onResumeClick;
-    public GameEvent onMainMenuClick;
-    public GameEvent onBackClick;
+    public GameEvent onRetryClick;
+    public GameEvent onQuitClick;
+
+    public void OnVolumeChange()
+    {
+        onVolumeChange.Invoke(this, null);
+    }
+
+    public void OnResumeClick()
+    {
+        onResumeClick.Invoke(this, null);
+    }
+
+    public void OnRetryClick()
+    {
+        onRetryClick.Invoke(this, null);
+    }
+
+    public void OnQuitClick()
+    {
+        onQuitClick.Invoke(this, null);
+    }
 }

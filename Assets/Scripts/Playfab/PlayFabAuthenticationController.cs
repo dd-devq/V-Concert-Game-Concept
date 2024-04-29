@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -38,8 +39,8 @@ public class PlayFabAuthenticationController : PersistentManager<PlayFabAuthenti
         {
             PlayFabGameDataController.Instance.GetAllData();
             PlayFabPlayerDataController.Instance.GetAllData();
-            PlayFabPlayerDataController.Instance.playerId = result.PlayFabId;
-            tmp.AutoLoginSuccessCallback();
+            PlayFabPlayerDataController.Instance.PlayerId = result.PlayFabId;
+            StartCoroutine(IsDataInit(tmp.AutoLoginSuccessCallback));
         }, error =>
         {
             PlayFabErrorHandler.HandleError(error);
@@ -47,7 +48,7 @@ public class PlayFabAuthenticationController : PersistentManager<PlayFabAuthenti
         });
     }
 
-    private static void LoginWithEmail(LoginInfo data)
+    private void LoginWithEmail(LoginInfo data)
     {
         var request = new LoginWithEmailAddressRequest
         {
@@ -59,14 +60,14 @@ public class PlayFabAuthenticationController : PersistentManager<PlayFabAuthenti
             {
                 PlayFabGameDataController.Instance.GetAllData();
                 PlayFabPlayerDataController.Instance.GetAllData();
-                PlayFabPlayerDataController.Instance.playerId = result.PlayFabId;
-                data.LoginSuccessCallback();
+                PlayFabPlayerDataController.Instance.PlayerId = result.PlayFabId;
+                StartCoroutine(IsDataInit(data.LoginSuccessCallback));
                 RememberMe();
             },
             PlayFabErrorHandler.HandleError);
     }
 
-    private static void LoginWithUsername(LoginInfo data)
+    private void LoginWithUsername(LoginInfo data)
     {
         var request = new LoginWithPlayFabRequest
         {
@@ -78,8 +79,8 @@ public class PlayFabAuthenticationController : PersistentManager<PlayFabAuthenti
             {
                 PlayFabGameDataController.Instance.GetAllData();
                 PlayFabPlayerDataController.Instance.GetAllData();
-                PlayFabPlayerDataController.Instance.playerId = result.PlayFabId;
-                data.LoginSuccessCallback();
+                PlayFabPlayerDataController.Instance.PlayerId = result.PlayFabId;
+                StartCoroutine(IsDataInit(data.LoginSuccessCallback));
                 RememberMe();
             },
             PlayFabErrorHandler.HandleError);
@@ -158,4 +159,14 @@ public class PlayFabAuthenticationController : PersistentManager<PlayFabAuthenti
     }
 
     #endregion
+
+    private static IEnumerator IsDataInit(Action callback)
+    {
+        while (!PlayFabFlags.Instance.IsInit())
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        callback();
+    }
 }

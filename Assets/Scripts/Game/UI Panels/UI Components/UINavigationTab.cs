@@ -1,8 +1,6 @@
-using System;
-using EventData;
-using PlayFab.ClientModels;
 using TMPro;
 using UI;
+using EventData;
 using UnityEngine;
 
 public class UINavigationTab : BaseUI
@@ -16,6 +14,17 @@ public class UINavigationTab : BaseUI
         SetCoin("0");
         SetGem("0");
         SetUsername("John Doe");
+    }
+
+    protected override void OnShow(UIParam param = null)
+    {
+        base.OnShow(param);
+
+        var temp = PlayFabPlayerDataController.Instance.PlayerData;
+
+        SetCoin(temp.Coin.ToString());
+        SetGem(temp.Gem.ToString());
+        SetUsername(temp.Username);
     }
 
     public void OnPlayClick()

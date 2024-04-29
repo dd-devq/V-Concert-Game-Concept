@@ -6,11 +6,11 @@ using PlayFab;
 
 public class PlayFabPlayerDataController : PersistentManager<PlayFabPlayerDataController>
 {
-    public string playerId;
+    public string PlayerId { get; set; }
     private Dictionary<string, int> Currencies { get; } = new();
     public List<ItemInstance> Inventory { get; } = new();
-    public GameEvent onPlayerDataRetrieve;
     public Dictionary<string, UserDataRecord> PlayerTitleData;
+    public UserData PlayerData;
 
     public void GetAllData()
     {
@@ -28,19 +28,22 @@ public class PlayFabPlayerDataController : PersistentManager<PlayFabPlayerDataCo
                 Currencies.Add(pair.Key, pair.Value);
             }
 
-            var playerData = new UserData
-            {
-                Coin = Currencies["CN"],
-                Gem = Currencies["GM"],
-                Username = "User"
-            };
-            onPlayerDataRetrieve.Invoke(this, playerData);
+            PlayFabFlags.Instance.Currency = true;
 
             Inventory.Clear();
             foreach (var item in result.Inventory)
             {
                 Inventory.Add(item);
             }
+
+            PlayFabFlags.Instance.Inventory = true;
+
+            PlayerData = new UserData
+            {
+                Coin = Currencies["CN"],
+                Gem = Currencies["GM"],
+                Username = "User"
+            };
         }, PlayFabErrorHandler.HandleError);
     }
 
@@ -73,9 +76,13 @@ public class PlayFabPlayerDataController : PersistentManager<PlayFabPlayerDataCo
         var req = new GetUserDataRequest
         {
             Keys = listDataKeys,
-            PlayFabId = playerId
+            PlayFabId = PlayerId
         };
-        PlayFabClientAPI.GetUserData(req, result => { PlayerTitleData = result.Data; },
+        PlayFabClientAPI.GetUserData(req, result =>
+            {
+                PlayerTitleData = result.Data;
+                PlayFabFlags.Instance.TitleData = true;
+            },
             PlayFabErrorHandler.HandleError);
     }
 
@@ -86,15 +93,6 @@ public class PlayFabPlayerDataController : PersistentManager<PlayFabPlayerDataCo
         {
             VirtualCurrency = temp.Key,
             Amount = temp.Amount
-        }, null, PlayFabErrorHandler.HandleError);
-    }
-
-    public void SubtractCurrency(string key, int amount)
-    {
-        PlayFabClientAPI.SubtractUserVirtualCurrency(new SubtractUserVirtualCurrencyRequest
-        {
-            VirtualCurrency = key,
-            Amount = amount
         }, null, PlayFabErrorHandler.HandleError);
     }
 }

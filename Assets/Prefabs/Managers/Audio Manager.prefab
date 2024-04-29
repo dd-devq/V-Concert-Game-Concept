@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: -7865553752951246225}
   - component: {fileID: -6964142173706770433}
   - component: {fileID: 2732328066289646287}
-  - component: {fileID: -154245205383882891}
   - component: {fileID: -1320711485269934990}
+  - component: {fileID: -154245205383882891}
+  - component: {fileID: 7894799828799904772}
   m_Layer: 0
   m_Name: Audio Manager
   m_TagString: Untagged
@@ -236,6 +237,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-1320711485269934990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4491925718759821063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdaa190b5a9dc447cb2b16a3093d4658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicChannel: {fileID: -6964142173706770433}
+  soundFxChannel: {fileID: 2732328066289646287}
 --- !u!114 &-154245205383882891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +279,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &-1320711485269934990
+--- !u!114 &7894799828799904772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -273,8 +288,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 4491925718759821063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdaa190b5a9dc447cb2b16a3093d4658, type: 3}
+  m_Script: {fileID: 11500000, guid: 2015ecbe932d044fc979fcc092bec833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicChannel: {fileID: -6964142173706770433}
-  soundFxChannel: {fileID: 2732328066289646287}
+  gameEvent: {fileID: 11400000, guid: 4a63710680eb54496affebe37edb073a, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -1320711485269934990}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: UpdateVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

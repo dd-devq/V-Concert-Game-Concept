@@ -1,8 +1,9 @@
-using System;
 using System.Collections.Generic;
 using PlayFab.ClientModels;
 using TMPro;
 using UI;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
@@ -13,7 +14,6 @@ public class UIShop : BaseUI
 
     public GameObject contentDrawer;
 
-    // List Data
     private List<ItemInstance> _listItems = new();
     public List<ItemInstance> listCharacters = new();
 
@@ -21,6 +21,7 @@ public class UIShop : BaseUI
 
     private List<GameObject> _listItemGameObjects = new();
     private List<GameObject> _listCharacterGameObjects = new();
+
     private Dictionary<string, Sprite> _listItemSprite = new();
     private GameObject _itemPrefab;
 
@@ -32,12 +33,17 @@ public class UIShop : BaseUI
         _isLoaded = false;
     }
 
-    private void OnItemClick()
+    private void OnItemClick(string itemName, string description, string currency, int price)
     {
-        // Load UI
         PlaySoundOnClick();
         UIManager.Instance.HideUI(this);
-        UIManager.Instance.ShowUI(UIIndex.UIItemViewer);
+        UIManager.Instance.ShowUI(UIIndex.UIItemViewer, new UIItemViewerParam
+        {
+            ItemName = itemName,
+            Description = description,
+            Currency = currency,
+            Price = price
+        });
     }
 
 
@@ -71,12 +77,17 @@ public class UIShop : BaseUI
             var currencyIcon = buyButton.transform.Find("Icon").GetComponent<Image>();
             var viewButton = shopItemGameObject.transform.Find("View Button");
 
-            viewButton.GetComponent<Button>().onClick.AddListener(OnItemClick);
 
             foreach (var (currency, price) in item.VirtualCurrencyPrices)
             {
                 var iconSprite = ResourceManager.LoadSprite(currency);
                 var itemSprite = ResourceManager.LoadSprite(item.DisplayName);
+
+                viewButton.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    OnItemClick(item.DisplayName, item.Description, currency, (int)price);
+                });
+
                 buyButton.onClick.AddListener(() =>
                 {
                     OnBuyClick(new ItemInstance

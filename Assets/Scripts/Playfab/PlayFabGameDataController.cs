@@ -8,7 +8,6 @@ public class PlayFabGameDataController : PersistentManager<PlayFabGameDataContro
 {
     private readonly List<CatalogItem> _catalogItems = new();
     public IEnumerable<CatalogItem> CatalogItems => _catalogItems;
-
     public List<PlayerLeaderboardEntry> CurrentLeaderBoard { get; private set; } = new();
     public int PlayerRank { get; private set; }
 
@@ -29,6 +28,8 @@ public class PlayFabGameDataController : PersistentManager<PlayFabGameDataContro
             {
                 _catalogItems.Add(item);
             }
+
+            PlayFabFlags.Instance.Catalog = true;
         }, PlayFabErrorHandler.HandleError);
     }
 

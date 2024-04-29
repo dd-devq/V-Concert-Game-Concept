@@ -63,14 +63,13 @@ public class UIInventory : BaseUI
     private void LoadEquipSlot(string itemName, Sprite itemSprite)
     {
         _equipItem = itemName;
-        equipSlot.GetComponent<Image>().sprite = itemSprite;
+        equipSlot.transform.Find("Sprite").GetComponent<Image>().sprite = itemSprite;
     }
 
     private void RemoveEquipSlot()
     {
         _equipItem = "None";
-        equipSlot.GetComponent<Image>().sprite = null;
-        
+        equipSlot.transform.Find("Sprite").GetComponent<Image>().sprite = null;
     }
 
     private void OnEquipClick(string itemName)
@@ -95,7 +94,7 @@ public class UIInventory : BaseUI
             }
 
             var invItemGameObject = Instantiate(_itemSlotPrefab, contentDrawer.transform, false);
-            var invItemImage = invItemGameObject.GetComponent<Image>();
+            var invItemImage = invItemGameObject.transform.Find("Sprite").GetComponent<Image>();
             var invItemAmount = invItemGameObject.transform.Find("Amount").GetComponent<TextMeshProUGUI>();
 
             invItemImage.sprite = _listItemSprite[item.DisplayName];
@@ -123,7 +122,7 @@ public class UIInventory : BaseUI
     {
         _equipItem = PlayFabPlayerDataController.Instance.PlayerTitleData["Equip Item"].Value;
         _inventory = PlayFabPlayerDataController.Instance.Inventory;
-        
+
         _itemSlotPrefab = ResourceManager.LoadPrefabAsset(itemSlotRef);
 
         foreach (var item in _inventory)
@@ -137,7 +136,7 @@ public class UIInventory : BaseUI
             }
 
             var invItemGameObject = Instantiate(_itemSlotPrefab, contentDrawer.transform, false);
-            var invItemImage = invItemGameObject.GetComponent<Image>();
+            var invItemImage = invItemGameObject.transform.Find("Sprite").GetComponent<Image>();
             var invItemAmount = invItemGameObject.transform.Find("Amount").GetComponent<TextMeshProUGUI>();
 
             var itemSprite = ResourceManager.LoadSprite(item.DisplayName);

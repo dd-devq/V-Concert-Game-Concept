@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using PlayFab.ClientModels;
 
@@ -29,6 +28,14 @@ namespace UI
         UIVictory,
         UIPause,
         None
+    }
+
+    public class UIItemViewerParam : UIParam
+    {
+        public string ItemName;
+        public string Description;
+        public string Currency;
+        public int Price;
     }
 }
 
@@ -79,6 +86,12 @@ namespace EventData
     {
         public string Name;
         public Action SuccessCallback;
+    }
+
+    public struct VolumeData
+    {
+        public float SoundVolume;
+        public float MusicVolume;
     }
 }
 

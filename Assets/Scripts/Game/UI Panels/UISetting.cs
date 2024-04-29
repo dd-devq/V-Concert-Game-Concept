@@ -1,17 +1,26 @@
+using EventData;
 using UnityEngine.UI;
-using TMPro;
 using UI;
+using UnityEngine;
 
 public class UISetting : BaseUI
 {
-    public GameEvent onMusicVolumeChange;
-    public GameEvent onSoundVolumeChange;
-    public GameEvent onLanguageChange;
+    public GameEvent onVolumeChange;
     public GameEvent onLogoutClick;
+    
+    public Slider musicVolumeSlider;
+    public Slider soundVolumeSlider;
 
-    public TextMeshProUGUI languageTxt;
-    public Slider musicVolume;
-    public Slider soundVolume;
+    protected override void OnShow(UIParam param = null)
+    {
+        base.OnShow(param);
+
+        var musicVolumeValue = PlayerPrefs.GetFloat("Music Volume");
+        var soundVolumeValue = PlayerPrefs.GetFloat("Sound Volume");
+
+        musicVolumeSlider.value = musicVolumeValue;
+        soundVolumeSlider.value = soundVolumeValue;
+    }
 
     public void OnBackClick()
     {
@@ -20,25 +29,19 @@ public class UISetting : BaseUI
         UIManager.Instance.ShowUI(UIIndex.UIMainMenu);
     }
 
-    public void OnSoundVolumeChange()
-    {
-        onSoundVolumeChange.Invoke(this, null);
-    }
-
-    public void OnMusicVolumeChange()
-    {
-        onMusicVolumeChange.Invoke(this, null);
-    }
-
-    public void OnLanguageChange()
-    {
-        onLanguageChange.Invoke(this, null);
-    }
-
     public void OnLogoutClick()
     {
         onLogoutClick.Invoke(this, null);
         UIManager.Instance.HideUI(this);
         UIManager.Instance.ShowUI(UIIndex.UIAuthentication);
+    }
+
+    public void OnVolumeChange()
+    {
+        onVolumeChange.Invoke(this, new VolumeData
+        {
+            SoundVolume = soundVolumeSlider.value,
+            MusicVolume = soundVolumeSlider.value
+        });
     }
 }
