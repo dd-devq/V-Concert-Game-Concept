@@ -9,6 +9,14 @@ public class GameManager : MonoBehaviour
     private GameEvent startSong;
     private GameEvent pauseGame;
     private GameEvent endGame;
+
+    [SerializeField]
+    private GameObject playerModel;
+
+    public GameObject GetPlayerModel()
+    {
+        return playerModel;
+    }
     public void InitGame(Component sender, object data)
     {
     }
@@ -37,7 +45,8 @@ public class GameManager : MonoBehaviour
             case GameState.End:
                 break;
             default:
-                throw new Exception("Unknown Game State");
+                //throw new Exception("Unknown Game State");
+                break;
         }
     }
 

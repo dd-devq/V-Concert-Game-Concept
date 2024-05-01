@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class NoteManager : ManualSingletonMono<NoteManager>
 {
@@ -16,7 +14,7 @@ public class NoteManager : ManualSingletonMono<NoteManager>
 
     public override void Awake()
     {
-        throw new NotImplementedException();
+        base.Awake();
     }
     public Note OnSpawnNotesToTarget(Vector3 startPos, Vector3 endPos, Vector3 hitPos)
     {
@@ -31,13 +29,17 @@ public class NoteManager : ManualSingletonMono<NoteManager>
         note.gameObject.SetActive(true);
         return note;
     }
-
-    public void CreateAllNotes()
+    public void OnNormalHit()
     {
+        ScoreManager.Hit();
     }
-
-    public void SpawnNote()
+    public void OnPerfectHit()
     {
-        
+        ScoreManager.Hit();
+        ScoreManager.Hit();
+    }
+    public void OnMissHit()
+    {
+        ScoreManager.Miss();
     }
 }

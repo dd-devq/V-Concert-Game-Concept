@@ -16,15 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: b0e6b84acdcf642d6bcc4474649e0be0
-  m_SerializeEntries:
-  - m_GUID: 88278e556541848ccb1606b81d67d140
-    m_Address: MIDI/Never-Gonna-Give-You-Up
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: f125ced536935db41be4e7f98e1cda3e
-    m_Address: MIDI/take-me-to-your-heart
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 33f0c0a813db642d5856e2e5d17f969f, type: 2}
   m_SchemaSet:

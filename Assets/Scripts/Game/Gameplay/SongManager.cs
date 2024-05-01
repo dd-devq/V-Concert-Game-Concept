@@ -25,7 +25,7 @@ public class SongManager : ManualSingletonMono<SongManager>
     //public float noteTapY = 0;
 
     private List<Vector3> _lstPosActivator = new List<Vector3>();
-    public string _songName = "take-me-to-your-heart";
+    private string _songName = "TakeMeToYourHeart";
 
     public float NoteTime
     {
@@ -50,20 +50,20 @@ public class SongManager : ManualSingletonMono<SongManager>
     public override void Awake()
     {
         base.Awake();
-
     }
 
     private void Start()
     {
-        if (Application.streamingAssetsPath.StartsWith("http://") ||
-            Application.streamingAssetsPath.StartsWith("https://"))
-        {
-            ReadFromWeb();
-        }
-        else
-        {
-            ReadFromFile();
-        }
+        //if (Application.streamingAssetsPath.StartsWith("http://") ||
+        //    Application.streamingAssetsPath.StartsWith("https://"))
+        //{
+        //    ReadFromWeb();
+        //}
+        //else
+        //{
+        //    ReadFromFile();
+        //}
+        //ReadFromFile();
         foreach (var item in _ActivatorManager.Activators)
         {
             _lstPosActivator.Add(item.gameObject.transform.position);
@@ -77,13 +77,14 @@ public class SongManager : ManualSingletonMono<SongManager>
 
     private void ReadFromFile()
     {
-        string midiFileName = _songName + ".mid";
-        string audioFileName = _songName + ".ogg";
+        string midiFileName = _songName + Define.MidiFileExtension;
+        string audioFileName = _songName + Define.AudioFileExtension;
         string midiPath = Path.Combine(Define.MidiFilePath, midiFileName);
         string audioPath = Path.Combine(Define.AudioFilePath, audioFileName);
         Midifile = MidiFile.Read(Application.dataPath + midiPath);
-        AudioClip AudioClip = GCUtils.LoadAudioClip(audioPath);
-        AudioSource.clip = AudioClip;
+        //AudioClip AudioClip = GCUtils.LoadAudioClip(audioPath);
+        //AudioSource.clip = AudioClip;
+        AudioManager.Instance.PlaySong(null, 0);
         GetDataFromMidi();
     }
 
@@ -97,11 +98,12 @@ public class SongManager : ManualSingletonMono<SongManager>
         //{
         //    zone.SetSpawnedTimes(listNote);
         //}
-        Invoke(nameof(StartSong), SongDelayInSeconds);
+        //Invoke(nameof(StartSong), SongDelayInSeconds);
     }
 
     public void StartSong()
     {
+        Debug.LogError("check");
         AudioSource.Play();
     }
 

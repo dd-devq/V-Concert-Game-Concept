@@ -33,7 +33,7 @@ public class Activator : MonoBehaviour
 
     private Vector3 _originalHitPos = new Vector3(0, 0, 0);
     private bool _isClicked = false;
-    
+
 
     /// <summary>
     /// from 0 to 3
