@@ -17,10 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: e85d39d9352de41bc98b9f62eae21bbe
   m_SerializeEntries:
-  - m_GUID: c63a6af9fef8b4350a7fcea5ece540f2
-    m_Address: Assets/Art/Materials/Floor.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 83d4908cce7f048f8bc80963bdcd5ce7
     m_Address: Assets/Art/Materials/SMPL.mat
     m_ReadOnly: 0

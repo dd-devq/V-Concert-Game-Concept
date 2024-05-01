@@ -44,9 +44,6 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.End:
                 break;
-            default:
-                //throw new Exception("Unknown Game State");
-                break;
         }
     }
 
