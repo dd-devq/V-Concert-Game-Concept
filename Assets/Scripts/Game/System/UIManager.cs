@@ -18,7 +18,6 @@ public class UIManager : ManualSingletonMono<UIManager>
         {
             if (_uiDictionary != null)
             {
-                // Dispose each value in the dictionary if they implement IDisposable
                 foreach (var item in _uiDictionary)
                 {
                     var disposable = item.Value as IDisposable;
@@ -28,7 +27,6 @@ public class UIManager : ManualSingletonMono<UIManager>
                     }
                 }
 
-                // Clear the dictionary
                 _uiDictionary.Clear();
                 _uiDictionary = null;
             }
@@ -90,9 +88,6 @@ public class UIManager : ManualSingletonMono<UIManager>
         }
     }
 
-    public void HideAllUI(Action callback = null)
-    {
-    }
 
     private BaseUI GetUI(UIIndex uiIndex)
     {
