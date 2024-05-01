@@ -1,18 +1,40 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIVictory : BaseUI
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameEvent onRetryClick;
+    public GameEvent onNewGameClick;
+
+    public TextMeshProUGUI score;
+    public TextMeshProUGUI rank;
+
+    public TextMeshProUGUI songTitle;
+    public TextMeshProUGUI songArtist;
+    public Image songCover;
+
+    public void OnRetryClick()
     {
-        
+        onRetryClick.Invoke(this, null);
+    }
+    
+    public void OnNewGameClick()
+    {
+        onNewGameClick.Invoke(this, null);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateSongData(Component sender, object data)
     {
-        
+        //
+    }
+
+    public void UpdateData(Component sender, object data)
+    {
+        // score.SetText();
+        // rank.SetText();
     }
 }

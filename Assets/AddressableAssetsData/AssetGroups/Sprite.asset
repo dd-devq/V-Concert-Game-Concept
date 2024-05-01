@@ -17,10 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: ecb4d255cfa9c42c2bc7a50dcc3cf349
   m_SerializeEntries:
-  - m_GUID: be16b342470bbb74994e0572f5e79963
-    m_Address: Assets/Art/Sprite/Background/background_login.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 699e7d51a0a104e39afe264f133d9566
     m_Address: Assets/Art/Sprite/Button/Login.png
     m_ReadOnly: 0

@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using UI;
 
 public class UIPause : BaseUI
 {
@@ -17,6 +15,8 @@ public class UIPause : BaseUI
     public void OnResumeClick()
     {
         onResumeClick.Invoke(this, null);
+        UIManager.Instance.HideUI(index);
+        UIManager.Instance.ShowUI(UIIndex.UIHud);
     }
 
     public void OnRetryClick()
