@@ -12,6 +12,9 @@ public class ActivatorManager : ManualSingletonMono<ActivatorManager>
     public Material HitMaterial = null;
     private List<Activator> _activators = new();
     private Dictionary<NoteName, int> _pitchNameDict = new();
+
+    [SerializeField]
+    private GameManager _gameManager;
     public List<Activator> Activators
     {
         get => _activators;
@@ -27,7 +30,6 @@ public class ActivatorManager : ManualSingletonMono<ActivatorManager>
         foreach (Activator activator in _activators)
         {
             var endZone = activator.EndZone;
-            var playerModel = GamePlayManager.Instance.PlayerModel;
             var distance = Vector3.Distance(activator.StartZone.transform.position, activator.EndZone.transform.position);
             var direction = (activator.EndZone.transform.position - activator.StartZone.transform.position).normalized;
             endZone.transform.position = activator.transform.position + direction * distance * 0.5f;
@@ -37,7 +39,7 @@ public class ActivatorManager : ManualSingletonMono<ActivatorManager>
 
     private void GetListActivators()
     {
-        for (var i = 0; i < transform.childCount; i++)
+        for (var i = 0; i < 2; i++)
         {
             var child = transform.GetChild(i);
             _activators.Add(child.GetComponent<Activator>());

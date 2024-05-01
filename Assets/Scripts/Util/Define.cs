@@ -143,10 +143,12 @@ public static class Define
 {
     //the gap time between 2 notes
     public static int NoteInterval = 2;
-    public static int NumOfActivators = 4;
+    public static int NumOfActivators = 2;
 
-    public static string MidiFilePath = "/Resources/Audio/MIDI/";
-    public static string AudioFilePath = Application.streamingAssetsPath + "/Audio/";
+    public static string MidiFilePath = "/Resources/MIDI/";
+    public static string AudioFilePath = "/Audio/Music/";
+    public static string AudioFileExtension = ".ogg";
+    public static string MidiFileExtension = ".mid";
 
     public static int BaseScore = 5;
     public static int NormalHit = 10;

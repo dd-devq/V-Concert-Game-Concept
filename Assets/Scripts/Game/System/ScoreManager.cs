@@ -9,7 +9,7 @@ public class ScoreManager : ManualSingletonMono<ScoreManager>
     private TextMeshProUGUI _scoreText = null;
     [SerializeField]
     private TextMeshProUGUI _comboText = null;
-    
+
     private static int _comboScore;
 
     void Start()

@@ -98,7 +98,7 @@ public static class GCUtils
         var www = new WWW("file://" + filePath);
 
         while (!www.isDone) { }
-
+        Debug.LogError(filePath);
         return www.GetAudioClip(false, false);
     }
 }
