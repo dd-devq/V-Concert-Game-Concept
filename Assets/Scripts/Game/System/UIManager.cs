@@ -55,7 +55,9 @@ public class UIManager : ManualSingletonMono<UIManager>
         }
 
         callback?.Invoke();
-        ShowUI(UIIndex.UIAuthentication);
+
+        var isUILoaded = UnityEngine.SceneManagement.SceneManager.GetSceneByName("Main UI").isLoaded;
+        ShowUI(isUILoaded ? UIIndex.UIAuthentication : UIIndex.UIHud);
     }
 
     public void ShowUI(UIIndex uiIndex, UIParam param = null, Action callback = null)

@@ -9,19 +9,14 @@ public class UINavigationTab : BaseUI
     public TextMeshProUGUI coinAmountTxt;
     public TextMeshProUGUI gemAmountTxt;
 
-    private void Start()
-    {
-        SetCoin("0");
-        SetGem("0");
-        SetUsername("John Doe");
-    }
 
     protected override void OnShow(UIParam param = null)
     {
         base.OnShow(param);
 
         var temp = PlayFabPlayerDataController.Instance.PlayerData;
-
+        Debug.Log(temp.Coin);
+        Debug.Log(temp.Gem);
         SetCoin(temp.Coin.ToString());
         SetGem(temp.Gem.ToString());
         SetUsername(temp.Username);

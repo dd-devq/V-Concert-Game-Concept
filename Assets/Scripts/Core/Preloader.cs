@@ -42,7 +42,7 @@ public class Preloader : MonoBehaviour
         foreach (var manager in persistentManagers.listManagers)
         {
             var handle = Addressables.LoadAssetAsync<GameObject>(manager);
-            await handle.Task;
+            handle.WaitForCompletion();
 
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
@@ -53,14 +53,6 @@ public class Preloader : MonoBehaviour
             Addressables.Release(handle);
         }
 
-        var sceneData = Resources.Load<SceneData>("Scriptable Objects/Scene Data");
-
-        var handleScene = Addressables.LoadSceneAsync(sceneData.ListSceneReference[0], LoadSceneMode.Additive);
-        await handleScene.Task;
-
-        if (handleScene.Status == AsyncOperationStatus.Succeeded)
-        {
-            handleScene.Result.ActivateAsync();
-        }
+        ResourceManager.Instance.LoadScene(0);
     }
 }

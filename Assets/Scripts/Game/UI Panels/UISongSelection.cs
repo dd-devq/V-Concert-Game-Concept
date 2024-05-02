@@ -28,6 +28,7 @@ public class UISongSelection : BaseUI
     {
         base.Awake();
         _songData = Resources.Load<SongData>("Scriptable Objects/Song Data");
+        _songIndex = -1;
     }
 
     protected override void OnShow(UIParam param = null)
@@ -39,7 +40,10 @@ public class UISongSelection : BaseUI
 
     public void OnPlayClick()
     {
-        onPlayClick.Invoke(this, SceneIndex.Gameplay);
+        if (_songIndex != -1)
+        {
+            onPlayClick.Invoke(this, null);
+        }
     }
 
     private void OnSongClick(int songIndex)

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PersistentManager<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T _instance;
+    protected static T _instance;
     private static bool applicationIsQuitting;
 
     public static T Instance
