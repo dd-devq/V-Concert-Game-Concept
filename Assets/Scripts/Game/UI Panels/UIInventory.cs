@@ -21,7 +21,13 @@ public class UIInventory : BaseUI
     private string _equipItem;
 
     private List<ItemInstance> _inventory;
+    private ItemData _itemData;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        _itemData = Resources.Load<ItemData>("Scriptable Objects/Item Data");
+    }
 
     protected override void OnShow(UIParam param = null)
     {
@@ -63,13 +69,17 @@ public class UIInventory : BaseUI
     private void LoadEquipSlot(string itemName, Sprite itemSprite)
     {
         _equipItem = itemName;
-        equipSlot.transform.Find("Sprite").GetComponent<Image>().sprite = itemSprite;
+        var imageComponent = equipSlot.transform.Find("Sprite").GetComponent<Image>();
+        imageComponent.sprite = itemSprite;
+        imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 1f);
     }
 
     private void RemoveEquipSlot()
     {
         _equipItem = "None";
-        equipSlot.transform.Find("Sprite").GetComponent<Image>().sprite = null;
+        var imageComponent = equipSlot.transform.Find("Sprite").GetComponent<Image>();
+        imageComponent.sprite = null;
+        imageComponent.color = new Color(imageComponent.color.r, imageComponent.color.g, imageComponent.color.b, 0f);
     }
 
     private void OnEquipClick(string itemName)
@@ -129,7 +139,7 @@ public class UIInventory : BaseUI
         {
             if (item.RemainingUses == 1 && item.DisplayName == _equipItem)
             {
-                var equipItemSprite = ResourceManager.LoadSprite(item.DisplayName);
+                var equipItemSprite = ResourceManager.LoadSprite(_itemData.ItemPath + item.DisplayName + ".asset");
                 _listItemSprite.Add(item.DisplayName, equipItemSprite);
                 LoadEquipSlot(item.DisplayName, equipItemSprite);
                 continue;
@@ -139,7 +149,7 @@ public class UIInventory : BaseUI
             var invItemImage = invItemGameObject.transform.Find("Sprite").GetComponent<Image>();
             var invItemAmount = invItemGameObject.transform.Find("Amount").GetComponent<TextMeshProUGUI>();
 
-            var itemSprite = ResourceManager.LoadSprite(item.DisplayName);
+            var itemSprite = ResourceManager.LoadSprite(_itemData.ItemPath + item.DisplayName + ".asset");
 
             _listItemSprite.Add(item.DisplayName, itemSprite);
             invItemImage.sprite = itemSprite;

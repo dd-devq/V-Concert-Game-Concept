@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using PlayFab.ClientModels;
 using TMPro;
 using UI;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
@@ -14,23 +12,20 @@ public class UIShop : BaseUI
 
     public GameObject contentDrawer;
 
-    private List<ItemInstance> _listItems = new();
-    public List<ItemInstance> listCharacters = new();
-
     public AssetReferenceGameObject itemRef;
 
-    private List<GameObject> _listItemGameObjects = new();
-    private List<GameObject> _listCharacterGameObjects = new();
 
-    private Dictionary<string, Sprite> _listItemSprite = new();
+    private readonly Dictionary<string, Sprite> _listItemSprite = new();
     private GameObject _itemPrefab;
 
     private bool _isLoaded;
+    private ItemData _itemData;
 
     protected override void Awake()
     {
         base.Awake();
         _isLoaded = false;
+        _itemData = Resources.Load<ItemData>("Scriptable Objects/Item Data");
     }
 
     private void OnItemClick(string itemName, string description, string currency, int price)
@@ -75,13 +70,36 @@ public class UIShop : BaseUI
             var buyButton = shopItemGameObject.transform.Find("Buy Button").GetComponent<Button>();
             var itemPrice = buyButton.transform.Find("Price").GetComponent<TextMeshProUGUI>();
             var currencyIcon = buyButton.transform.Find("Icon").GetComponent<Image>();
+            
             var viewButton = shopItemGameObject.transform.Find("View Button");
+            var itemIcon = shopItemGameObject.transform.Find("Item Icon");
 
 
             foreach (var (currency, price) in item.VirtualCurrencyPrices)
             {
-                var iconSprite = ResourceManager.LoadSprite(currency);
-                var itemSprite = ResourceManager.LoadSprite(item.DisplayName);
+                // Load Item
+                Sprite itemSprite;
+                if (!_listItemSprite.ContainsKey(item.DisplayName))
+                {
+                    itemSprite = ResourceManager.LoadSprite(_itemData.ItemPath + item.DisplayName + ".asset");
+                    _listItemSprite.Add(item.DisplayName, itemSprite);
+                }
+                else
+                {
+                    itemSprite = _listItemSprite[item.DisplayName];
+                }
+
+                // Load Icon
+                Sprite iconSprite;
+                if (!_listItemSprite.ContainsKey(currency))
+                {
+                    iconSprite = ResourceManager.LoadSprite(_itemData.ItemPath + currency + ".png");
+                    _listItemSprite.Add(currency, iconSprite);
+                }
+                else
+                {
+                    iconSprite = _listItemSprite[currency];
+                }
 
                 viewButton.GetComponent<Button>().onClick.AddListener(() =>
                 {
@@ -100,11 +118,21 @@ public class UIShop : BaseUI
 
                 itemPrice.SetText(price.ToString());
                 currencyIcon.sprite = iconSprite;
-                viewButton.GetComponent<Image>().sprite = itemSprite;
+                itemIcon.GetComponent<Image>().sprite = itemSprite;
 
-                _listItemSprite.Add(item.DisplayName, itemSprite);
             }
         }
+    }
+
+    protected override void OnHide()
+    {
+        base.OnHide();
+        foreach (var (_, sprite) in _listItemSprite)
+        {
+            ResourceManager.UnloadSpriteAsset(sprite);
+        }
+
+        _listItemSprite.Clear();
     }
 
     public void OnCharacterCategoryClick()

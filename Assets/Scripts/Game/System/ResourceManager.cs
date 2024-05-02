@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class ResourceManager : PersistentManager<ResourceManager>
 {
     private static readonly List<AsyncOperationHandle> ListHandle = new();
-    private static AsyncOperationHandle sceneHandle;
+    private static AsyncOperationHandle _sceneHandle;
+
     private void Start()
     {
         Application.quitting += ClearHandle;
@@ -51,7 +52,10 @@ public class ResourceManager : PersistentManager<ResourceManager>
     {
         foreach (var handle in ListHandle)
         {
-            Addressables.Release(handle);
+            if (handle.IsValid())
+            {
+                Addressables.Release(handle);
+            }
         }
     }
 
@@ -59,9 +63,9 @@ public class ResourceManager : PersistentManager<ResourceManager>
     {
         var sceneData = Resources.Load<SceneData>("Scriptable Objects/Scene Data");
         var handleScene = Addressables.LoadSceneAsync(sceneData.ListSceneReference[sceneIndex], LoadSceneMode.Additive);
-        sceneHandle = handleScene;
+        _sceneHandle = handleScene;
         handleScene.WaitForCompletion();
-        
+
         if (handleScene.Status == AsyncOperationStatus.Succeeded)
         {
             handleScene.Result.ActivateAsync();
@@ -70,6 +74,6 @@ public class ResourceManager : PersistentManager<ResourceManager>
 
     public void UnloadScene()
     {
-        Addressables.UnloadSceneAsync(sceneHandle);
+        Addressables.UnloadSceneAsync(_sceneHandle);
     }
 }

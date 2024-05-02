@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6780645012453485235}
   - component: {fileID: -7527451757156972335}
   m_Layer: 0
-  m_Name: PlayFab Game Data Controllers
+  m_Name: Playfab Game Data Controllers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dadbc5790b8541e89391515918d1884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onGameDataRetrieve: {fileID: 11400000, guid: a6610d11d8caa4e40bbeb7150081595e, type: 2}
 --- !u!114 &-7527451757156972335
 MonoBehaviour:
   m_ObjectHideFlags: 0

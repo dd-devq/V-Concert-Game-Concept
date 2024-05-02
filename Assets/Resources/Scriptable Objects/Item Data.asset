@@ -12,5 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 268f89c021c14490891ffe9229b9373a, type: 3}
   m_Name: Item Data
   m_EditorClassIdentifier: 
-  ItemPath: 
-  ListItem: []
+  ItemPath: Assets/Art/Sprite/Icon/
+  ListItem:
+  - Bronze Ticket
+  - Silver Ticket
+  - Golden Ticket
+  - Diamond Ticket
+  - Booster
+  - Shield Combo
+  - Shield Multiplier

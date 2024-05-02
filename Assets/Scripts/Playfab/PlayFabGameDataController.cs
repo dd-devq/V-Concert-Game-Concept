@@ -12,9 +12,6 @@ public class PlayFabGameDataController : PersistentManager<PlayFabGameDataContro
     public int PlayerRank { get; private set; }
 
 
-    public GameEvent onGameDataRetrieve;
-
-
     private void GetCatalogItems(string catalogVersion = "1")
     {
         var req = new GetCatalogItemsRequest
@@ -27,6 +24,7 @@ public class PlayFabGameDataController : PersistentManager<PlayFabGameDataContro
             foreach (var item in result.Catalog)
             {
                 _catalogItems.Add(item);
+                Debug.Log(item.DisplayName);
             }
 
             PlayFabFlags.Instance.Catalog = true;
