@@ -37,6 +37,10 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/UI/Inventory Item.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: fce28cfcd39bf4a3e9467b4a8f691ce9
+    m_Address: Assets/Prefabs/UI/Character Button.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 33f0c0a813db642d5856e2e5d17f969f, type: 2}
   m_SchemaSet:

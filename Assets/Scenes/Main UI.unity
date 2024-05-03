@@ -268,13 +268,30 @@ PrefabInstance:
       objectReference: {fileID: 365029707}
     - target: {fileID: 3962188023838671239, guid: 00a4d8fcd3787468981f98d5c0fc9ea2, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3962188023881201704, guid: 00a4d8fcd3787468981f98d5c0fc9ea2, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3962188023881201706, guid: 00a4d8fcd3787468981f98d5c0fc9ea2, type: 3}
+      propertyPath: contentDrawer
+      value: 
+      objectReference: {fileID: 365029708}
+    - target: {fileID: 3962188023881201706, guid: 00a4d8fcd3787468981f98d5c0fc9ea2, type: 3}
+      propertyPath: onCharacterClick
+      value: 
+      objectReference: {fileID: 11400000, guid: 7ee30d12420a34cdc9f02c2d07bba99c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00a4d8fcd3787468981f98d5c0fc9ea2, type: 3}
 --- !u!1 &365029707 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3962188023841335923, guid: 00a4d8fcd3787468981f98d5c0fc9ea2, type: 3}
+  m_PrefabInstance: {fileID: 365029706}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &365029708 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3962188022505927512, guid: 00a4d8fcd3787468981f98d5c0fc9ea2, type: 3}
   m_PrefabInstance: {fileID: 365029706}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1136431754

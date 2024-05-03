@@ -21,6 +21,14 @@ public class ResourceManager : PersistentManager<ResourceManager>
         ListHandle.Add(handle);
         return handle.Status == AsyncOperationStatus.Succeeded ? handle.Result : null;
     }
+    
+    public static GameObject LoadPrefabAsset(string prefabPath)
+    {
+        var handle = Addressables.LoadAssetAsync<GameObject>(prefabPath);
+        handle.WaitForCompletion();
+        ListHandle.Add(handle);
+        return handle.Status == AsyncOperationStatus.Succeeded ? handle.Result : null;
+    }
 
     public static void UnloadPrefabAsset(GameObject gameObject)
     {

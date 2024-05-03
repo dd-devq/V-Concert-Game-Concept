@@ -10,6 +10,7 @@ public class SceneManager : PersistentManager<SceneManager>
 
     public void LoadPlayScene(Component sender, object data)
     {
+        Debug.Log("Hello Scene");
         ResourceManager.Instance.UnloadScene();
         ResourceManager.Instance.LoadScene(1);
     }

@@ -12,6 +12,8 @@ public class PlayFabPlayerDataController : PersistentManager<PlayFabPlayerDataCo
     public Dictionary<string, UserDataRecord> PlayerTitleData;
     public UserData PlayerData;
 
+    public GameEvent onPlayerTitleDataRetrieved;
+    
     public void GetAllData()
     {
         GetInventory(null, null);
@@ -81,6 +83,7 @@ public class PlayFabPlayerDataController : PersistentManager<PlayFabPlayerDataCo
         PlayFabClientAPI.GetUserData(req, result =>
             {
                 PlayerTitleData = result.Data;
+                onPlayerTitleDataRetrieved.Invoke(this, null);
                 PlayFabFlags.Instance.TitleData = true;
             },
             PlayFabErrorHandler.HandleError);
