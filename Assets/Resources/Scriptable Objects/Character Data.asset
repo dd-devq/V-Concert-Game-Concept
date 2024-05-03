@@ -15,7 +15,7 @@ MonoBehaviour:
   ModelPath: Models/
   ListCharacter:
   - Path: SMPL/
-    ModelName: SPML
+    ModelName: SMPL
     Image: 
   - Path: Women/
     ModelName: Worker

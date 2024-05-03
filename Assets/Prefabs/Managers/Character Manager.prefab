@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ListAnimations: []
   MainDance: {fileID: 0}
-  Avatar: {fileID: 0}
+  animatorPath: Assets/Animations/Controllers/SMPL.controller
 --- !u!114 &-5923665043096771696
 MonoBehaviour:
   m_ObjectHideFlags: 0

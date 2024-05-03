@@ -1,17 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class CharacterManager : PersistentManager<CharacterManager>
 {
     public List<AnimationClip> ListAnimations;
     public AnimationClip MainDance;
-    public Avatar Avatar;
+
+    public string animatorPath;
+    private string _currentCharacterPath;
+    
     private GameObject _characterPrefab;
     private GameObject _character;
-    private string _currentCharacterPath;
+    
+    private RuntimeAnimatorController _characterAnimator;
 
+    private void Start()
+    {
+        _characterAnimator = ResourceManager.LoadAnimator(animatorPath);
+    }
 
-    public void Dance()
+    public void Dance(Component sender, object data)
     {
     }
 
@@ -20,6 +30,8 @@ public class CharacterManager : PersistentManager<CharacterManager>
         _currentCharacterPath = PlayFabPlayerDataController.Instance.PlayerTitleData["Character Path"].Value;
         _characterPrefab = ResourceManager.LoadPrefabAsset(_currentCharacterPath);
         _character = Instantiate(_characterPrefab);
+
+        _character.GetComponent<Animator>().runtimeAnimatorController = _characterAnimator;
     }
 
     public void ChangeCharacter(Component sender, object data)
@@ -32,5 +44,13 @@ public class CharacterManager : PersistentManager<CharacterManager>
         
         _characterPrefab = ResourceManager.LoadPrefabAsset(_currentCharacterPath);
         _character = Instantiate(_characterPrefab);
+
+        _character.GetComponent<Animator>().runtimeAnimatorController = _characterAnimator;
     }
+
+    public void SetAnimation(Component sender, object data)
+    {
+        
+    }
+    
 }

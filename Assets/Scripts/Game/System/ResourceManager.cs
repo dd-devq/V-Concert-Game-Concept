@@ -21,7 +21,7 @@ public class ResourceManager : PersistentManager<ResourceManager>
         ListHandle.Add(handle);
         return handle.Status == AsyncOperationStatus.Succeeded ? handle.Result : null;
     }
-    
+
     public static GameObject LoadPrefabAsset(string prefabPath)
     {
         var handle = Addressables.LoadAssetAsync<GameObject>(prefabPath);
@@ -51,6 +51,22 @@ public class ResourceManager : PersistentManager<ResourceManager>
     public static Sprite LoadSprite(string spritePath)
     {
         var handle = Addressables.LoadAssetAsync<Sprite>(spritePath);
+        handle.WaitForCompletion();
+        ListHandle.Add(handle);
+        return handle.Status == AsyncOperationStatus.Succeeded ? handle.Result : null;
+    }
+
+    public static RuntimeAnimatorController LoadAnimator(string animatorPath)
+    {
+        var handle = Addressables.LoadAssetAsync<RuntimeAnimatorController>(animatorPath);
+        handle.WaitForCompletion();
+        ListHandle.Add(handle);
+        return handle.Status == AsyncOperationStatus.Succeeded ? handle.Result : null;
+    }
+
+    public static AnimationClip LoadAnimationClip(string animationClipPath)
+    {
+        var handle = Addressables.LoadAssetAsync<AnimationClip>(animationClipPath);
         handle.WaitForCompletion();
         ListHandle.Add(handle);
         return handle.Status == AsyncOperationStatus.Succeeded ? handle.Result : null;
