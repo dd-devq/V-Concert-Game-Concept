@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using EventData;
 using UnityEngine;
@@ -24,7 +25,6 @@ public class PlayFabGameDataController : PersistentManager<PlayFabGameDataContro
             foreach (var item in result.Catalog)
             {
                 _catalogItems.Add(item);
-                Debug.Log(item.DisplayName);
             }
 
             PlayFabFlags.Instance.Catalog = true;
@@ -41,19 +41,22 @@ public class PlayFabGameDataController : PersistentManager<PlayFabGameDataContro
                 StartPosition = 0,
                 StatisticName = tmp.Name
             };
+            
+            GetPlayerRank(tmp.Name, () =>
+            {
+                PlayFabClientAPI.GetLeaderboard(req, result =>
+                    {
+                        CurrentLeaderBoard = result.Leaderboard;
+                        tmp.SuccessCallback();
+                    },
+                    PlayFabErrorHandler.HandleError
+                );
+            });
 
-            PlayFabClientAPI.GetLeaderboard(req, result =>
-                {
-                    CurrentLeaderBoard = result.Leaderboard;
-                    tmp.SuccessCallback();
-                },
-                PlayFabErrorHandler.HandleError
-            );
-            GetPlayerRank(tmp.Name);
         }
     }
 
-    private void GetPlayerRank(string statName)
+    private void GetPlayerRank(string statName, Action callback)
     {
         var req = new GetLeaderboardAroundPlayerRequest
         {
@@ -62,7 +65,11 @@ public class PlayFabGameDataController : PersistentManager<PlayFabGameDataContro
         };
 
         PlayFabClientAPI.GetLeaderboardAroundPlayer(req,
-            result => { PlayerRank = result.Leaderboard[0].Position + 1; },
+            result =>
+            {
+                PlayerRank = result.Leaderboard[0].Position + 1;
+                callback();
+            },
             PlayFabErrorHandler.HandleError
         );
     }

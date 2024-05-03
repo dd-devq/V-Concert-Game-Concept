@@ -2112,7 +2112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
-  m_VerticalFit: 0
+  m_VerticalFit: 2
 --- !u!114 &3962188022505927514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17770,6 +17770,7 @@ MonoBehaviour:
   score: {fileID: 0}
   combo: {fileID: 0}
   streak: {fileID: 0}
+  equipSlot: {fileID: 0}
   onPauseClick: {fileID: 0}
 --- !u!1 &3962188023841335923
 GameObject:
@@ -18282,7 +18283,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 6
   playSoundOnClick: {fileID: 11400000, guid: 0d50924aa9c7c4ab89ef840fceb52b3c, type: 2}
-  onCharacterClick: {fileID: 0}
+  onCharacterClick: {fileID: 11400000, guid: 7ee30d12420a34cdc9f02c2d07bba99c, type: 2}
+  contentDrawer: {fileID: 3962188022505927512}
 --- !u!1 &3962188023887528833
 GameObject:
   m_ObjectHideFlags: 0

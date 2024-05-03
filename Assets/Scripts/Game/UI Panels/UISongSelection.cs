@@ -82,6 +82,7 @@ public class UISongSelection : BaseUI
 
     private void LoadLeaderBoard()
     {
+
         foreach (Transform child in listPlayerContentDrawer.transform)
         {
             Destroy(child.gameObject);

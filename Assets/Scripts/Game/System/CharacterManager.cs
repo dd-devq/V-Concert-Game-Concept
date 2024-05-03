@@ -1,32 +1,56 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
+
+
 
 public class CharacterManager : PersistentManager<CharacterManager>
 {
     public List<AnimationClip> ListAnimations;
     public AnimationClip MainDance;
-    public Avatar Avatar;
-    public AssetReference refChar;
+
+    public string animatorPath;
+    private string _currentCharacterPath;
+    
     private GameObject _characterPrefab;
     private GameObject _character;
+    
+    private RuntimeAnimatorController _characterAnimator;
 
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _characterPrefab = ResourceManager.LoadPrefabAsset(refChar);
-            _character = Instantiate(_characterPrefab);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Destroy(_character);
-            ResourceManager.UnloadPrefabAsset(_characterPrefab);
-        }
+        _characterAnimator = ResourceManager.LoadAnimator(animatorPath);
     }
 
-    public void Dance()
+    public void Dance(Component sender, object data)
     {
     }
+
+    public void LoadCharacter(Component sender, object data)
+    {
+        _currentCharacterPath = PlayFabPlayerDataController.Instance.PlayerTitleData["Character Path"].Value;
+        _characterPrefab = ResourceManager.LoadPrefabAsset(_currentCharacterPath);
+        _character = Instantiate(_characterPrefab);
+
+        _character.GetComponent<Animator>().runtimeAnimatorController = _characterAnimator;
+    }
+
+    public void ChangeCharacter(Component sender, object data)
+    {
+        var temp = (Dictionary<string, string>)data;
+        _currentCharacterPath = temp["Character Path"];
+        
+        Destroy(_character);
+        ResourceManager.UnloadPrefabAsset(_characterPrefab);
+        
+        _characterPrefab = ResourceManager.LoadPrefabAsset(_currentCharacterPath);
+        _character = Instantiate(_characterPrefab);
+
+        _character.GetComponent<Animator>().runtimeAnimatorController = _characterAnimator;
+    }
+
+    public void SetAnimation(Component sender, object data)
+    {
+        
+    }
+    
 }
