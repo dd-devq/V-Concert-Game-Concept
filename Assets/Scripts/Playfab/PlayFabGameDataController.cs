@@ -25,7 +25,6 @@ public class PlayFabGameDataController : PersistentManager<PlayFabGameDataContro
             foreach (var item in result.Catalog)
             {
                 _catalogItems.Add(item);
-                Debug.Log(item.DisplayName);
             }
 
             PlayFabFlags.Instance.Catalog = true;

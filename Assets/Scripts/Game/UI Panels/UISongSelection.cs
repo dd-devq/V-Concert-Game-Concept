@@ -41,8 +41,7 @@ public class UISongSelection : BaseUI
     public void OnPlayClick()
     {
         if (_songIndex != -1)
-        {
-            Debug.Log(_songIndex);
+        { 
             onPlayClick.Invoke(this, null);
         }
     }
@@ -51,8 +50,6 @@ public class UISongSelection : BaseUI
     {
         _songIndex = songIndex;
         PlaySoundOnClick();
-        Debug.Log("Hello Song");
-        Debug.Log(_songIndex);
         onSongClick.Invoke(this, new LeaderBoardReqInfo
         {
             // Name = _songData.ListSong[_songIndex].Title,
@@ -85,7 +82,6 @@ public class UISongSelection : BaseUI
 
     private void LoadLeaderBoard()
     {
-        Debug.Log("Hello LeaderBoard");
 
         foreach (Transform child in listPlayerContentDrawer.transform)
         {

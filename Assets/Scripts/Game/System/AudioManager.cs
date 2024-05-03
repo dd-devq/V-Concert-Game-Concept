@@ -18,7 +18,6 @@ public class AudioManager : PersistentManager<AudioManager>
     {
         musicChannel.volume = PlayerPrefs.GetFloat("Music Volume");
         soundFxChannel.volume = PlayerPrefs.GetFloat("Sound Volume");
-        PlaySong(this, 10);
     }
 
     public void UpdateVolume(Component sender, object data)
