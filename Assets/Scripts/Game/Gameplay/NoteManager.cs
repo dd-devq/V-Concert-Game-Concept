@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NoteManager : ManualSingletonMono<NoteManager>
+public class NoteManager : PersistentManager<NoteManager>
 {
     //expect to contain target zone data (or get target zone data) and spawn note due to that.
     [SerializeField]

@@ -2,7 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : PersistentManager<GameManager>
 {
     private GameState _gameState;
 
@@ -17,8 +17,21 @@ public class GameManager : MonoBehaviour
     {
         return playerModel;
     }
+    private void Start()
+    {
+        InitGame(this, SceneManager.Instance.LoadSceneData);
+    }
     public void InitGame(Component sender, object data)
     {
+        if (data is int songIndex)
+        {
+            SongManager.Instance.ReadFromFile(songIndex);
+            AudioManager.Instance.PlaySong(this, songIndex);
+        }
+        else
+        {
+            Debug.LogError("Invalid song index");
+        }
     }
 
     public void StartGame()

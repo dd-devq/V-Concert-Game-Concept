@@ -6,15 +6,16 @@ using UnityEngine;
 using Melanchall.DryWetMidi.MusicTheory;
 using Melanchall.DryWetMidi.Interaction;
 
-public class ActivatorManager : ManualSingletonMono<ActivatorManager>
+public class ActivatorManager : PersistentManager<ActivatorManager>
 {
     public Material DefaultMaterial = null;
     public Material HitMaterial = null;
     private List<Activator> _activators = new();
     private Dictionary<NoteName, int> _pitchNameDict = new();
 
-    [SerializeField]
-    private GameManager _gameManager;
+    //[SerializeField]
+    //private GameManager _gameManager;
+
     public List<Activator> Activators
     {
         get => _activators;

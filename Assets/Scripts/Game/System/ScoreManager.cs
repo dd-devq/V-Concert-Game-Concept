@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ScoreManager : ManualSingletonMono<ScoreManager>
+public class ScoreManager : PersistentManager<ScoreManager>
 {
     [SerializeField]
     private TextMeshProUGUI _scoreText = null;
@@ -36,6 +36,6 @@ public class ScoreManager : ManualSingletonMono<ScoreManager>
     }
     private void Update()
     {
-        _scoreText.text = _comboScore.ToString();
+        //_scoreText.text = _comboScore.ToString();
     }
 }

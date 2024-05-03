@@ -42,7 +42,7 @@ public class UISongSelection : BaseUI
     {
         if (_songIndex != -1)
         {
-            onPlayClick.Invoke(this, null);
+            onPlayClick.Invoke(this, _songIndex);
         }
     }
 

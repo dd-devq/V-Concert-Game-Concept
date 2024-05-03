@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UI;
 
-public class UIManager : ManualSingletonMono<UIManager>
+public class UIManager : PersistentManager<UIManager>
 {
     private Dictionary<UIIndex, BaseUI> _uiDictionary;
     [SerializeField] private List<BaseUI> listUI = new();

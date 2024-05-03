@@ -19,6 +19,7 @@ public class AudioManager : PersistentManager<AudioManager>
         musicChannel.volume = PlayerPrefs.GetFloat("Music Volume");
         soundFxChannel.volume = PlayerPrefs.GetFloat("Sound Volume");
         PlaySong(this, 10);
+        musicChannel.loop = true;
     }
 
     public void UpdateVolume(Component sender, object data)
@@ -32,6 +33,8 @@ public class AudioManager : PersistentManager<AudioManager>
     {
         if (data is int songIndex)
         {
+            //debugerror songidx
+            Debug.LogError("Play song index: " + songIndex);
             var audioClip = ResourceManager.LoadAudioClip(_songData.SongPath + _songData.ListSong[songIndex].Title);
             musicChannel.clip = audioClip;
             musicChannel.Play();
