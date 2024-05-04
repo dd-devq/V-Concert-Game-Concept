@@ -14,11 +14,7 @@ public class SceneManager : PersistentManager<SceneManager>
         ResourceManager.Instance.UnloadScene();
         ResourceManager.Instance.LoadScene(1);
         LoadSceneData = data;
-        if (data is int songIndex)
-        {
-            Debug.LogError("Load song index: " + songIndex);
-        }
-        else
+        if (data is not int)
         {
             Debug.LogError("Invalid song index");
         }
