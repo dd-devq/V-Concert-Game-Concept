@@ -10,13 +10,6 @@ public class GameManager : PersistentManager<GameManager>
     private GameEvent pauseGame;
     private GameEvent endGame;
 
-    [SerializeField]
-    private GameObject playerModel;
-
-    public GameObject GetPlayerModel()
-    {
-        return playerModel;
-    }
     private void Start()
     {
         InitGame(this, SceneManager.Instance.LoadSceneData);
