@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3805194101796126717}
   - component: {fileID: 5842879481560755371}
   m_Layer: 0
-  m_Name: Playfab Player Data Controllers
+  m_Name: PlayFab Player Data Controllers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
