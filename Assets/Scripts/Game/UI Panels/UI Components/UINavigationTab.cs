@@ -15,8 +15,6 @@ public class UINavigationTab : BaseUI
         base.OnShow(param);
 
         var temp = PlayFabPlayerDataController.Instance.PlayerData;
-        Debug.Log(temp.Coin);
-        Debug.Log(temp.Gem);
         SetCoin(temp.Coin.ToString());
         SetGem(temp.Gem.ToString());
         SetUsername(temp.Username);
