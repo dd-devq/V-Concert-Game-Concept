@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 
 
@@ -13,7 +14,8 @@ public class CharacterManager : PersistentManager<CharacterManager>
     private GameObject _characterPrefab;
     private GameObject _character;
 
-    private RuntimeAnimatorController _characterAnimator;
+    private AnimatorController _characterAnimator;
+    private Animator _animator;
 
     private readonly Vector3 _characterPosition = new(0.15f, 2.5f, 0f);
 
@@ -32,8 +34,11 @@ public class CharacterManager : PersistentManager<CharacterManager>
         _characterPrefab = ResourceManager.LoadPrefabAsset(_currentCharacterPath);
         _character = Instantiate(_characterPrefab);
         _character.transform.position = _characterPosition;
-        Debug.Log(_character.transform.position);
-        _character.GetComponent<Animator>().runtimeAnimatorController = _characterAnimator;
+        _animator = _character.GetComponent<Animator>();
+
+        _animator.runtimeAnimatorController = _characterAnimator;
+        _characterAnimator.AddMotion(MainDance);
+        _animator.Play("Base Layer." + MainDance.name);
     }
 
     public void ChangeCharacter(Component sender, object data)
@@ -52,5 +57,11 @@ public class CharacterManager : PersistentManager<CharacterManager>
 
     public void SetAnimation(Component sender, object data)
     {
+    }
+
+    private void LoadAnimation()
+    {
+        // ResourceManager.LoadAnimationClip()
+        // _characterAnimator.;
     }
 }

@@ -12,8 +12,8 @@ public class UIHud : BaseUI
 
     public GameObject equipSlot;
     public GameEvent onPauseClick;
+    
     private ItemData _itemData;
-
     private Sprite _equipSlotSprite;
 
     protected override void Awake()

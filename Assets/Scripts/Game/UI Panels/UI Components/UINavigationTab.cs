@@ -13,7 +13,6 @@ public class UINavigationTab : BaseUI
     protected override void OnShow(UIParam param = null)
     {
         base.OnShow(param);
-
         var temp = PlayFabPlayerDataController.Instance.PlayerData;
         SetCoin(temp.Coin.ToString());
         SetGem(temp.Gem.ToString());

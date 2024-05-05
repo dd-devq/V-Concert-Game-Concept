@@ -3,6 +3,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 
 public class ResourceManager : PersistentManager<ResourceManager>
 {
@@ -56,9 +57,9 @@ public class ResourceManager : PersistentManager<ResourceManager>
         return handle.Status == AsyncOperationStatus.Succeeded ? handle.Result : null;
     }
 
-    public static RuntimeAnimatorController LoadAnimator(string animatorPath)
+    public static AnimatorController LoadAnimator(string animatorPath)
     {
-        var handle = Addressables.LoadAssetAsync<RuntimeAnimatorController>(animatorPath);
+        var handle = Addressables.LoadAssetAsync<AnimatorController>(animatorPath);
         handle.WaitForCompletion();
         ListHandle.Add(handle);
         return handle.Status == AsyncOperationStatus.Succeeded ? handle.Result : null;

@@ -1,11 +1,15 @@
+using System;
 using UnityEngine;
 
 public class AudioManager : PersistentManager<AudioManager>
 {
     public AudioSource musicChannel;
     public AudioSource soundFxChannel;
+
     private SongData _songData;
     private AudioData _audioData;
+
+    public GameEvent onSongEnd;
 
     public override void Awake()
     {
@@ -73,5 +77,13 @@ public class AudioManager : PersistentManager<AudioManager>
     {
         if (!soundFxChannel) return;
         soundFxChannel.clip = null;
+    }
+
+    private void Update()
+    {
+        // if (musicChannel.isPlaying)
+        // {
+        //     onSongEnd.Invoke(this, null);
+        // }
     }
 }

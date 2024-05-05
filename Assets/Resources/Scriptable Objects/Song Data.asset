@@ -15,9 +15,6 @@ MonoBehaviour:
   SongPath: Audio/Music/
   CoverPath: None
   ListSong:
-  - Title: 000
-    Artist: Unknown
-    Cover: None
   - Title: 001
     Artist: Unknown
     Cover: None

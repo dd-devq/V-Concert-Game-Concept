@@ -1,19 +1,19 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : PersistentManager<GameManager>
 {
-    private GameState _gameState;
 
-    private GameEvent startSong;
-    private GameEvent pauseGame;
-    private GameEvent endGame;
+    public GameEvent onSongStart;
+    public GameEvent onPauseClick;
+    public GameEvent onSongEnd;
+    
+    public GameEvent consumeItem;
 
     private void Start()
     {
         InitGame(this, SceneManager.Instance.LoadSceneData);
     }
+    
     public void InitGame(Component sender, object data)
     {
         if (data is int songIndex)
@@ -27,57 +27,13 @@ public class GameManager : PersistentManager<GameManager>
         }
     }
 
-    public void StartGame()
-    {
-    }
-
-    public void TogglePauseGame()
-    {
-    }
-
-    public void EndGame()
-    {
-    }
-
     private void Update()
     {
-        switch (_gameState)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            case GameState.Play:
-                break;
-            case GameState.Pause:
-                Time.timeScale = 0;
-                break;
-            case GameState.End:
-                break;
+            Time.timeScale = 0;
         }
     }
 
-    public void OnGameplayEndEvent(Component sender, object data)
-    {
-        _gameState = GameState.End;
-    }
 
-    public void OnGameplayPauseEvent(Component sender, object data)
-    {
-        _gameState = GameState.Pause;
-    }
-
-    public void OnGameplayLoadEvent(Component sender, object data)
-    {
-        _gameState = GameState.Load;
-    }
-
-    public void OnGameplayEvent(Component sender, object data)
-    {
-        _gameState = GameState.Play;
-    }
-}
-
-public enum GameState
-{
-    Load,
-    Play,
-    Pause,
-    End
 }

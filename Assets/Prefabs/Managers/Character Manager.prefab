@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListAnimations: []
-  MainDance: {fileID: 0}
+  MainDance: {fileID: 7400000, guid: dcd157018069f4ffd889c4d4faf1dec4, type: 2}
   animatorPath: Assets/Animations/Controllers/SMPL.controller
 --- !u!114 &-5923665043096771696
 MonoBehaviour:

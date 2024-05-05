@@ -17767,8 +17767,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 13
   playSoundOnClick: {fileID: 11400000, guid: 0d50924aa9c7c4ab89ef840fceb52b3c, type: 2}
-  score: {fileID: 0}
-  combo: {fileID: 0}
+  score: {fileID: 3962188023955093369}
+  combo: {fileID: 3962188023354446800}
   streak: {fileID: 0}
   equipSlot: {fileID: 0}
   onPauseClick: {fileID: 0}

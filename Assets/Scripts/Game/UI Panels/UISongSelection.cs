@@ -21,7 +21,6 @@ public class UISongSelection : BaseUI
     public GameObject leaderBoardWarningText;
 
     private SongData _songData;
-
     private int _songIndex;
 
     protected override void Awake()
