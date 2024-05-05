@@ -1,4 +1,4 @@
-using System;
+using EventData;
 using UnityEngine;
 
 public class AudioManager : PersistentManager<AudioManager>
@@ -10,20 +10,23 @@ public class AudioManager : PersistentManager<AudioManager>
     private AudioData _audioData;
 
     public GameEvent onSongEnd;
+    
+    private bool _isSongEndInvoke;
+    private int _songIndex;
 
     public override void Awake()
     {
         base.Awake();
         _songData = Resources.Load<SongData>("Scriptable Objects/Song Data");
         _audioData = Resources.Load<AudioData>("Scriptable Objects/Audio Data");
+        _songIndex = -1;
+        _isSongEndInvoke = false;
     }
 
     private void Start()
     {
         musicChannel.volume = PlayerPrefs.GetFloat("Music Volume");
         soundFxChannel.volume = PlayerPrefs.GetFloat("Sound Volume");
-        PlaySong(this, 10);
-        musicChannel.loop = true;
     }
 
     public void UpdateVolume(Component sender, object data)
@@ -32,14 +35,18 @@ public class AudioManager : PersistentManager<AudioManager>
         soundFxChannel.volume = PlayerPrefs.GetFloat("Sound Volume");
     }
 
+    public void SetSong(Component sender, object data)
+    {
+        var temp = (LevelData)data;
+        _songIndex = temp.SongIndex;
+    }
+
 
     public void PlaySong(Component sender, object data)
     {
-        if (data is int songIndex)
+        if (_songIndex != -1)
         {
-            //debugerror songidx
-            Debug.LogError("Play song index: " + songIndex);
-            var audioClip = ResourceManager.LoadAudioClip(_songData.SongPath + _songData.ListSong[songIndex].Title);
+            var audioClip = ResourceManager.LoadAudioClip(_songData.SongPath + _songData.ListSong[_songIndex].Title);
             musicChannel.clip = audioClip;
             musicChannel.Play();
         }
@@ -81,9 +88,10 @@ public class AudioManager : PersistentManager<AudioManager>
 
     private void Update()
     {
-        // if (musicChannel.isPlaying)
-        // {
-        //     onSongEnd.Invoke(this, null);
-        // }
+        if (!musicChannel.isPlaying && !_isSongEndInvoke)
+        {
+            onSongEnd.Invoke(this, null);
+            _isSongEndInvoke = true;
+        }
     }
 }

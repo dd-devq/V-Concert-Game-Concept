@@ -17,36 +17,12 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 6fdba25cd926a499c91bbe2458ef2ea0
   m_SerializeEntries:
-  - m_GUID: cd0b0572282c1435483ff99b35799538
-    m_Address: Assets/Prefabs/Managers/Setting Manager.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 83a1b123279d646f2bb419d53f3b543b
-    m_Address: Assets/Prefabs/Managers/Resource Manager.prefab
+  - m_GUID: a211565614f99464e9568d0902c5bdf2
+    m_Address: Assets/Prefabs/Managers/Scene Manager.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 5a78c9bca4e714600b70af30b6afb1e9
-    m_Address: Assets/Prefabs/Managers/Playfab Player Data Controllers.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: d7e8fea54631b436da5c8dbb87f29cce
-    m_Address: Assets/Prefabs/Managers/Playfab Game Data Controllers.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 7f903adc6e63e4d39a7f25083ccd8f99
-    m_Address: Assets/Prefabs/Managers/Playfab Error Handler.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 5862845e5ae19467f8ef44ee5c8c517d
-    m_Address: Assets/Prefabs/Managers/Playfab Authentication Controllers.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 03440fb7cb7b84193844ed42600b76ac
-    m_Address: Assets/Prefabs/Managers/Character Manager.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 569a00d9b873c4d89b8fb1bf8ee2336e
-    m_Address: Assets/Prefabs/Managers/Audio Manager.prefab
+    m_Address: Assets/Prefabs/Managers/PlayFab Player Data Controller.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: e6bdfe4ed3cec40a383bc65525701a36
@@ -57,8 +33,36 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/Managers/PlayFab Flags.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: a211565614f99464e9568d0902c5bdf2
-    m_Address: Assets/Prefabs/Managers/Scene Manager.prefab
+  - m_GUID: 5862845e5ae19467f8ef44ee5c8c517d
+    m_Address: Assets/Prefabs/Managers/PlayFab Authentication Controller.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2aac2bc1f477c47a78d07b2dc84cea6c
+    m_Address: Assets/Prefabs/Managers/Game Manager.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 03440fb7cb7b84193844ed42600b76ac
+    m_Address: Assets/Prefabs/Managers/Character Manager.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 569a00d9b873c4d89b8fb1bf8ee2336e
+    m_Address: Assets/Prefabs/Managers/Audio Manager.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d7e8fea54631b436da5c8dbb87f29cce
+    m_Address: Assets/Prefabs/Managers/PlayFab Game Data Controller.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7f903adc6e63e4d39a7f25083ccd8f99
+    m_Address: Assets/Prefabs/Managers/PlayFab Error Handler.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 83a1b123279d646f2bb419d53f3b543b
+    m_Address: Assets/Prefabs/Managers/Resource Manager.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cd0b0572282c1435483ff99b35799538
+    m_Address: Assets/Prefabs/Managers/Setting Manager.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

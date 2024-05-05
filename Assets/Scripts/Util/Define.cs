@@ -93,6 +93,12 @@ namespace EventData
         public float SoundVolume;
         public float MusicVolume;
     }
+
+    public struct LevelData
+    {
+        public string SongName;
+        public int SongIndex;
+    }
 }
 
 

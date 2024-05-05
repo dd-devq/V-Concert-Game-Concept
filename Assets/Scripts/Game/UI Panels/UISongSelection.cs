@@ -41,7 +41,11 @@ public class UISongSelection : BaseUI
     {
         if (_songIndex != -1)
         {
-            onPlayClick.Invoke(this, _songIndex);
+            onPlayClick.Invoke(this, new LevelData
+            {
+                SongName = _songData.ListSong[_songIndex].Title,
+                SongIndex = _songIndex
+            });
         }
     }
 
@@ -51,8 +55,7 @@ public class UISongSelection : BaseUI
         PlaySoundOnClick();
         onSongClick.Invoke(this, new LeaderBoardReqInfo
         {
-            // Name = _songData.ListSong[_songIndex].Title,
-            Name = "001",
+            Name = _songData.ListSong[_songIndex].Title,
             SuccessCallback = LoadLeaderBoard
         });
     }
@@ -81,7 +84,6 @@ public class UISongSelection : BaseUI
 
     private void LoadLeaderBoard()
     {
-
         foreach (Transform child in listPlayerContentDrawer.transform)
         {
             Destroy(child.gameObject);
