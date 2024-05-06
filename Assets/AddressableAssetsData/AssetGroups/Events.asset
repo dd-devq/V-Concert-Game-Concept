@@ -145,11 +145,13 @@ MonoBehaviour:
   - m_GUID: 7ee30d12420a34cdc9f02c2d07bba99c
     m_Address: Assets/Scripts/Game/Game Events/Gameplay/OnCharacterClick.asset
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - event
   - m_GUID: 0d3729b4f373a45e490c3923a028c2dd
     m_Address: Assets/Scripts/Game/Game Events/Gameplay/OnSongStart.asset
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - event
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 33f0c0a813db642d5856e2e5d17f969f, type: 2}
   m_SchemaSet:

@@ -1,13 +1,12 @@
 using TMPro;
 using UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIHud : BaseUI
 {
     public TextMeshProUGUI score;
-    public TextMeshProUGUI combo;
+    public TextMeshProUGUI multiplier;
     public TextMeshProUGUI streak;
 
     public GameObject equipSlot;
@@ -45,11 +44,11 @@ public class UIHud : BaseUI
         }
     }
 
-    public void UpdateCombo(Component sender, object data)
+    public void UpdateMultiplier(Component sender, object data)
     {
         if (data is int combo)
         {
-            SetCombo(combo.ToString());
+            SetMultiplier(combo.ToString());
         }
     }
 
@@ -63,9 +62,9 @@ public class UIHud : BaseUI
         streak.SetText(newStreak);
     }
 
-    private void SetCombo(string newCombo)
+    private void SetMultiplier(string newMultiplier)
     {
-        combo.SetText(newCombo);
+        multiplier.SetText(newMultiplier);
     }
 
     protected override void OnShow(UIParam param = null)

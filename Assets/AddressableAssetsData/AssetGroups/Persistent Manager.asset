@@ -37,10 +37,6 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/Managers/PlayFab Authentication Controller.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 2aac2bc1f477c47a78d07b2dc84cea6c
-    m_Address: Assets/Prefabs/Managers/Game Manager.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 03440fb7cb7b84193844ed42600b76ac
     m_Address: Assets/Prefabs/Managers/Character Manager.prefab
     m_ReadOnly: 0

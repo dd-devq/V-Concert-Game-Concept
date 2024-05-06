@@ -17768,9 +17768,9 @@ MonoBehaviour:
   index: 13
   playSoundOnClick: {fileID: 11400000, guid: 0d50924aa9c7c4ab89ef840fceb52b3c, type: 2}
   score: {fileID: 3962188023955093369}
-  combo: {fileID: 3962188023354446800}
-  streak: {fileID: 0}
-  equipSlot: {fileID: 0}
+  multiplier: {fileID: 3962188023392030854}
+  streak: {fileID: 3962188023354446800}
+  equipSlot: {fileID: 3962188023841335923}
   onPauseClick: {fileID: 0}
 --- !u!1 &3962188023841335923
 GameObject:

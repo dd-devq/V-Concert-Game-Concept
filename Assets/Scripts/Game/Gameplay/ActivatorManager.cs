@@ -6,7 +6,7 @@ using UnityEngine;
 using Melanchall.DryWetMidi.MusicTheory;
 using Melanchall.DryWetMidi.Interaction;
 
-public class ActivatorManager : PersistentManager<ActivatorManager>
+public class ActivatorManager : SingletonMono<ActivatorManager>
 {
     public Material DefaultMaterial = null;
     public Material HitMaterial = null;
@@ -21,17 +21,19 @@ public class ActivatorManager : PersistentManager<ActivatorManager>
         get => _activators;
         set => _activators = value;
     }
-    public override void Awake()
+
+    public void Awake()
     {
-        base.Awake();
         GetListActivators();
     }
+
     private void Start()
     {
         foreach (Activator activator in _activators)
         {
             var endZone = activator.EndZone;
-            var distance = Vector3.Distance(activator.StartZone.transform.position, activator.EndZone.transform.position);
+            var distance = Vector3.Distance(activator.StartZone.transform.position,
+                activator.EndZone.transform.position);
             var direction = (activator.EndZone.transform.position - activator.StartZone.transform.position).normalized;
             endZone.transform.position = activator.transform.position + direction * distance * 0.5f;
             //endZone.SetActive(false);
@@ -45,11 +47,13 @@ public class ActivatorManager : PersistentManager<ActivatorManager>
             var child = transform.GetChild(i);
             _activators.Add(child.GetComponent<Activator>());
         }
+
         for (var i = 0; i < _activators.Count; i++)
         {
             _activators[i].ZoneIndex = i;
         }
     }
+
     private Activator GetActivatorByIndex(int index)
     {
         for (var i = 0; i < _activators.Count; i++)
@@ -57,6 +61,7 @@ public class ActivatorManager : PersistentManager<ActivatorManager>
             if (_activators[i].ZoneIndex == index)
                 return _activators[i];
         }
+
         return null;
     }
 
@@ -69,8 +74,10 @@ public class ActivatorManager : PersistentManager<ActivatorManager>
             var note = listNotes[i];
             if (i == 0 || i == listNotes.Count - 1)
             {
-                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
-                double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f;
+                var metricTimeSpan =
+                    TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
+                double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
+                                     (double)metricTimeSpan.Milliseconds / 1000f;
                 interval = spawnedTime;
                 if (!_pitchNameDict.ContainsKey(note.NoteName))
                 {
@@ -80,8 +87,10 @@ public class ActivatorManager : PersistentManager<ActivatorManager>
             }
             else
             {
-                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
-                double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f;
+                var metricTimeSpan =
+                    TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
+                double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
+                                     (double)metricTimeSpan.Milliseconds / 1000f;
                 if (spawnedTime - interval >= Define.NoteInterval)
                 {
                     interval = spawnedTime;
@@ -94,6 +103,7 @@ public class ActivatorManager : PersistentManager<ActivatorManager>
             }
         }
     }
+
     private void DividePitchesIntoZones()
     {
         //Divide pitches to zones
@@ -117,6 +127,7 @@ public class ActivatorManager : PersistentManager<ActivatorManager>
                         }
                     }
                 }
+
                 break;
             case 1:
                 PitchPerZone = (countOfPitch - 1) / Define.NumOfActivators;
@@ -127,20 +138,25 @@ public class ActivatorManager : PersistentManager<ActivatorManager>
                     {
                         index = 0;
                     }
+
                     if (i > PitchPerZone && index <= PitchPerZone * 2)
                     {
                         index = 1;
                     }
+
                     if (i > PitchPerZone * 2 && i <= PitchPerZone * 3)
                     {
                         index = 2;
                     }
+
                     if (i > PitchPerZone * 3 && i <= PitchPerZone * 4)
                     {
                         index = 3;
                     }
+
                     GetActivatorByIndex(index).Pitches.Add(_pitchNameDict.ElementAt(i).Key);
                 }
+
                 break;
             case 2:
                 PitchPerZone = (countOfPitch - 2) / Define.NumOfActivators;
@@ -151,20 +167,25 @@ public class ActivatorManager : PersistentManager<ActivatorManager>
                     {
                         index = 0;
                     }
+
                     if (i > PitchPerZone && index <= PitchPerZone * 2 + 1)
                     {
                         index = 1;
                     }
+
                     if (i > PitchPerZone * 2 + 1 && i <= PitchPerZone * 3 + 1)
                     {
                         index = 2;
                     }
+
                     if (i > PitchPerZone * 3 + 1 && i <= PitchPerZone * 4 + 1)
                     {
                         index = 3;
                     }
+
                     GetActivatorByIndex(index).Pitches.Add(_pitchNameDict.ElementAt(i).Key);
                 }
+
                 break;
             case 3:
                 PitchPerZone = (countOfPitch - 3) / Define.NumOfActivators;
@@ -175,20 +196,25 @@ public class ActivatorManager : PersistentManager<ActivatorManager>
                     {
                         index = 0;
                     }
+
                     if (i > PitchPerZone && index <= PitchPerZone * 2 + 1)
                     {
                         index = 1;
                     }
+
                     if (i > PitchPerZone * 2 + 1 && i <= PitchPerZone * 3 + 2)
                     {
                         index = 2;
                     }
+
                     if (i > PitchPerZone * 3 + 2 && i <= PitchPerZone * 4 + 2)
                     {
                         index = 3;
                     }
+
                     GetActivatorByIndex(index).Pitches.Add(_pitchNameDict.ElementAt(i).Key);
                 }
+
                 break;
         }
         //foreach (var zone in _activators)
@@ -199,6 +225,7 @@ public class ActivatorManager : PersistentManager<ActivatorManager>
         //    }
         //}
     }
+
     public void SetSpawnedTimes(List<Melanchall.DryWetMidi.Interaction.Note> listNotes)
     {
         GetPitchesName(listNotes);
@@ -222,8 +249,10 @@ public class ActivatorManager : PersistentManager<ActivatorManager>
                 {
                     if (zone.Pitches.Contains(note.NoteName))
                     {
-                        var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
-                        double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f;
+                        var metricTimeSpan =
+                            TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
+                        double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
+                                             (double)metricTimeSpan.Milliseconds / 1000f;
                         zone.SpawnedTimes.Add(spawnedTime);
                         interval = spawnedTime;
                     }
@@ -231,8 +260,10 @@ public class ActivatorManager : PersistentManager<ActivatorManager>
             }
             else
             {
-                var metricTimeSpan = TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
-                double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds + (double)metricTimeSpan.Milliseconds / 1000f;
+                var metricTimeSpan =
+                    TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, SongManager.Midifile.GetTempoMap());
+                double spawnedTime = (double)metricTimeSpan.Minutes * 60f + metricTimeSpan.Seconds +
+                                     (double)metricTimeSpan.Milliseconds / 1000f;
                 if (spawnedTime - interval >= Define.NoteInterval)
                 {
                     foreach (var zone in _activators)

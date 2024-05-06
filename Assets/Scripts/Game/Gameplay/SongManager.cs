@@ -7,19 +7,15 @@ using Melanchall.DryWetMidi.Interaction;
 using UnityEngine.Networking;
 using System;
 
-public class SongManager : PersistentManager<SongManager>
+public class SongManager : SingletonMono<SongManager>
 {
     public static MidiFile Midifile = null;
-    [SerializeField]
-    private ActivatorManager _ActivatorManager = null;
-    [SerializeField]
-    private float _songDelayInSeconds = 0;
-    [SerializeField]
-    private double _marginOfError = 0; //In Seconds
-    [SerializeField]
-    private float _noteTime = 1;
-    [SerializeField]
-    private int _inputDelayInMilliseconds = 0;
+    [SerializeField] private ActivatorManager _ActivatorManager = null;
+    [SerializeField] private float _songDelayInSeconds = 0;
+    [SerializeField] private double _marginOfError = 0; //In Seconds
+    [SerializeField] private float _noteTime = 1;
+
+    [SerializeField] private int _inputDelayInMilliseconds = 0;
     //public float noteSpawnY = 0;
     //public float noteTapY = 0;
 
@@ -30,25 +26,25 @@ public class SongManager : PersistentManager<SongManager>
         get => _noteTime;
         set => _noteTime = value;
     }
+
     public double MarginOfError
     {
         get => _marginOfError;
         set => _marginOfError = value;
     }
+
     public float SongDelayInSeconds
     {
         get => _songDelayInSeconds;
         set => _songDelayInSeconds = value;
     }
+
     public int InputDelayInMilliseconds
     {
         get => _inputDelayInMilliseconds;
         set => _inputDelayInMilliseconds = value;
     }
-    public override void Awake()
-    {
-        base.Awake();
-    }
+
 
     private void Start()
     {
@@ -83,6 +79,7 @@ public class SongManager : PersistentManager<SongManager>
     /// </summary>
     public static double GetAudioSourceTime()
     {
-        return (double)AudioManager.Instance.musicChannel.timeSamples / AudioManager.Instance.musicChannel.clip.frequency;
+        return (double)AudioManager.Instance.musicChannel.timeSamples /
+               AudioManager.Instance.musicChannel.clip.frequency;
     }
 }

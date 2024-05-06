@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NoteManager : PersistentManager<NoteManager>
+public class NoteManager : SingletonMono<NoteManager>
 {
     //expect to contain target zone data (or get target zone data) and spawn note due to that.
     [SerializeField]
@@ -12,10 +12,7 @@ public class NoteManager : PersistentManager<NoteManager>
     [SerializeField]
     private GameObject _noteContainer = null;
 
-    public override void Awake()
-    {
-        base.Awake();
-    }
+
     public Note OnSpawnNotesToTarget(Vector3 startPos, Vector3 endPos, Vector3 hitPos)
     {
         var idx = Random.Range(0, _listNotePrefabs.Count);

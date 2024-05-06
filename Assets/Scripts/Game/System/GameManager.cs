@@ -2,7 +2,7 @@ using System;
 using EventData;
 using UnityEngine;
 
-public class GameManager : PersistentManager<GameManager>
+public class GameManager : SingletonMono<GameManager>
 {
     public GameEvent onSongStart;
     public GameEvent onPauseClick;
@@ -11,20 +11,25 @@ public class GameManager : PersistentManager<GameManager>
     private GameState _gameState;
 
 
-    public override void Awake()
+    public void Awake()
     {
-        base.Awake();
         _gameState = GameState.UI;
+        _levelData = SceneManager.Instance.levelData;
+    }
+
+    private void Start()
+    {
+        InitGame();
     }
 
     public void InitGame()
     {
-        // Invoke(nameof(StartGame), 3.0f);
+        Invoke(nameof(StartGame), 3.0f);
     }
 
     public void StartGame()
     {
-        // SongManager.Instance.ReadFromFile(_levelData.SongIndex);
+        SongManager.Instance.ReadFromFile(_levelData.SongIndex);
         onSongStart.Invoke(this, null);
     }
 
@@ -49,13 +54,6 @@ public class GameManager : PersistentManager<GameManager>
             onPauseClick.Invoke(this, null);
             Time.timeScale = 0;
         }
-    }
-
-    public void StartGamePlay(Component sender, object data)
-    {
-        _levelData = (LevelData)data;
-        // InitGame();
-        StartGame();
     }
 }
 
